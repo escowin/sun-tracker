@@ -9,8 +9,87 @@
     <title>Solar Weather</title>
 </head>
 <body>
-    <header></header>
-    <main></main>
-    <footer></footer>
+    <header>
+        &copy2022 <a href="https://github.com/escowin" target="_blank" class="link">Edwin m. escobar</a>
+    </header>
+    <main id="current-weather">
+        <!-- temporary hardcoded values -->
+        <h1 class="title">Solar Weather <span class="current-date">August 11</span></h1>
+        
+        <section id="coronal-mass-ejection">
+            <h2 class="subheader">Coronal Mass Ejection</h2>
+            <p class="cme-latitude">Lat: -20&deg;</p>
+            <p class="cme-longitude">Long: 120&deg;</p>
+            <p class="cme-half-angle">&angle;: 31&deg;</p>
+            <p class="cme-speed">Speed: 674kph</p>
+            <p class="cme-type">Type: C</p>
+        </section>
+
+        <section id="solar-flare">
+            <h2 class="subheader">Solar Flare</h2>
+            <p class="begin-time">Begin Time: 10:00p</p>
+            <p class="peak-time">Peak Time: 11:45p</p>
+            <p class="end-time">End Time: 11:50p</p>
+            <p class="location">Location: S21W73</p>
+            <p class="sf-intensity">Class: M2.3</p>
+        </section>
+
+        <section id="solar-conditions">
+            <h2 class="luminosity">Solar luminosity</h2>
+            <p class="magnitude">L<span class="sub">&#8857;</span> = 4&#960;kI<span class="sub">&#8857;</span>A<span class="sup">2</span></p>
+            <div class="sun"></div>
+        </section>
+
+        <section class="info">
+            <p class="cme-note">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            <p>powered by NASA's <a href="#">DONKI API</a>.</p>
+        </section>
+    </main>
+
+    <footer id="previous-weather">
+        <h2 class="title">Previous 7 days</h2>
+        <section class="previous-days">
+            <article class="previous-day">
+                <h3 class="previous-date">August 10</h3>
+                <p class="previous-cme-type">CME: C</p>
+                <p class="previous-sf-type">SF: M2.3</p>
+                <button class="previous-info">More info</button>
+            </article>
+
+            <article class="previous-day">
+                <h3 class="previous-date">August 9</h3>
+                <p class="previous-cme-type">CME: C</p>
+                <p class="prprevious-sf-type">SF: M2.3</p>
+                <button class="previous-info">More info</button>
+            </article>
+
+            <article class="previous-day">
+                <h3 class="previous-date">August 8</h3>
+                <p class="previous-cme-type">CME: C</p>
+                <p class="prprevious-sf-type">SF: M2.3</p>
+                <button class="previous-info">More info</button>
+            </article>
+
+            <article class="previous-day">
+                <h3 class="previous-date">August 7</h3>
+                <p class="previous-cme-type">CME: C</p>
+                <p class="prprevious-sf-type">SF: M2.3</p>
+                <button class="previous-info">More info</button>
+            </article>
+
+            <article class="previous-day">
+                <h3 class="previous-date">August 6</h3>
+                <p class="previous-cme-type">CME: C</p>
+                <p class="prprevious-sf-type">SF: M2.3</p>
+                <button class="previous-info">More info</button>
+            </article>
+
+            <article class="previous-day">
+                <h3 class="previous-date">August 5</h3>
+                <p class="previous-cme-type">CME: C</p>
+                <p class="prprevious-sf-type">SF: M2.3</p>
+                <button class="previous-info">More info</button>
+            </article>
+    </footer>
 </body>
 </html>
