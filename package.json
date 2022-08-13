@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "moment": "^2.29.4"
+  },
+  "name": "solar-weather-app",
+  "description": "Giving current solar weather conditions. Makes packing for that next trip the Sun just that much easier.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/escowin/solar-weather-app.git"
+  },
+  "author": "Edwin M. Escobar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/escowin/solar-weather-app/issues"
+  },
+  "homepage": "https://github.com/escowin/solar-weather-app#readme"
+}
