@@ -143,7 +143,7 @@ header a:hover {
     text-shadow: 0 0 1vw var(--accent);
 }
 
-.current-date {
+#current-date {
     font-size: 1.75rem;
     padding-left: 1vw;
 }

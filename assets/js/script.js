@@ -1,4 +1,7 @@
-// time
+// dom
+const currentDateEl = document.querySelector("#current-date");
+
+// logic.get-time
 let currentDate = new Date();
 let currentDay = currentDate.getDate();
 let currentMonth = currentDate.getMonth() + 1;
@@ -7,8 +10,9 @@ let currentYear = currentDate.getFullYear();
 let endDate = `${currentYear}-${currentMonth}-${currentDay}`
 console.log(endDate)
 
-
-console.log(startDay);
+// logic.display-time
+currentDateEl.innerHTML = currentDate;
+console.log(currentDateEl);
 
 
 // api.cme
@@ -24,8 +28,5 @@ var getWeather = function() {
         console.log(data);
      });
 };
-
-
-
 
 getWeather();
