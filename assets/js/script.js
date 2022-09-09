@@ -12,6 +12,26 @@ const currentDate = function() {
    currentDateEl.textContent = date;
 };
 
+// logic.display days of the week
+const forecast = function() {
+   const day2El = document.querySelector("#day-2");
+   const day3El = document.querySelector("#day-3");
+   const day4El = document.querySelector("#day-4");
+   const day5El = document.querySelector("#day-5");
+
+   const tomorrow = moment().add(1, "days");
+   day2El.textContent = tomorrow.format("dddd");
+
+   const day3 = moment().add(2, "days");
+   day3El.textContent = day3.format("dddd");
+
+   const day4 = moment().add(3, "days");
+   day4El.textContent = day4.format("dddd");
+
+   const day5 = moment().add(4, "days");
+   day5El.textContent = day5.format("dddd");
+}
+
 // logic.display api data
 const displayCoronalMassEjections = function (CME) {
    const cmeIdEl = document.querySelector("#cme-id");
@@ -86,9 +106,10 @@ const getSolarFlares = function() {
 };
 
 
-// calls. to-do | maybe combine both calls into getSolarActivity() that takes in different parameters (CME, FLR) to streamline the functions bc they're awfully similar atm
+// calls
 copyrightYear();
 currentDate();
+forecast();
 getCoronalMassEjections();
 getSolarFlares();
 
