@@ -15,66 +15,67 @@
     </header>
     <main id="current-weather">
         <!-- temporary hardcoded values -->
-        <h1 id="header">Current solar weather
-            <span class="date" id="current-date">
-            </span>
-        </h1>
-        <section id="current-temp">
-            <h3>Temperature&emsp;5772 K</h3>
+        <section id="header">
+            <h1 id="title">Sun ☉</h1>
+            <p id="current-temp">5772 K</p>
+            <p class="date" id="current-date">
+            </p>
         </section>
 
         <section class="section" id="coronal-mass-ejection">
-            <h2 class="subheader">Coronal Mass Ejection</h2>
-            <p>ID 
-                <span id="cme-id"></span>
-            </p>
-            <p>Latitude 
-                <span id="cme-latitude"></span>&deg;
-            </p>
-            <p>Longitude 
-                <span id="cme-longitude"></span>&deg;
-            </p>
-            <p>Half &angle;
-                <span id="cme-angle"></span>&deg;
-            </p>
-            <p>Speed 
-                <span id="cme-speed"></span>kmp</p>
-            <p>Type 
-                <span id="cme-type"></span>
-            </p>
+            <h2 class="subheader">Coronal mass ejection</h2>
+            <p>ID</p>
+            <p class="right" id="cme-id"></p>
+
+            <p>Latitude</p>
+            <p class="right"><span id="cme-latitude"></span>&deg;</p>
+
+            <p>Longitude</p>
+            <p class="right"><span id="cme-longitude"></span>&deg;</p>
+
+            <p>Half &angle;</p>
+            <p class="right"><span id="cme-angle"></span>&deg;</p>
+
+            <p>Speed</p>
+            <p class="right"><span id="cme-speed"></span>kmp</p>
+
+            <p>Type</p>
+            <p class="right"><span id="cme-type"></span></p>
+
             <br>
             <p id="cme-note">Note</p>
         </section>
 
         <section class="section" id="solar-flare">
             <h2 class="subheader">Solar Flare</h2>
-            <p>ID 
-                <span id="flr-id"></span>
-            </p>
-            <p>Begin time 
-                <span id="flr-begin"></span>
-            </p>
-            <p>Peak time 
-                <span id="flr-peak"></span>
-            </p>
-            <p>End Time 
-                <span id="flr-end"></span>
-            </p>
-            <p>Location 
-                <span id="flr-location"></span>
-            </p>
-            <p>Class 
-                <span id="flr-class"></span>
-            </p>
+            <p>ID</p>
+            <p class="right" id="flr-id"></p>
+
+            <p>Begin time</p>
+            <p class="right"><span id="flr-begin"></span>&deg;</p>
+
+            <p>Peak time</p>
+            <p class="right"><span id="flr-peak"></span>&deg;</p>
+
+            <p>End time</p>
+            <p class="right"><span id="flr-end"></span>&deg;</p>
+
+            <p>Location</p>
+            <p class="right"><span id="flr-location"></span></p>
+
+            <p>Class</p>
+            <p class="right"><span id="flr-class"></span></p>
         </section>
 
-        <section class="section">
-            <div id="solar-luminosity">
+        <section class="section" id="solar-luminosity">
             <h2 class="subheader">Solar luminosity</h2>
-            <div id="sun"></div>
+            <div> 
+                <div id="sun"></div>
+            </div>
+
             <p class="magnitude">
                 L<span class="sub">&#8857;</span> = 4&#960;kI<span class="sub">&#8857;</span>A<span class="sup">2</span>
-            </p></div>
+            </p>
         </section>
 
         <section id="info">
