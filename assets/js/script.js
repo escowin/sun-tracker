@@ -14,7 +14,7 @@ const currentDate = function() {
 
 // logic.display api data
 const displayCoronalMassEjections = function (CME) {
-   const cmeTimeEl = document.querySelector("#cme-time");
+   const cmeIdEl = document.querySelector("#cme-id");
    const cmeLatitudeEl = document.querySelector("#cme-latitude");
    const cmeLongitudeEl = document.querySelector("#cme-longitude");
    const cmeAngleEl = document.querySelector("#cme-angle");
@@ -22,12 +22,9 @@ const displayCoronalMassEjections = function (CME) {
    const cmeTypeEl = document.querySelector("#cme-type");
    const cmeNoteEl = document.querySelector("#cme-note");
 
-   console.log(CME);
+   // console.log(CME);
    for (let i = 0; i < CME.length; i++) {
-      // console.log(CME[i])
-      // console.log(CME[i].activityID)
-      // pause
-      cmeTimeEl.textContent = CME[i].activityID;
+      cmeIdEl.textContent = CME[i].activityID;
       cmeLatitudeEl.textContent = CME[i].cmeAnalyses[0].latitude;
       cmeLongitudeEl.textContent = CME[i].cmeAnalyses[0].longitude;
       cmeAngleEl.textContent = CME[i].cmeAnalyses[0].halfAngle;
@@ -37,8 +34,27 @@ const displayCoronalMassEjections = function (CME) {
    }
 };
 
+const displaySolarFlares = function (FLR) {
+   const flrIdEl = document.querySelector("#flr-id");
+   const flrBeginTimeEl = document.querySelector("#flr-begin");
+   const flrPeakTimeEl = document.querySelector("#flr-peak");
+   const flrEndTimeEl = document.querySelector("#flr-end");
+   const flrLocationEl = document.querySelector("#flr-location");
+   const flrClassEl = document.querySelector("#flr-class");
+
+   // console.log(FLR);
+   for (let i = 0; i < FLR.length; i++) {
+      flrIdEl.textContent = FLR[i].flrID;
+      flrBeginTimeEl.textContent = FLR[i].beginTime;
+      flrPeakTimeEl.textContent = FLR[i].peakTime;
+      flrEndTimeEl.textContent = FLR[i].endTime;
+      flrLocationEl.textContent = FLR[i].sourceLocation;
+      flrClassEl.textContent = FLR[i].classType;
+   }
+};
+
 // logic.api set-up
-// to-do : hide real demo key
+// to-do : hide real api key
 const apiKey = "DEMO_KEY";
 const startDate = moment().subtract(7, "days").format("YYYY-MM-DD");
 const endDate = moment().format("YYYY-MM-DD");
@@ -63,7 +79,8 @@ const getSolarFlares = function() {
    fetch(apiUrl).then(function(response) {
       // method formats the response as json. returns a promise. the then() method captures the actual data
       response.json().then(function(data) {
-         console.log(data);
+         // console.log(data);
+         displaySolarFlares(data);
       });
    });
 };
