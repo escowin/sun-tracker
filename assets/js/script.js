@@ -12,7 +12,30 @@ const currentDate = function() {
    currentDateEl.textContent = date;
 };
 
-// logic.api
+// logic.display api data
+const displayCoronalMassEjections = function (CME) {
+   const cmeTimeEl = document.querySelector("#cme-time");
+   const cmeLatitudeEl = document.querySelector("#cme-latitude");
+   const cmeLongitudeEl = document.querySelector("#cme-longitude");
+   const cmeAngleEl = document.querySelector("#cme-angle");
+   const cmeSpeedEl = document.querySelector("#cme-speed");
+   const cmeTypeEl = document.querySelector("#cme-type");
+   const cmeNoteEl = document.querySelector("#cme-note");
+
+   console.log(CME);
+   for (let i = 0; i < CME.length; i++) {
+      // console.log(CME[i])
+      // console.log(CME[i].activityID)
+      // pause
+      const cmeID = CME[i].activityID;
+      cmeTimeEl.textContent = CME[i].activityID;
+      cmeNoteEl.textContent = CME[i].note;
+
+      console.log(cmeID);
+   }
+};
+
+// logic.api set-up
 const apiKey = "DEMO_KEY";
 const startDate = moment().subtract(7, "days").format("YYYY-MM-DD");
 const endDate = moment().format("YYYY-MM-DD");
@@ -24,7 +47,8 @@ const getCoronalMassEjections = function() {
    fetch(apiUrl).then(function(response) {
       // method formats the response as json. returns a promise. the then() method captures the actual data
       response.json().then(function(data) {
-         console.log(data);
+         // console.log(data);
+         displayCoronalMassEjections(data)
       });
    });
 };
@@ -41,8 +65,10 @@ const getSolarFlares = function() {
    });
 };
 
+
 // calls. to-do | maybe combine both calls into getSolarActivity() that takes in different parameters (CME, FLR) to streamline the functions bc they're awfully similar atm
 copyrightYear();
 currentDate();
 getCoronalMassEjections();
 getSolarFlares();
+
