@@ -27,13 +27,19 @@ body {
 body {
     display: flex;
     flex-direction: column;
-    width: 100vw;
+    justify-content: center;
+}
+
+#forecast-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
 }
 
 .section {
     display: grid;
-    grid-template-columns: repeat(2, auto);
-    margin-bottom: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .subheader, #cme-note {
@@ -41,11 +47,39 @@ body {
 }
 
 /* box */
-#current-weather,
-.previous-day {
-    background-color: var(--primary);
-    padding: 1vw 2vw;
+#current-weather {
+    /* background-color: var(--primary); */
+    padding: 1vw 0;
     box-shadow: 1vw .5vw 5vw var(--primary);
+    border-radius: .25rem;
+}
+
+.section, #forecast {
+    background-color: var(--primary);
+    border-radius: 1rem;
+    padding: 2%;
+    margin-bottom: 1.5rem;
+}
+
+
+#sun, .sun {
+    background-color: rgba(255, 214, 29, 0.577);
+    border-radius: 50%;
+    box-shadow: 0 0 2vw var(--secondary);
+    height: 10vw;
+    width: 10vw;
+    margin: .5vw 1vw;
+    transition: 1s;
+}
+
+#sun:hover,
+.sun:active {
+    background-color: rgba(255, 214, 29, 0.795);
+    box-shadow: 0 0 4vw var(--secondary);
+}
+
+#info {
+    padding-top: 2vw;
 }
 
 /* typography */
@@ -54,7 +88,7 @@ header {
     font-size: .75rem;
 }
 
-#header {
+#header, .subheader {
     text-align: center;
 }
 
@@ -97,9 +131,22 @@ a {
     margin-bottom: .75vw;
 }
 
+#recent {
+    border-radius: 2rem 2rem 0 0;
+    border: 1px solid var(--primary);
+    border-bottom: none;
+    padding: 2% 0;
+}
+
+#recent .subheader {
+    border: none;
+}
+
 .section p {
     font-size: 1rem;
+    padding-left: 2%;
 }
+
 .sub,
 .sup {
     font-size: .75rem;
@@ -175,25 +222,6 @@ header a:hover {
     }
 
     /* box */
-    #sun {
-        background-color: rgba(255, 214, 29, 0.577);
-        border-radius: 50%;
-        box-shadow: 0 0 2vw var(--secondary);
-        height: 10vw;
-        width: 10vw;
-        margin: .5vw 1vw;
-        transition: 1s;
-    }
-
-    #sun:hover,
-    sun:active {
-        background-color: rgba(255, 214, 29, 0.795);
-        box-shadow: 0 0 4vw var(--secondary);
-    }
-
-    #info {
-        padding-top: 2vw;
-    }
 
     /* #previous-header {
     padding: 2vw 0 1vw 2.5vw;
