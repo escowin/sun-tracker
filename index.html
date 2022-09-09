@@ -11,26 +11,37 @@
 </head>
 <body>
     <header>
-        &copy; <span id="copyright-year"></span> <a href="https://github.com/escowin" target="_blank" class="link">Edwin m. escobar</a>
+        &copy; <span id="copyright-year"></span> <a href="https://github.com/escowin/solar-weather-app/" target="_blank" class="link">Edwin m. escobar</a>
     </header>
     <main id="current-weather">
         <!-- temporary hardcoded values -->
-        <h1 id="header">Solar weather
+        <h1 id="header">Current solar weather
             <span class="date" id="current-date">
             </span>
         </h1>
         <section id="current-temp">
-            <h3>Temperature<br> 5772 K</h3>
+            <h3>Temperature&emsp;5772 K</h3>
         </section>
 
         <section class="section" id="coronal-mass-ejection">
             <h2 class="subheader">Coronal Mass Ejection</h2>
-            <p>ID <span id="cme-time"></span></p>
-            <p id="cme-latitude">Latitude&emsp;&emsp; -20&deg;</p>
-            <p id="cme-longitude">Longitude&emsp; 120&deg;</p>
-            <p id="cme-angle">&angle;&emsp;&emsp;&emsp; 31&deg;</p>
-            <p id="cme-speed">Speed&emsp; 674kph</p>
-            <p id="cme-type">Type&emsp;&emsp;C</p>
+            <p>ID 
+                <span id="cme-time"></span>
+            </p>
+            <p>Latitude 
+                <span id="cme-latitude"></span>&deg;
+            </p>
+            <p>Longitude 
+                <span id="cme-longitude"></span>&deg;
+            </p>
+            <p>Half &angle;
+                <span id="cme-angle"></span>&deg;
+            </p>
+            <p>Speed 
+                <span id="cme-speed"></span>kmp</p>
+            <p>Type 
+                <span id="cme-type"></span>
+            </p>
             <br>
             <p id="cme-note">Note</p>
         </section>
@@ -44,12 +55,13 @@
             <p class="sf-intensity">Class: M2.3</p>
         </section>
 
-        <section class="section" id="solar-luminosity">
+        <section class="section">
+            <div id="solar-luminosity">
             <h2 class="subheader">Solar luminosity</h2>
             <div id="sun"></div>
             <p class="magnitude">
                 L<span class="sub">&#8857;</span> = 4&#960;kI<span class="sub">&#8857;</span>A<span class="sup">2</span>
-            </p>
+            </p></div>
         </section>
 
         <section id="info">

@@ -27,15 +27,18 @@ const displayCoronalMassEjections = function (CME) {
       // console.log(CME[i])
       // console.log(CME[i].activityID)
       // pause
-      const cmeID = CME[i].activityID;
       cmeTimeEl.textContent = CME[i].activityID;
+      cmeLatitudeEl.textContent = CME[i].cmeAnalyses[0].latitude;
+      cmeLongitudeEl.textContent = CME[i].cmeAnalyses[0].longitude;
+      cmeAngleEl.textContent = CME[i].cmeAnalyses[0].halfAngle;
+      cmeSpeedEl.textContent = CME[i].cmeAnalyses[0].speed;
+      cmeTypeEl.textContent = CME[i].cmeAnalyses[0].type;
       cmeNoteEl.textContent = CME[i].note;
-
-      console.log(cmeID);
    }
 };
 
 // logic.api set-up
+// to-do : hide real demo key
 const apiKey = "DEMO_KEY";
 const startDate = moment().subtract(7, "days").format("YYYY-MM-DD");
 const endDate = moment().format("YYYY-MM-DD");
