@@ -110,5 +110,5 @@ const getSolarFlares = function() {
 copyrightYear();
 currentDate();
 forecast();
-// getCoronalMassEjections();
-// getSolarFlares();
+getCoronalMassEjections();
+getSolarFlares();

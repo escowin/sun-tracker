@@ -13,12 +13,13 @@
     <header>
         &copy; <span id="copyright-year"></span> <a href="https://github.com/escowin/solar-weather-app/" target="_blank" class="link">Edwin m. escobar</a>
     </header>
-    <main id="current-weather">
-        <!-- temporary hardcoded values -->
+    <main>
         <section id="header">
             <h1 id="title">Sun &#8857;</h1>
             <div class="sun"></div>
-            <p id="current-temp">H:5772 K&emsp;L:5772 K</p>
+            <p id="current-temp">H:5772 K&emsp;
+                <span class="desktop"><br/></span>
+                L:5772 K</p>
             <p class="date" id="current-date"></p>
         </section>
 
@@ -103,11 +104,9 @@
 
         <section class="section" id="solar-luminosity">
             <h2 class="subheader">Solar luminosity</h2>
-            <!-- <div>  -->
-                <div class="sun"></div>
-            <!-- </div> -->
+            <div class="sun"></div>
 
-            <p class="magnitude">
+            <p id="magnitude">
                 L<span class="sub">&#8857;</span> = 4&#960;kI<span class="sub">&#8857;</span>A<span class="sup">2</span>
             </p>
         </section>
@@ -116,66 +115,5 @@
             <p>Powered by <a href="https://api.nasa.gov/" target="_blank">NASA DONKI</a></p>
         </section>
     </main>
-
-    <!-- <footer id="previous-weather">
-        <h2 id="previous-header">Previous 7 days</h2>
-
-        <section id="previous-days">
-            <article class="previous-day">
-                <h3 class="date previous-date">August 10</h3>
-                <p class="previous-temp">Temp: 5772K</p>
-                <p class="previous-cme-type">CME: C</p>
-                <p class="previous-sf-type">SF: M2.3</p>
-                <button class="btn">details</button>
-            </article>
-
-            <article class="previous-day">
-                <h3 class="date previous-date">August 9</h3>
-                <p class="previous-temp">Temp: 5772K</p>
-                <p class="previous-cme-type">CME: C</p>
-                <p class="previous-sf-type">SF: M2.3</p>
-                <button class="btn">details</button>
-            </article>
-
-            <article class="previous-day">
-                <h3 class="date previous-date">August 8</h3>
-                <p class="previous-temp">Temp: 5772K</p>
-                <p class="previous-cme-type">CME: C</p>
-                <p class="previous-sf-type">SF: M2.3</p>
-                <button class="btn">details</button>
-            </article>
-
-            <article class="previous-day">
-                <h3 class="date previous-date">August 7</h3>
-                <p class="previous-temp">Temp: 5772K</p>
-                <p class="previous-cme-type">CME: C</p>
-                <p class="previous-sf-type">SF: M2.3</p>
-                <button class="btn">details</button>
-            </article>
-
-            <article class="previous-day">
-                <h3 class="date previous-date">August 6</h3>
-                <p class="previous-temp">Temp: 5772K</p>
-                <p class="previous-cme-type">CME: C</p>
-                <p class="previous-sf-type">SF: M2.3</p>
-                <button class="btn">details</button>
-            </article>
-
-            <article class="previous-day">
-                <h3 class="date previous-date">August 5</h3>
-                <p class="previous-temp">Temp: 5772K</p>
-                <p class="previous-cme-type">CME: C</p>
-                <p class="previous-sf-type">SF: M2.3</p>
-                <button class="btn">details</button>
-            </article>
-
-            <article class="previous-day">
-                <h3 class="date previous-date">August 4</h3>
-                <p class="previous-temp">Temp: 5772K</p>
-                <p class="previous-cme-type">CME: C</p>
-                <p class="previous-sf-type">SF: M2.3</p>
-                <button class="btn">details</button>
-            </article>
-    </footer> -->
 </body>
 </html>

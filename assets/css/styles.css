@@ -1,10 +1,8 @@
-*,
-*:after {
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-variant: small-caps;
-    /* border: 1px dotted blue; */
 }
 
 :root {
@@ -56,6 +54,10 @@ body,
 }
 
 /* box */
+.desktop {
+    display: none;
+}
+
 header {
     width: 100%;
 }
@@ -177,6 +179,10 @@ a {
     text-shadow: var(--text-shadow-sm) var(--accent);
 }
 
+.day p {
+    text-shadow: var(--text-shadow-sm) var(--secondary);
+}
+
 .section p {
     font-size: 1rem;
     padding-left: 2%;
@@ -200,7 +206,7 @@ a {
     font-size: .75rem;
 }
 
-.magnitude {
+#magnitude {
     text-shadow: 0 0 1vw rgba(255, 243, 191, 0.577);
 }
 
@@ -224,11 +230,13 @@ a {
         font-size: .95rem;
     }
 
-    #title, #recent {
+    #title,
+    #recent {
         font-size: 2.5rem;
     }
 
-    #current-temp, #current-date {
+    #current-temp,
+    #current-date {
         font-size: 1.75rem;
     }
 
@@ -245,7 +253,8 @@ a {
         font-size: 1.25rem;
     }
 
-    #title, #recent .subheader {
+    #title,
+    #recent .subheader {
         color: var(--tertiary);
     }
 
@@ -273,7 +282,7 @@ a {
         background-color: var(--overlay);
         box-shadow: none;
     }
-    
+
     .section p {
         padding-left: .75vw;
     }
@@ -293,6 +302,125 @@ a {
     #coronal-mass-ejection {
         border-top-right-radius: 0;
         border-top-left-radius: 0;
+    }
+}
+
+/* display.desktop */
+@media screen and (min-width: 1024px) {
+
+    /* typography */
+    #title {
+        font-size: 3rem;
+    }
+
+    #current-temp {
+        font-size: 1.5rem;
+    }
+
+    .subheader {
+        font-size: 1.75rem;
+    }
+
+    #recent .subheader {
+        font-size: 2rem;
+    }
+
+    #current-date {
+        font-size: 1.25rem;
+    }
+
+    .section p {
+        font-size: 1rem;
+    }
+
+    #cme-note {
+        font-size: .85rem;
+    }
+
+    /* box */
+    .desktop {
+        display: contents;
+    }
+
+    body {
+        height: 100vh;
+    }
+
+    #header .sun {
+        display: none;
+    }
+
+    #header {
+        padding-left: 1.25rem;
+    }
+
+    #current-temp,
+    #current-date {
+        padding-left: 1.5rem;
+    }
+
+    #header,
+    .section,
+    #forecast {
+        margin: 0;
+    }
+
+    #forecast {
+        padding: 0 1% 0 0;
+    }
+
+    #coronal-mass-ejection,
+    #solar-flare,
+    #solar-luminosity {
+        margin-bottom: auto;
+    }
+
+    #forecast,
+    #recent,
+    .section {
+        background-color: transparent;
+    }
+
+    #recent {
+        padding: .5% 1.25%;
+    }
+
+    .sun {
+        --sun: 7vw;
+        width: var(--sun);
+        height: var(--sun);
+    }
+
+    #solar-luminosity .sun {
+        --sun: 15vw;
+        width: var(--sun);
+        height: var(--sun);
+    }
+
+    /* flow */
+    main {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0 1rem
+    }
+
+    #header {
+        align-items: flex-start;
+        justify-content: flex-start;
+        grid-column: span 1;
+    }
+
+    #forecast {
+        grid-column: span 2;
+    }
+
+    #forecast-container {
+        justify-content: space-around;
+    }
+
+    #recent,
+    #api-info {
+        grid-column: span 3;
     }
 
 }
