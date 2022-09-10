@@ -13,6 +13,8 @@
     --tertiary: rgba(134, 14, 14, 0.9);
     --accent: rgb(156, 84, 62);
     --grey: rgb(171, 171, 171);
+    --text-shadow: 0 0 1vw;
+    --text-shadow-sm: 0 0 .75vw;
 }
 
 body {
@@ -28,7 +30,9 @@ main {
 }
 
 /* flow */
-body, .day {
+body,
+.day,
+#header {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -42,10 +46,11 @@ body, .day {
 
 .section {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 2fr;
 }
 
-.subheader, #cme-note {
+.subheader,
+#cme-note {
     grid-column: span 2;
 }
 
@@ -61,7 +66,12 @@ header {
     border-radius: .25rem;
 }
 
-.section, #forecast {
+#header {
+    padding-bottom: 2%;
+}
+
+.section,
+#forecast {
     background-color: var(--primary);
     box-shadow: 0 0 1rem var(--primary);
     border-radius: 1rem;
@@ -69,8 +79,23 @@ header {
     margin-bottom: 1.5rem;
 }
 
+.subheader {
+    border-bottom: 1px solid var(--grey);
+    margin-bottom: .75vw;
+}
 
-#sun, .sun {
+#recent {
+    border-bottom: none;
+    padding: 1% 2%;
+    margin-bottom: .5rem;
+    border-radius: .5rem;
+}
+
+#recent .subheader {
+    border: none;
+}
+
+.sun {
     background-color: rgba(255, 214, 29, 0.577);
     border-radius: 50%;
     box-shadow: 0 0 2vw var(--secondary);
@@ -80,47 +105,63 @@ header {
     transition: 1s;
 }
 
-#sun:hover,
+#header .sun {
+    width: 25vw;
+    height: 25vw;
+    background-color: rgba(255, 214, 29, 0.65);
+    box-shadow: 0 0 3vw var(--secondary);
+}
+
+#solar-luminosity .sun {
+    padding: 5vh 0;
+    width: 30vw;
+    height: 30vw;
+}
+
+.sun:hover,
 .sun:active {
     background-color: rgba(255, 214, 29, 0.795);
     box-shadow: 0 0 4vw var(--secondary);
 }
 
 #info {
-    padding-top: 2vw;
+    /* padding-top: 2vw; */
 }
 
 /* typography */
 header {
-    text-align: end;
+    color: var(--primary);
+    text-shadow: var(--text-shadow-sm) var(--primary);
     font-size: .75rem;
+    text-align: end;
 }
 
-#header, .subheader {
-    text-align: center;
+header p {
+    text-shadow: var(--text-shadow-sm) var(--accent);
 }
 
-#header p {
-    padding-left: 1vw;
+header a:hover {
+    color: var(--accent);
+    text-shadow: var(--text-shadow) var(--secondary);
+}
+
+#current-weather p {
+    line-height: 1.4;
 }
 
 #title {
     color: var(--primary);
     font-size: 2rem;
-    text-shadow: 0 0 .25rem var(--primary);
+    text-shadow: var(--text-shadow) var(--tertiary);
 }
 
 .date,
 #current-temp {
     color: rgba(255, 243, 191, 0.577);
-    text-shadow: 0 0 1vw var(--accent);
+    text-shadow: var(--text-shadow) var(--accent);
 }
 
-#current-temp {
-    font-size: 1.75rem;
-}
-
-#current-date {
+#current-temp, #current-date {
     font-size: 1.25rem;
 }
 
@@ -136,20 +177,9 @@ a {
 
 .subheader {
     color: var(--accent);
-    border-bottom: 1px solid var(--grey);
-    margin-bottom: .75vw;
+    text-shadow: var(--text-shadow-sm) var(--accent);
 }
 
-#recent {
-    border-radius: 2rem 2rem 0 0;
-    border: 1px solid var(--primary);
-    border-bottom: none;
-    padding: 2% 0;
-}
-
-#recent .subheader {
-    border: none;
-}
 
 .section p {
     font-size: 1rem;
@@ -169,29 +199,25 @@ a {
     vertical-align: super;
 }
 
-
-
-header a:hover {
-    color: var(--accent);
-    text-shadow: 0 0 1vw var(--secondary);
-}
-
-#current-weather p,
-.previous-day p {
-    line-height: 1.4;
-}
-
-#info a:hover {
-    color: var(--tertiary);
-    text-shadow: 0 0 .75vw var(--secondary);
-}
-
 #cme-note {
     font-variant: normal;
     font-size: .75rem;
 }
+
 .magnitude {
     text-shadow: 0 0 1vw rgba(255, 243, 191, 0.577);
+}
+
+#api-info p {
+    color: var(--primary);
+    text-shadow: var(--text-shadow-sm) var(--primary);
+    text-align: center;
+    font-size: .75rem;
+}
+
+#api-info a:hover {
+    color: var(--tertiary);
+    text-shadow: var(--text-shadow-sm) var(--secondary);
 }
 
 @media screen and (min-width: 768px) {
@@ -220,10 +246,6 @@ header a:hover {
     .subheader,
     #cme-note {
         grid-column: span 2;
-    }
-
-    .subheader {
-        height: 2rem;
     }
 
     .section p {
@@ -261,12 +283,12 @@ header a:hover {
 } */
 
     /* #previous-weather */
-    #previous-header {
+    /* #previous-header {
         text-shadow: 0 0 .75vw var(--accent);
     }
 
 
     .previous-date {
         font-size: 1.15rem;
-    }
+    } */
 }
