@@ -34,7 +34,7 @@ const forecast = function() {
 
 // logic.display api data
 const displayCoronalMassEjections = function (CME) {
-   const cmeIdEl = document.querySelector("#cme-id");
+   const cmeTimeEl = document.querySelector("#cme-time");
    const cmeLatitudeEl = document.querySelector("#cme-latitude");
    const cmeLongitudeEl = document.querySelector("#cme-longitude");
    const cmeAngleEl = document.querySelector("#cme-angle");
@@ -42,35 +42,58 @@ const displayCoronalMassEjections = function (CME) {
    const cmeTypeEl = document.querySelector("#cme-type");
    const cmeNoteEl = document.querySelector("#cme-note");
 
-   // console.log(CME);
-   for (let i = 0; i < CME.length; i++) {
-      cmeIdEl.textContent = CME[i].activityID;
-      cmeLatitudeEl.textContent = CME[i].cmeAnalyses[0].latitude;
-      cmeLongitudeEl.textContent = CME[i].cmeAnalyses[0].longitude;
-      cmeAngleEl.textContent = CME[i].cmeAnalyses[0].halfAngle;
-      cmeSpeedEl.textContent = CME[i].cmeAnalyses[0].speed;
-      cmeTypeEl.textContent = CME[i].cmeAnalyses[0].type;
-      cmeNoteEl.textContent = CME[i].note;
-   }
+   // get latest coronal mass ejection data
+   latestCME = CME[CME.length - 1];
+
+   // reformat time
+   const startTime = moment(latestCME.startTime).format("dddd, MMMM Do h:mm a");
+
+   // display data
+   cmeTimeEl.textContent = startTime;
+   cmeLatitudeEl.textContent = latestCME.cmeAnalyses[0].latitude;
+   cmeLongitudeEl.textContent = latestCME.cmeAnalyses[0].longitude;
+   cmeAngleEl.textContent = latestCME.cmeAnalyses[0].halfAngle;
+   cmeSpeedEl.textContent = latestCME.cmeAnalyses[0].speed;
+   cmeTypeEl.textContent = latestCME.cmeAnalyses[0].type;
+   cmeNoteEl.textContent = latestCME.note;
 };
 
 const displaySolarFlares = function (FLR) {
-   const flrIdEl = document.querySelector("#flr-id");
+   const flrDateEl = document.querySelector("#flr-date");
+   const flrDurationEl = document.querySelector("#flr-duration");
+   const flrRegionEl = document.querySelector("#flr-region");
    const flrBeginTimeEl = document.querySelector("#flr-begin");
    const flrPeakTimeEl = document.querySelector("#flr-peak");
    const flrEndTimeEl = document.querySelector("#flr-end");
    const flrLocationEl = document.querySelector("#flr-location");
    const flrClassEl = document.querySelector("#flr-class");
+   console.log(`
+   \u00A9 2022 Edwin M. Escobar
+   github.com/escowin/solar-weather-app
+   `);
 
-   // console.log(FLR);
-   for (let i = 0; i < FLR.length; i++) {
-      flrIdEl.textContent = FLR[i].flrID;
-      flrBeginTimeEl.textContent = FLR[i].beginTime;
-      flrPeakTimeEl.textContent = FLR[i].peakTime;
-      flrEndTimeEl.textContent = FLR[i].endTime;
-      flrLocationEl.textContent = FLR[i].sourceLocation;
-      flrClassEl.textContent = FLR[i].classType;
-   }
+   // get latest solar flare data
+   const latestFLR = FLR[FLR.length -1];
+
+   // reformat time
+   const flrDate = moment(latestFLR.beginTime).format("dddd, MMMM Do")
+   const beginTime = moment(latestFLR.beginTime).format("hh:mm a");
+   const peakTime = moment(latestFLR.peakTime).format("hh:mm a");
+   const endTime = moment(latestFLR.endTime).format("hh:mm a");
+
+   // calculating the solar flare duration 
+   const start = new moment(latestFLR.beginTime);
+   const end = new moment(latestFLR.endTime);
+   const duration = moment.duration(end.diff(start)).as("minutes");
+   
+   flrDateEl.textContent = flrDate;
+   flrDurationEl.textContent = duration;
+   flrRegionEl.textContent = latestFLR.activeRegionNum;
+   flrBeginTimeEl.textContent = beginTime;
+   flrPeakTimeEl.textContent = peakTime;
+   flrEndTimeEl.textContent = endTime;
+   flrLocationEl.textContent = latestFLR.sourceLocation;
+   flrClassEl.textContent = latestFLR.classType;
 };
 
 // logic.api set-up
@@ -86,7 +109,6 @@ const getCoronalMassEjections = function() {
    fetch(apiUrl).then(function(response) {
       // method formats the response as json. returns a promise. the then() method captures the actual data
       response.json().then(function(data) {
-         // console.log(data);
          displayCoronalMassEjections(data)
       });
    });
@@ -99,7 +121,6 @@ const getSolarFlares = function() {
    fetch(apiUrl).then(function(response) {
       // method formats the response as json. returns a promise. the then() method captures the actual data
       response.json().then(function(data) {
-         // console.log(data);
          displaySolarFlares(data);
       });
    });

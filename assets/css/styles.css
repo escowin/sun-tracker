@@ -222,6 +222,10 @@ a {
     text-shadow: var(--text-shadow-sm) var(--secondary);
 }
 
+.indent {
+    text-indent: .5rem;
+}
+
 /* display.tablet */
 @media screen and (min-width: 768px) {
 
