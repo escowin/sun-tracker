@@ -4,33 +4,29 @@ const kelvinRadio = document.querySelector("#kelvin");
 const fahrenheitRadio = document.querySelector("#fahrenheit");
 const celsiusRadio = document.querySelector("#celsius");
 
-const temperature = function() {
+const selectedUnits = function() {
    const temp = 5572;
    const kelvin = temp + " K";
    const fahrenheit = Math.round(temp * 1.8 - 459.67) + " °F";
    const celsius = Math.round(temp - 273.15) + " °C";
 
-   if (kelvinRadio.checked) {
-      $(".temp").text(kelvin);
-   }
-   if (celsiusRadio.checked) {
-      $(".temp").text(celsius);
-   }
-   if (fahrenheitRadio.checked) {
-      $(".temp").text(fahrenheit)
-   }
-};
-
-const distance = function() {
    const au = 1 + " au";
    const km = 150 + " million km";
    const mi = 93 + " million mi";
-   const lm = 8.3 + " light minutes";
 
-   console.log(au, km, mi, lm)
+   if (kelvinRadio.checked) {
+      $(".temp").text(kelvin);
+      $("#distance").text(au);
+   }
+   if (celsiusRadio.checked) {
+      $(".temp").text(celsius);
+      $("#distance").text(km);
+   }
+   if (fahrenheitRadio.checked) {
+      $(".temp").text(fahrenheit);
+      $("#distance").text(mi);
+   }
 };
-
-distance();
 
 // logic.display copyright year
 const copyrightYear = function() {
@@ -170,10 +166,10 @@ forecast();
 // bug | Kelvin should display by default but nothing displays. hardcodded values as a temp solution.
 selectUnits.addEventListener("click", function() {
    if (kelvinRadio.checked) {
-      temperature();
+      selectedUnits();
    } else if (celsiusRadio.checked) {
-      temperature();
+      selectedUnits();
    } else if (fahrenheitRadio.checked) {
-      temperature();
+      selectedUnits();
    }
 });
