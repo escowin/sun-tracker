@@ -1,3 +1,40 @@
+// logic.converting units
+const selectUnits = document.querySelector("#temp-units");
+const kelvinRadio = document.querySelector("#kelvin");
+const fahrenheitRadio = document.querySelector("#fahrenheit");
+const celsiusRadio = document.querySelector("#celsius");
+
+const temperature = function() {
+   const temp = 5572;
+   const kelvin = temp + " K";
+   const fahrenheit = Math.round(temp * 1.8 - 459.67) + " °F";
+   const celsius = Math.round(temp - 273.15) + " °C";
+
+   if (kelvinRadio.checked) {
+      $(".temp").text(kelvin);
+   }
+   if (celsiusRadio.checked) {
+      $(".temp").text(celsius);
+   }
+   if (fahrenheitRadio.checked) {
+      $(".temp").text(fahrenheit)
+   }
+};
+
+// bug | Kelvin should display by default but nothing displays. hardcodded values as a temp solution.
+selectUnits.addEventListener("click", function() {
+   if (kelvinRadio.checked) {
+      console.log("kelvin");
+      temperature();
+   } else if (celsiusRadio.checked) {
+      console.log("celsius");
+      temperature();
+   } else if (fahrenheitRadio.checked) {
+      console.log("fahrenheit");
+      temperature();
+   }
+});
+
 // logic.display copyright year
 const copyrightYear = function() {
    let year = new Date().getFullYear();
@@ -31,34 +68,6 @@ const forecast = function() {
    const day5 = moment().add(4, "days");
    day5El.textContent = day5.format("dddd");
 };
-
-// logic.converting units
-const temperature = function() {
-   const kelvinRadio = document.querySelector("#kelvin");
-   const fahrenheitRadio = document.querySelector("#fahrenheit");
-   const celsiusRadio = document.querySelector("#celsius");
-
-   const temp = 5572;
-   const kelvin = temp + " K";
-   const fahrenheit = Math.round(temp * 1.8 - 459.67) + " °F";
-   const celsius = Math.round(temp - 273.15) + " °C";
-
-   $(".temp").text(celsius);
-
-   // pause. checked radio buttons will change displayed units. if statements do not work
-   // if (fahrenheitRadio.checked && !celsiusRadio.checked && !kelvinRadio.checked) {
-   //    $(".temp").text(fahrenheit)
-   // }
-   // if (celsiusRadio.checked) {
-   //    $(".temp").text(celsius);
-   // }
-   // if (kelvinRadio.checked) {
-   //    $(".temp").text(kelvin);
-   // }
-
-};
-
-temperature(); 
 
 // logic.display api data
 const displayCoronalMassEjections = function (CME) {
