@@ -72,6 +72,11 @@ main {
     padding-bottom: 2%;
 }
 
+.units {
+    border: none;
+}
+
+
 .section,
 #forecast {
     background-color: var(--primary);
@@ -154,7 +159,8 @@ main p {
 }
 
 .date,
-#current-temp {
+#current-temp,
+#temp-units {
     color: rgba(255, 243, 191, 0.577);
     text-shadow: var(--text-shadow) var(--accent);
 }

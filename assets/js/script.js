@@ -34,13 +34,27 @@ const forecast = function() {
 
 // logic.converting units
 const temperature = function() {
-   const temp = 5572;
+   const kelvinRadio = document.querySelector("#kelvin");
+   const fahrenheitRadio = document.querySelector("#fahrenheit");
+   const celsiusRadio = document.querySelector("#celsius");
 
+   const temp = 5572;
    const kelvin = temp + " K";
    const fahrenheit = Math.round(temp * 1.8 - 459.67) + " °F";
    const celsius = Math.round(temp - 273.15) + " °C";
-   $(".temp").text(fahrenheit);
 
+   $(".temp").text(celsius);
+
+   // pause. checked radio buttons will change displayed units. if statements do not work
+   // if (fahrenheitRadio.checked && !celsiusRadio.checked && !kelvinRadio.checked) {
+   //    $(".temp").text(fahrenheit)
+   // }
+   // if (celsiusRadio.checked) {
+   //    $(".temp").text(celsius);
+   // }
+   // if (kelvinRadio.checked) {
+   //    $(".temp").text(kelvin);
+   // }
 
 };
 
