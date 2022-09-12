@@ -11,7 +11,7 @@
 
 ## Languages
 
-  CSS, HTML, JavaScript, ES6, Moment.js
+  CSS, HTML, JavaScript, ES6, Moment.js, jQuery
 
 ## Table of Contents
 

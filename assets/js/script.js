@@ -9,11 +9,14 @@ const selectedUnits = function() {
    const kelvin = temp + " K";
    const fahrenheit = Math.round(temp * 1.8 - 459.67) + " °F";
    const celsius = Math.round(temp - 273.15) + " °C";
-
    const au = 1 + " au";
    const km = 150 + " million km";
    const mi = 93 + " million mi";
-
+   console.log(`
+   \u00A9 2022 Edwin M. Escobar
+   https://github.com/escowin/solar-weather-app
+   `);
+   
    if (kelvinRadio.checked) {
       $(".temp").text(kelvin);
       $("#distance").text(au);
@@ -99,7 +102,7 @@ const displaySolarFlares = function (FLR) {
    const flrClassEl = document.querySelector("#flr-class");
    console.log(`
    \u00A9 2022 Edwin M. Escobar
-   github.com/escowin/solar-weather-app
+   https://github.com/escowin/solar-weather-app
    `);
 
    // get latest solar flare data
@@ -129,7 +132,7 @@ const displaySolarFlares = function (FLR) {
 // logic.api set-up
 // to-do : hide real api key
 const apiKey = "DEMO_KEY";
-const startDate = moment().subtract(7, "days").format("YYYY-MM-DD");
+const startDate = moment().subtract(14, "days").format("YYYY-MM-DD");
 const endDate = moment().format("YYYY-MM-DD");
 
 const getCoronalMassEjections = function() {
