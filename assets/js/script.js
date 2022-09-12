@@ -160,8 +160,8 @@ const getSolarFlares = function() {
 copyrightYear();
 currentDate();
 forecast();
-// getCoronalMassEjections();
-// getSolarFlares();
+getCoronalMassEjections();
+getSolarFlares();
 
 // bug | Kelvin should display by default but nothing displays. hardcodded values as a temp solution.
 selectUnits.addEventListener("click", function() {

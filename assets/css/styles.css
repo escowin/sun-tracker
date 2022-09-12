@@ -48,6 +48,15 @@ body,
     grid-template-columns: 1fr 2fr;
 }
 
+#current-stats {
+    column-gap: .5rem;
+}
+
+#sun-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 .subheader,
 #cme-note {
     grid-column: span 2;
@@ -119,7 +128,7 @@ main {
     box-shadow: 0 0 3vw var(--secondary);
 }
 
-#solar-luminosity .sun {
+#current-stats .sun {
     padding: 5vh 0;
     width: 30vw;
     height: 30vw;
@@ -212,7 +221,7 @@ a {
     font-size: .75rem;
 }
 
-#magnitude {
+#sun-details {
     text-shadow: 0 0 1vw rgba(255, 243, 191, 0.577);
 }
 
@@ -297,7 +306,7 @@ a {
         padding-left: .75vw;
     }
 
-    #solar-luminosity .sun {
+    #current-stats .sun {
         width: 20vw;
         height: 20vw;
     }
@@ -356,7 +365,7 @@ a {
         height: 100vh;
     }
 
-    #header .sun {
+    #header .sun, #current-stats .sun {
         display: none;
     }
 
@@ -364,8 +373,12 @@ a {
         padding-left: 1.25rem;
     }
 
-    #current-temp,
     #current-date {
+        padding-left: .5rem;
+    }
+
+    #current-temp,
+    #temp-units {
         padding-left: 1.5rem;
     }
 
@@ -381,7 +394,7 @@ a {
 
     #coronal-mass-ejection,
     #solar-flare,
-    #solar-luminosity {
+    #current-stats {
         margin-bottom: auto;
     }
 
@@ -401,7 +414,7 @@ a {
         height: var(--sun);
     }
 
-    #solar-luminosity .sun {
+    #current-stats .sun {
         --sun: 15vw;
         width: var(--sun);
         height: var(--sun);
@@ -433,4 +446,7 @@ a {
         grid-column: span 3;
     }
 
+    #sun-details {
+        grid-column: span 2;
+    }
 }
