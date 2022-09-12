@@ -30,7 +30,21 @@ const forecast = function() {
 
    const day5 = moment().add(4, "days");
    day5El.textContent = day5.format("dddd");
-}
+};
+
+// logic.converting units
+const temperature = function() {
+   const temp = 5572;
+
+   const kelvin = temp + " K";
+   const fahrenheit = Math.round(temp * 1.8 - 459.67) + " °F";
+   const celsius = Math.round(temp - 273.15) + " °C";
+   $(".temp").text(fahrenheit);
+
+
+};
+
+temperature(); 
 
 // logic.display api data
 const displayCoronalMassEjections = function (CME) {
@@ -131,5 +145,5 @@ const getSolarFlares = function() {
 copyrightYear();
 currentDate();
 forecast();
-getCoronalMassEjections();
-getSolarFlares();
+// getCoronalMassEjections();
+// getSolarFlares();

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" defer></script>
     <script src="./assets/js/script.js" defer></script>
     <title>Solar weather</title>
 </head>
@@ -17,10 +18,25 @@
         <section id="header">
             <h1 id="title">Sun &#8857;</h1>
             <div class="sun"></div>
-            <p id="current-temp">H:5772 K&emsp;
+            <div id="current-temp">
+                H:<span class="temp"></span>&emsp;
                 <span class="desktop"><br/></span>
-                L:5772 K</p>
+                L:<span class="temp"></span>
+            </div>
+
+            <fieldset class="temp-units">
+                <input type="radio" id="kelvin" name="temp-unit" checked>
+                <label for="kelvin">K</label>
+
+                <input type="radio" id="celsius" name="temp-unit">
+                <label for="celsius">C&deg;</label>
+
+                <input type="radio" id="fahrenheit" name="temp-unit">
+                <label for="fahrenheit">F&deg;</label>
+            </fieldset>                
             <p class="date" id="current-date"></p>
+
+
         </section>
 
         <section id="forecast">
@@ -29,27 +45,27 @@
                 <article class="day">
                     <p id="day-1">Today</p>
                     <div class="sun"></div>
-                    <p>5772 K</p>
+                    <p class="temp"></p>
                 </article>
                 <article class="day">
                     <p id="day-2"></p>
                     <div class="sun"></div>
-                    <p>5772 K</p>
+                    <p class="temp"></p>
                 </article>
                 <article class="day">
                     <p id="day-3"></p>
                     <div class="sun"></div>
-                    <p>5772 K</p>
+                    <p class="temp"></p>
                 </article>
                 <article class="day">
                     <p id="day-4"></p>
                     <div class="sun"></div>
-                    <p>5772 K</p>
+                    <p class="temp"></p>
                 </article>
                 <article class="day">
                     <p id="day-5"></p>
                     <div class="sun"></div>
-                    <p>5772 K</p>
+                    <p class="temp"></p>
                 </article>
             </div>
         </section>
