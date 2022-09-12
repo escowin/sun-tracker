@@ -21,19 +21,16 @@ const temperature = function() {
    }
 };
 
-// bug | Kelvin should display by default but nothing displays. hardcodded values as a temp solution.
-selectUnits.addEventListener("click", function() {
-   if (kelvinRadio.checked) {
-      console.log("kelvin");
-      temperature();
-   } else if (celsiusRadio.checked) {
-      console.log("celsius");
-      temperature();
-   } else if (fahrenheitRadio.checked) {
-      console.log("fahrenheit");
-      temperature();
-   }
-});
+const distance = function() {
+   const au = 1 + " au";
+   const km = 150 + " million km";
+   const mi = 93 + " million mi";
+   const lm = 8.3 + " light minutes";
+
+   console.log(au, km, mi, lm)
+};
+
+distance();
 
 // logic.display copyright year
 const copyrightYear = function() {
@@ -163,10 +160,20 @@ const getSolarFlares = function() {
    });
 };
 
-
 // calls
 copyrightYear();
 currentDate();
 forecast();
 // getCoronalMassEjections();
 // getSolarFlares();
+
+// bug | Kelvin should display by default but nothing displays. hardcodded values as a temp solution.
+selectUnits.addEventListener("click", function() {
+   if (kelvinRadio.checked) {
+      temperature();
+   } else if (celsiusRadio.checked) {
+      temperature();
+   } else if (fahrenheitRadio.checked) {
+      temperature();
+   }
+});
