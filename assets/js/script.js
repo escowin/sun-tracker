@@ -5,27 +5,27 @@ const fahrenheitRadio = document.querySelector("#fahrenheit");
 const celsiusRadio = document.querySelector("#celsius");
 
 const selectedUnits = function() {
-   const temp = 5572;
-   const kelvin = temp + " K";
-   const fahrenheit = Math.round(temp * 1.8 - 459.67) + " °F";
-   const celsius = Math.round(temp - 273.15) + " °C";
-   const au = 1 + " au";
-   const km = 150 + " million km";
-   const mi = 93 + " million mi";
+   const temp = 5772;
    console.log(`
    \u00A9 2022 Edwin M. Escobar
    https://github.com/escowin/solar-weather-app
    `);
    
    if (kelvinRadio.checked) {
+      const kelvin = temp + " K";
+      const au = 1 + " au";
       $(".temp").text(kelvin);
       $("#distance").text(au);
    }
    if (celsiusRadio.checked) {
+      const celsius = Math.round(temp - 273.15) + " °C";
+      const km = 150 + " million km";
       $(".temp").text(celsius);
       $("#distance").text(km);
    }
    if (fahrenheitRadio.checked) {
+      const fahrenheit = Math.round(temp * 1.8 - 459.67) + " °F";
+      const mi = 93 + " million mi";
       $(".temp").text(fahrenheit);
       $("#distance").text(mi);
    }
