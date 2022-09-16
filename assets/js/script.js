@@ -1,3 +1,19 @@
+const currentDistance = function() {
+// logic.calculating the distance of the earth from the sun
+   // 2022 perihelion = january 4
+
+   // const orbit = a(1-e*e)/(1+e cos(θ))
+   // a = 149,600,000 km   (semi-major axis)
+   // e = 0.017            (eccentricity)   
+   // time = θ*365.25/360
+   // θ = days since perihelion
+
+   // use Math.cos() in above equation
+   // Math.round() for whole number answer
+}
+
+currentDistance();
+
 // logic.converting units
 const selectUnits = document.querySelector("#temp-units");
 const kelvinRadio = document.querySelector("#kelvin");
@@ -6,10 +22,6 @@ const celsiusRadio = document.querySelector("#celsius");
 
 const selectedUnits = function() {
    const temp = 5772;
-   console.log(`
-   \u00A9 2022 Edwin M. Escobar
-   https://github.com/escowin/solar-weather-app
-   `);
    
    if (kelvinRadio.checked) {
       const kelvin = temp + " K";
@@ -43,6 +55,10 @@ const currentDate = function() {
    let date = moment().format("MMMM Do");
    const currentDateEl = document.querySelector("#current-date");
    currentDateEl.textContent = date;
+   console.log(`
+   \u00A9 2022 Edwin M. Escobar
+   https://github.com/escowin/solar-weather-app
+   `);
 };
 
 // logic.display days of the week
@@ -143,6 +159,9 @@ const getCoronalMassEjections = function() {
       // method formats the response as json. returns a promise. the then() method captures the actual data
       response.json().then(function(data) {
          displayCoronalMassEjections(data)
+         for (let i = 0; i < data.length; i++) {
+            console.log(data[i]);
+         }
       });
    });
 };
@@ -158,6 +177,10 @@ const getSolarFlares = function() {
       });
    });
 };
+
+
+// logic.get recent activity
+// <h3>FLR/CME ID</h3><p>date</p>
 
 // calls
 copyrightYear();
