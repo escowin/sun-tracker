@@ -1,32 +1,22 @@
+// logic.calculating the distance of the earth from the sun
 const currentDistance = function() {
-   // logic.calculating the distance of the earth from the sun
-   const perihelion = moment.utc('2022-01-04 06:55:00').format('YYYY-MM-DD HH:mm:ss');
-   const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+   const perihelion = moment.utc("2022-01-04 06:55:00").format("YYYY-MM-DD HH:mm:ss");
+   const now = moment.utc().format("YYYY-MM-DD HH:mm:ss");
 
    // semi-major axis & eccentricity
    const a = 149600000;
    const e = .017;
 
-   console.log(`${a} km`);
-   console.log(`${e} eccentricity`);
+   // days since perihelion
+   const start = new moment(perihelion);
+   const end = new moment(now);
+   const totalDays = moment.duration(end.diff(start)).as("days");
+   const time = totalDays*365.25/360;
 
-   const x = Math.cos(15)
-
-   let orbit = a * (1-e*e)/(1+e * x);
-   console.log(orbit);
-
-   // const totalDays = moment.duration(now.diff(perihelion));
-   // console.log(totalDays)
-
-   // convert now into a number of days
-   // const time = now*365.25/560;
-
-   // const orbit = a(1-e*e)/(1+e cos(θ))
-   // time = θ*365.25/360
-   // θ = days since perihelion
-
-   // use Math.cos() in above equation
-   // Math.round() for whole number answer
+   // earth-sun distance equation; convert value to a us-friendly string
+   const orbit = a*(1-e*e)/(1+e*(Math.cos(time)));
+   const distance = orbit.toLocaleString("en-US");
+   console.log(`${distance} km`);
 };
 
 currentDistance();
