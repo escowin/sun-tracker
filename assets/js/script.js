@@ -1,6 +1,11 @@
 const currentDistance = function() {
-// logic.calculating the distance of the earth from the sun
-   // 2022 perihelion = january 4
+   const perihelion = moment.utc('2022-01-04 06:55:00').format('YYYY-MM-DD HH:mm:ss');
+   const now = moment().format('YYYY-MM-DD HH:mm:ss');
+   console.log(perihelion);
+   console.log(now)
+
+   // logic.calculating the distance of the earth from the sun
+   // 2022 perihelion = january 4 06:55 utc
 
    // const orbit = a(1-e*e)/(1+e cos(θ))
    // a = 149,600,000 km   (semi-major axis)
@@ -10,7 +15,7 @@ const currentDistance = function() {
 
    // use Math.cos() in above equation
    // Math.round() for whole number answer
-}
+};
 
 currentDistance();
 
