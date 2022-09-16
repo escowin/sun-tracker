@@ -1,15 +1,27 @@
 const currentDistance = function() {
-   const perihelion = moment.utc('2022-01-04 06:55:00').format('YYYY-MM-DD HH:mm:ss');
-   const now = moment().format('YYYY-MM-DD HH:mm:ss');
-   console.log(perihelion);
-   console.log(now)
-
    // logic.calculating the distance of the earth from the sun
-   // 2022 perihelion = january 4 06:55 utc
+   const perihelion = moment.utc('2022-01-04 06:55:00').format('YYYY-MM-DD HH:mm:ss');
+   const now = moment.utc().format('YYYY-MM-DD HH:mm:ss');
+
+   // semi-major axis & eccentricity
+   const a = 149600000;
+   const e = .017;
+
+   console.log(`${a} km`);
+   console.log(`${e} eccentricity`);
+
+   const x = Math.cos(15)
+
+   let orbit = a * (1-e*e)/(1+e * x);
+   console.log(orbit);
+
+   // const totalDays = moment.duration(now.diff(perihelion));
+   // console.log(totalDays)
+
+   // convert now into a number of days
+   // const time = now*365.25/560;
 
    // const orbit = a(1-e*e)/(1+e cos(θ))
-   // a = 149,600,000 km   (semi-major axis)
-   // e = 0.017            (eccentricity)   
    // time = θ*365.25/360
    // θ = days since perihelion
 
