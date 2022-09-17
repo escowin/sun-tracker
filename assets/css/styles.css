@@ -45,17 +45,17 @@ body,
 
 .section {
     display: grid;
-    grid-template-columns: 1fr 2fr;
 }
 
 #current-stats {
-    column-gap: .25rem;
+    column-gap: .5rem;
+    grid-template-columns: auto 1fr;
 }
 
 #sun-details {
     display: grid;
     grid-template-columns: auto 1fr;
-    column-gap: 1rem;
+    column-gap: .5rem;
 }
 
 .subheader,
@@ -447,7 +447,14 @@ a {
         justify-content: space-around;
     }
 
-    #recent,
+    /* #current-stats {
+        grid-row: span 2;
+    } */
+
+    #recent {
+        grid-column: span 2;
+    }
+
     #api-info {
         grid-column: span 3;
     }

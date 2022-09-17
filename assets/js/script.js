@@ -44,7 +44,7 @@ const currentDistance = function() {
 
    // earth-sun distance equation; convert value to a us-friendly string
    const orbit = a*(1-e*e)/(1+e*(Math.cos(time)));
-
+   
    // convert km to au & light-minutes
    const au = orbit/149597870.7;
    $("#distance").text(`${au.toLocaleString("en-US")} au`);
@@ -207,5 +207,5 @@ copyrightYear();
 currentDate();
 forecast();
 currentDistance();
-getCoronalMassEjections();
-getSolarFlares();
+// getCoronalMassEjections();
+// getSolarFlares();
