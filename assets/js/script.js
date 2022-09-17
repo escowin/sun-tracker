@@ -45,10 +45,13 @@ const currentDistance = function() {
    // earth-sun distance equation; convert value to a us-friendly string
    const orbit = a*(1-e*e)/(1+e*(Math.cos(time)));
 
-   // convert km to au
+   // convert km to au & light-minutes
    const au = orbit/149597870.7;
    $("#distance").text(`${au.toLocaleString("en-US")} au`);
+   const lm = orbit/17987547.48;
+   $("#light-minute").text(`${lm.toLocaleString("en-US")} light minutes`);
 
+   // selecting radio button changes displayed units
    selectUnits.addEventListener("click", function() {
       if (kelvinRadio.checked) {
          selectedUnits(orbit);
@@ -59,8 +62,6 @@ const currentDistance = function() {
       }
    });
 };
-
-
 
 // logic.display copyright year
 const copyrightYear = function() {
