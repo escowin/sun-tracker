@@ -44,7 +44,7 @@ const currentDistance = function() {
 
    // earth-sun distance equation; convert value to a us-friendly string
    const orbit = a*(1-e*e)/(1+e*(Math.cos(time)));
-   
+
    // convert km to au & light-minutes
    const au = orbit/149597870.7;
    $("#distance").text(`${au.toLocaleString("en-US")} au`);
@@ -119,10 +119,10 @@ const displayCoronalMassEjections = function (CME) {
 
    // display data
    cmeTimeEl.textContent = startTime;
-   cmeLatitudeEl.textContent = latestCME.cmeAnalyses[0].latitude;
-   cmeLongitudeEl.textContent = latestCME.cmeAnalyses[0].longitude;
-   cmeAngleEl.textContent = latestCME.cmeAnalyses[0].halfAngle;
-   cmeSpeedEl.textContent = latestCME.cmeAnalyses[0].speed;
+   cmeLatitudeEl.textContent = `${latestCME.cmeAnalyses[0].latitude}°`;
+   cmeLongitudeEl.textContent = `${latestCME.cmeAnalyses[0].longitude}°`;
+   cmeAngleEl.textContent = `${latestCME.cmeAnalyses[0].halfAngle}°`;
+   cmeSpeedEl.textContent = `${latestCME.cmeAnalyses[0]} kph`.speed;
    cmeTypeEl.textContent = latestCME.cmeAnalyses[0].type;
    cmeNoteEl.textContent = latestCME.note;
 };
@@ -156,7 +156,7 @@ const displaySolarFlares = function (FLR) {
    const duration = moment.duration(end.diff(start)).as("minutes");
    
    flrDateEl.textContent = flrDate;
-   flrDurationEl.textContent = duration;
+   flrDurationEl.textContent = `${duration} minutes`;
    flrRegionEl.textContent = latestFLR.activeRegionNum;
    flrBeginTimeEl.textContent = beginTime;
    flrPeakTimeEl.textContent = peakTime;
@@ -197,10 +197,6 @@ const getSolarFlares = function() {
       });
    });
 };
-
-
-// logic.get recent activity
-// <h3>FLR/CME ID</h3><p>date</p>
 
 // calls
 copyrightYear();
