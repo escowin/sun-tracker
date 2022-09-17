@@ -1,11 +1,36 @@
+// logic.converting units
+const selectUnits = document.querySelector("#temp-units");
+const kelvinRadio = document.querySelector("#kelvin");
+const fahrenheitRadio = document.querySelector("#fahrenheit");
+const celsiusRadio = document.querySelector("#celsius");
+
+const selectedUnits = function(orbit) {
+   const temp = 5772;
+
+   if (kelvinRadio.checked) {
+      const kelvin = temp;
+      const au = orbit/149597870.7;
+      $(".temp").text(`${kelvin} K`);
+      $("#distance").text(`${au.toLocaleString("en-US")} au`);
+   }
+   if (celsiusRadio.checked) {
+      const celsius = Math.round(temp - 273.15);
+      const km = orbit;
+      $(".temp").text(`${celsius} °C`);
+      $("#distance").text(`${km.toLocaleString("en-US")} km`);
+}
+   if (fahrenheitRadio.checked) {
+      const fahrenheit = Math.round(temp * 1.8 - 459.67);
+      const mi = orbit/1.609344;
+      $(".temp").text(`${fahrenheit} °F`);
+      $("#distance").text(`${mi.toLocaleString("en-US")} mi`);
+   }
+};
+
 // logic.calculating the distance of the earth from the sun
 const currentDistance = function() {
    const perihelion = moment.utc("2022-01-04 06:55:00").format("YYYY-MM-DD HH:mm:ss");
    const now = moment.utc().format("YYYY-MM-DD HH:mm:ss");
-
-   // semi-major axis & eccentricity
-   const a = 149600000;
-   const e = .017;
 
    // days since perihelion
    const start = new moment(perihelion);
@@ -13,42 +38,29 @@ const currentDistance = function() {
    const totalDays = moment.duration(end.diff(start)).as("days");
    const time = totalDays*365.25/360;
 
+   // semi-major axis & eccentricity
+   const a = 149600000;
+   const e = .017;
+
    // earth-sun distance equation; convert value to a us-friendly string
    const orbit = a*(1-e*e)/(1+e*(Math.cos(time)));
-   const distance = orbit.toLocaleString("en-US");
-   console.log(`${distance} km`);
+
+   // convert km to au
+   const au = orbit/149597870.7;
+   $("#distance").text(`${au.toLocaleString("en-US")} au`);
+
+   selectUnits.addEventListener("click", function() {
+      if (kelvinRadio.checked) {
+         selectedUnits(orbit);
+      } else if (celsiusRadio.checked) {
+         selectedUnits(orbit);
+      } else if (fahrenheitRadio.checked) {
+         selectedUnits(orbit);
+      }
+   });
 };
 
-currentDistance();
 
-// logic.converting units
-const selectUnits = document.querySelector("#temp-units");
-const kelvinRadio = document.querySelector("#kelvin");
-const fahrenheitRadio = document.querySelector("#fahrenheit");
-const celsiusRadio = document.querySelector("#celsius");
-
-const selectedUnits = function() {
-   const temp = 5772;
-   
-   if (kelvinRadio.checked) {
-      const kelvin = temp + " K";
-      const au = 1 + " au";
-      $(".temp").text(kelvin);
-      $("#distance").text(au);
-   }
-   if (celsiusRadio.checked) {
-      const celsius = Math.round(temp - 273.15) + " °C";
-      const km = 150 + " million km";
-      $(".temp").text(celsius);
-      $("#distance").text(km);
-   }
-   if (fahrenheitRadio.checked) {
-      const fahrenheit = Math.round(temp * 1.8 - 459.67) + " °F";
-      const mi = 93 + " million mi";
-      $(".temp").text(fahrenheit);
-      $("#distance").text(mi);
-   }
-};
 
 // logic.display copyright year
 const copyrightYear = function() {
@@ -193,16 +205,6 @@ const getSolarFlares = function() {
 copyrightYear();
 currentDate();
 forecast();
+currentDistance();
 getCoronalMassEjections();
 getSolarFlares();
-
-// bug | Kelvin should display by default but nothing displays. hardcodded values as a temp solution.
-selectUnits.addEventListener("click", function() {
-   if (kelvinRadio.checked) {
-      selectedUnits();
-   } else if (celsiusRadio.checked) {
-      selectedUnits();
-   } else if (fahrenheitRadio.checked) {
-      selectedUnits();
-   }
-});
