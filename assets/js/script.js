@@ -203,5 +203,5 @@ copyrightYear();
 currentDate();
 forecast();
 currentDistance();
-// getCoronalMassEjections();
-// getSolarFlares();
+getCoronalMassEjections();
+getSolarFlares();
