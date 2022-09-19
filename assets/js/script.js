@@ -1,31 +1,38 @@
-// logic.converting units
+// data.dom
 const selectUnits = document.querySelector("#temp-units");
 const kelvinRadio = document.querySelector("#kelvin");
 const fahrenheitRadio = document.querySelector("#fahrenheit");
 const celsiusRadio = document.querySelector("#celsius");
 
-const selectedUnits = function(orbit) {
+// logic.display selected units
+const displayUnits = function (au, lm, km, mi) {
    const temp = 5772;
+   kelvinRadio.checked = true;
 
-   if (kelvinRadio.checked) {
-      const kelvin = temp;
-      const au = orbit/149597870.7;
-      $(".temp").text(`${kelvin} K`);
-      $("#distance").text(`${au.toLocaleString("en-US")} au`);
-   }
-   if (celsiusRadio.checked) {
-      const celsius = Math.round(temp - 273.15);
-      const km = orbit;
-      $(".temp").text(`${celsius} °C`);
-      $("#distance").text(`${km.toLocaleString("en-US")} km`);
+   // bug : distance values update in console, but display resets to showing AU distance regardless of which radio button is checked.
+   // setInterval(currentDistance, 2000);
+   // console.log(km.toLocaleString("en-US"));
+
+   $("#temp").text(`${temp} K`)
+   $("#light-minute").text(`${lm.toLocaleString("en-US")} light minutes`);
+   $("#distance").text(`${au.toLocaleString("en-US")} au`);
+   
+   // selecting radio button changes displayed units
+   selectUnits.addEventListener("click", function() {
+      if (kelvinRadio.checked) {
+         $(".temp").text(`${temp} K`);
+         $("#distance").text(`${au.toLocaleString("en-US")} au`);
+      } else if (celsiusRadio.checked) {
+         const celsius = Math.round(temp - 273.15);
+         $(".temp").text(`${celsius} °C`);
+         $("#distance").text(`${km.toLocaleString("en-US")} km`);
+      } else if (fahrenheitRadio.checked) {
+         const fahrenheit = Math.round(temp * 1.8 - 459.67);
+         $(".temp").text(`${fahrenheit} °F`);
+         $("#distance").text(`${mi.toLocaleString("en-US")} mi`);
+      }
+   });
 }
-   if (fahrenheitRadio.checked) {
-      const fahrenheit = Math.round(temp * 1.8 - 459.67);
-      const mi = orbit/1.609344;
-      $(".temp").text(`${fahrenheit} °F`);
-      $("#distance").text(`${mi.toLocaleString("en-US")} mi`);
-   }
-};
 
 // logic.calculating the distance of the earth from the sun
 const currentDistance = function() {
@@ -42,25 +49,16 @@ const currentDistance = function() {
    const a = 149600000;
    const e = .017;
 
-   // earth-sun distance equation; convert value to a us-friendly string
+   // earth-sun distance equation
    const orbit = a*(1-e*e)/(1+e*(Math.cos(time)));
 
-   // convert km to au & light-minutes
+   // convert to relevant units of length
    const au = orbit/149597870.7;
-   $("#distance").text(`${au.toLocaleString("en-US")} au`);
    const lm = orbit/17987547.48;
-   $("#light-minute").text(`${lm.toLocaleString("en-US")} light minutes`);
+   const km = orbit;
+   const mi = orbit/1.609344;
 
-   // selecting radio button changes displayed units
-   selectUnits.addEventListener("click", function() {
-      if (kelvinRadio.checked) {
-         selectedUnits(orbit);
-      } else if (celsiusRadio.checked) {
-         selectedUnits(orbit);
-      } else if (fahrenheitRadio.checked) {
-         selectedUnits(orbit);
-      }
-   });
+   displayUnits(au, lm , km, mi);
 };
 
 // logic.display copyright year
@@ -203,5 +201,6 @@ copyrightYear();
 currentDate();
 forecast();
 currentDistance();
-getCoronalMassEjections();
-getSolarFlares();
+// selectedTempUnit();
+// getCoronalMassEjections();
+// getSolarFlares();
