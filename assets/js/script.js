@@ -165,7 +165,7 @@ const displaySolarFlares = function (FLR) {
 
 // logic.api set-up
 // to-do : hide real api key
-const apiKey = "UJO2NYWIRwCuDl6l431qKvjZviS8TPLUatA1E0xd";
+const apiKey = "DEMO_KEY";
 const startDate = moment().subtract(7, "days").format("YYYY-MM-DD");
 const endDate = moment().format("YYYY-MM-DD");
 
