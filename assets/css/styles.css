@@ -65,7 +65,8 @@ body,
 .subheader,
 h3,
 .time,
-#cme-note {
+#cme-note,
+.article {
     grid-column: span 2;
 }
 
@@ -199,7 +200,7 @@ a {
 }
 
 h3 {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     color: var(--yellow);
     text-shadow: var(--text-shadow-sm) var(--tertiary);
 }
@@ -208,7 +209,7 @@ h3 {
     text-shadow: var(--text-shadow-sm) var(--secondary);
 }
 
-.section p {
+.article p {
     font-size: 1rem;
     padding-left: 2%;
 }
@@ -229,6 +230,7 @@ h3 {
 #cme-note {
     font-variant: normal;
     font-size: .75rem;
+    padding-bottom: .5rem;
 }
 
 #sun-details {
@@ -248,7 +250,7 @@ h3 {
 }
 
 .indent {
-    text-indent: .5rem;
+    text-indent: .75rem;
 }
 
 /* display.tablet */
@@ -279,7 +281,7 @@ h3 {
     }
 
     .section p {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
     }
 
     #cme-note {
@@ -298,6 +300,13 @@ h3 {
     #api-info a:hover,
     #api-info a:active {
         text-shadow: var(--text-shadow-sm) var(--tertiary);
+    }
+
+    /* flow */
+    .article {
+        grid-column: span 1;
+        grid-template-columns: auto 1fr;
+        column-gap: .75rem;
     }
 
     /* box */

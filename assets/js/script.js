@@ -120,7 +120,7 @@ const displayCoronalMassEjections = function (CME) {
    cmeLatitudeEl.textContent = `${latestCME.cmeAnalyses[0].latitude}°`;
    cmeLongitudeEl.textContent = `${latestCME.cmeAnalyses[0].longitude}°`;
    cmeAngleEl.textContent = `${latestCME.cmeAnalyses[0].halfAngle}°`;
-   cmeSpeedEl.textContent = `${latestCME.cmeAnalyses[0]} kph`.speed;
+   cmeSpeedEl.textContent = `${latestCME.cmeAnalyses[0].speed} kph`;
    cmeTypeEl.textContent = latestCME.cmeAnalyses[0].type;
    cmeNoteEl.textContent = latestCME.note;
 };
@@ -165,8 +165,8 @@ const displaySolarFlares = function (FLR) {
 
 // logic.api set-up
 // to-do : hide real api key
-const apiKey = "DEMO_KEY";
-const startDate = moment().subtract(14, "days").format("YYYY-MM-DD");
+const apiKey = "UJO2NYWIRwCuDl6l431qKvjZviS8TPLUatA1E0xd";
+const startDate = moment().subtract(7, "days").format("YYYY-MM-DD");
 const endDate = moment().format("YYYY-MM-DD");
 
 const getCoronalMassEjections = function() {
@@ -177,9 +177,10 @@ const getCoronalMassEjections = function() {
       // method formats the response as json. returns a promise. the then() method captures the actual data
       response.json().then(function(data) {
          displayCoronalMassEjections(data)
-         for (let i = 0; i < data.length; i++) {
-            console.log(data[i]);
-         }
+         // to-do | populate a list with recent cmeID's. clicking on a cmeID, will show its details.
+         // for (let i = 0; i < data.length; i++) {
+         //    console.log(data[i]);
+         // }
       });
    });
 };
@@ -192,6 +193,11 @@ const getSolarFlares = function() {
       // method formats the response as json. returns a promise. the then() method captures the actual data
       response.json().then(function(data) {
          displaySolarFlares(data);
+
+         // to-do | populate a list with recent flrID's. clicking on a flrID, will show its details.
+         // for (let i = 0; i < data.length; i++) {
+         //    console.log(data[i].flrID);
+         // }
       });
    });
 };
@@ -201,6 +207,5 @@ copyrightYear();
 currentDate();
 forecast();
 currentDistance();
-// selectedTempUnit();
-// getCoronalMassEjections();
-// getSolarFlares();
+getCoronalMassEjections();
+getSolarFlares();
