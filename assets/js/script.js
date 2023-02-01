@@ -5,7 +5,7 @@ const fahrenheitRadio = document.querySelector("#fahrenheit");
 const celsiusRadio = document.querySelector("#celsius");
 
 // logic.display selected units
-const displayUnits = function (au, lm, km, mi) {
+function displayUnits(au, lm, km, mi) {
    const temp = 5772;
    kelvinRadio.checked = true;
 
@@ -35,7 +35,7 @@ const displayUnits = function (au, lm, km, mi) {
 }
 
 // logic.calculating the distance of the earth from the sun
-const currentDistance = function() {
+function currentDistance () {
    const perihelion = moment.utc("2022-01-04 06:55:00").format("YYYY-MM-DD HH:mm:ss");
    const now = moment.utc().format("YYYY-MM-DD HH:mm:ss");
 
@@ -62,14 +62,14 @@ const currentDistance = function() {
 };
 
 // logic.display copyright year
-const copyrightYear = function() {
+function copyrightYear() {
    let year = new Date().getFullYear();
    const copyrightYearEl = document.querySelector("#copyright-year");
    copyrightYearEl.textContent = year;
 };
 
 // logic.display current date
-const currentDate = function() {
+function currentDate() {
    let date = moment().format("MMMM Do");
    const currentDateEl = document.querySelector("#current-date");
    currentDateEl.textContent = date;
@@ -80,7 +80,7 @@ const currentDate = function() {
 };
 
 // logic.display days of the week
-const forecast = function() {
+function forecast() {
    const day2El = document.querySelector("#day-2");
    const day3El = document.querySelector("#day-3");
    const day4El = document.querySelector("#day-4");
@@ -100,7 +100,7 @@ const forecast = function() {
 };
 
 // logic.display api data
-const displayCoronalMassEjections = function (CME) {
+function displayCoronalMassEjections(CME) {
    const cmeTimeEl = document.querySelector("#cme-time");
    const cmeLatitudeEl = document.querySelector("#cme-latitude");
    const cmeLongitudeEl = document.querySelector("#cme-longitude");
@@ -125,7 +125,7 @@ const displayCoronalMassEjections = function (CME) {
    cmeNoteEl.textContent = latestCME.note;
 };
 
-const displaySolarFlares = function (FLR) {
+function displaySolarFlares(FLR) {
    const flrDateEl = document.querySelector("#flr-date");
    const flrDurationEl = document.querySelector("#flr-duration");
    const flrRegionEl = document.querySelector("#flr-region");
@@ -164,13 +164,20 @@ const displaySolarFlares = function (FLR) {
 };
 
 // logic.api set-up
-// to-do : hide real api key
-const apiKey = "DEMO_KEY";
-const startDate = moment().subtract(7, "days").format("YYYY-MM-DD");
-const endDate = moment().format("YYYY-MM-DD");
+const api = {
+   url: "https://api.nasa.gov/DONKI",
+   key: "UJO2NYWIRwCuDl6l431qKvjZviS8TPLUatA1E0xd",
+   startDate: moment().subtract(7, "days").format("YYYY-MM-DD"),
+   endDate: moment().format("YYYY-MM-DD"),
+   name: [ "CME", "FLR"]
+}
 
-const getCoronalMassEjections = function() {
-   const apiUrl = `https://api.nasa.gov/DONKI/CME?startDate=${startDate}&endDate=${endDate}&api_key=${apiKey}`;
+
+// pause | to do | loop through api.name to do one api perform one api call
+function getApi() {}
+
+function getCoronalMassEjections() {
+   const apiUrl = `${api.url}/${api.name[0]}/startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.key}`;
 
    // fetching the array of recent coronal mass ejections
    fetch(apiUrl).then(function(response) {
@@ -185,7 +192,7 @@ const getCoronalMassEjections = function() {
    });
 };
 
-const getSolarFlares = function() {
+function getSolarFlares() {
    const apiUrl = `https://api.nasa.gov/DONKI/FLR?startDate=${startDate}&endDate=${endDate}&api_key=${apiKey}`;
 
    // fetching the array of recent solar flares
