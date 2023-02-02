@@ -164,21 +164,21 @@
 // };
 
 // logic.api set-up
-const apiDetails = {
+const api = {
    url: "https://api.nasa.gov/DONKI",
    key: "UJO2NYWIRwCuDl6l431qKvjZviS8TPLUatA1E0xd",
-   // startDate: moment().subtract(7, "days").format("YYYY-MM-DD"),
-   // endDate: moment().format("YYYY-MM-DD"),
+   startDate: moment().subtract(7, "days").format("YYYY-MM-DD"),
+   endDate: moment().format("YYYY-MM-DD"),
    name: [ "CME", "FLR"]
 }
 
 
-// pause | to do | loop through api.name to do one api perform one api call
-function getApi(apiDetails) {
-   const api = apiDetails.name
-   // console.log(api)
-   for (let i = 0; i < api.length; i++) {
-      console.log(api[i])
+// api call | loops through api object's name array to get the latest CME & FLR data 
+function getApi(api) {
+   const name = api.name
+   for (let i = 0; i < name.length; i++) {
+      const path = `${api.url}/${name[i]}/startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.apiDetails}`;
+      console.log(path)
    }
 }
 
@@ -223,4 +223,4 @@ function getApi(apiDetails) {
 // getCoronalMassEjections();
 // getSolarFlares();
 
-getApi(apiDetails);
+getApi(api);
