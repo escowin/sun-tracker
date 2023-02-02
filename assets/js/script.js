@@ -163,21 +163,19 @@
 //    flrClassEl.textContent = latestFLR.classType;
 // };
 
-// logic.api set-up
-const api = {
-   url: "https://api.nasa.gov/DONKI",
-   key: "UJO2NYWIRwCuDl6l431qKvjZviS8TPLUatA1E0xd",
-   startDate: moment().subtract(7, "days").format("YYYY-MM-DD"),
-   endDate: moment().format("YYYY-MM-DD"),
-   name: [ "CME", "FLR"]
-}
-
 
 // api call | loops through api object's name array to get the latest CME & FLR data 
-function getApi(api) {
-   const name = api.name
-   for (let i = 0; i < name.length; i++) {
-      const path = `${api.url}/${name[i]}/startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.apiDetails}`;
+function getApi() {
+   const api = {
+      url: "https://api.nasa.gov/DONKI",
+      key: "UJO2NYWIRwCuDl6l431qKvjZviS8TPLUatA1E0xd",
+      startDate: moment().subtract(7, "days").format("YYYY-MM-DD"),
+      endDate: moment().format("YYYY-MM-DD"),
+      name: [ "CME", "FLR"]
+   }
+
+   for (let i = 0; i < api.name.length; i++) {
+      const path = `${api.url}/${api.name[i]}/startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.apiDetails}`;
       console.log(path)
    }
 }
@@ -223,4 +221,4 @@ function getApi(api) {
 // getCoronalMassEjections();
 // getSolarFlares();
 
-getApi(api);
+getApi();
