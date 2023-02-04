@@ -171,20 +171,23 @@ function getApi() {
       key: "6A1y0rvnJMsU6o8M6uarriaTvGLsCSeQbaIuLfU0",
       startDate: moment().subtract(7, "days").format("YYYY-MM-DD"),
       endDate: moment().format("YYYY-MM-DD"),
-      name: [ "CME", "FLR"]
+      donki: [ "CME", "FLR"]
    }
 
-   for (let i = 0; i < api.name.length; i++) {
-      const path = `${api.url}/${api.name[i]}?startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.key}`;
+   api.donki.forEach((name) => {
+      const path = `${api.url}/${name}?startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.key}`;
       console.log(path)
-      fetch(path).then((res) => {
-         res.json().then((data) => {
-            // * pause * | 403 error
-            console.log(data);
-         })
-      })
-      // console.log(path)
-   }
+   })
+   // for (let i = 0; i < api.name.length; i++) {
+   //    const path = `${api.url}/${api.name[i]}?startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.key}`;
+   //    console.log(path)
+   //    fetch(path).then((res) => {
+   //       res.json().then((data) => {
+            
+   //          console.log(data.reverse());
+   //       })
+   //    })
+   // }
 }
 
 // function getCoronalMassEjections() {
