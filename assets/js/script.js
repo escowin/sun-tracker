@@ -1,9 +1,70 @@
 // data.dom
-// const selectUnits = document.querySelector("#temp-units");
-// const kelvinRadio = document.querySelector("#kelvin");
-// const fahrenheitRadio = document.querySelector("#fahrenheit");
-// const celsiusRadio = document.querySelector("#celsius");
+const selectUnits = document.querySelector("#temp-units");
+const kelvinRadio = document.querySelector("#kelvin");
+const fahrenheitRadio = document.querySelector("#fahrenheit");
+const celsiusRadio = document.querySelector("#celsius");
 
+// api call | loops through api object's name array to get the latest CME & FLR data
+function getApi() {
+  const api = {
+    url: "https://api.nasa.gov/DONKI",
+    key: "6A1y0rvnJMsU6o8M6uarriaTvGLsCSeQbaIuLfU0",
+    startDate: moment().subtract(7, "days").format("YYYY-MM-DD"),
+    endDate: moment().format("YYYY-MM-DD"),
+    donki: ["CME", "FLR"],
+  };
+
+  api.donki.forEach((name) => {
+    const path = `${api.url}/${name}?startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.key}`;
+
+    fetch(path)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`fetch error | ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((donkiArr) => {
+         donkiArr.reverse();
+        if (path.includes("CME")) {
+          displayCME(donkiArr);
+        }
+        if (path.includes("FLR")) {
+         console.log(path)
+          displayFLR("testing flr");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+}
+
+function displayCME(cmeArr) {
+   cmeArr.forEach(object => {
+   const activityId = object.activityID
+   const start = object.startTime
+   const latitude = object.cmeAnalyses[0].latitude
+   const longitude = object.cmeAnalyses[0].longitude
+   const halfAngle = object.cmeAnalyses[0].halfAngle
+   const note = object.cmeAnalyses[0].note
+   const speed = object.cmeAnalyses[0].speed
+   const time = object.cmeAnalyses[0].time
+   const type = object.cmeAnalyses[0].type
+
+
+  })
+
+}
+
+function displayFLR(flrArr) {
+  console.log(flrArr);
+}
+
+
+function formatDate(date) {
+
+}
 // logic.display selected units
 // function displayUnits(au, lm, km, mi) {
 //    const temp = 5772;
@@ -16,7 +77,7 @@
 //    $("#temp").text(`${temp} K`)
 //    $("#light-minute").text(`${lm.toLocaleString("en-US")} light minutes`);
 //    $("#distance").text(`${au.toLocaleString("en-US")} au`);
-   
+
 //    // selecting radio button changes displayed units
 //    selectUnits.addEventListener("click", function() {
 //       if (kelvinRadio.checked) {
@@ -148,11 +209,11 @@
 //    const peakTime = moment(latestFLR.peakTime).format("hh:mm a");
 //    const endTime = moment(latestFLR.endTime).format("hh:mm a");
 
-//    // calculating the solar flare duration 
+//    // calculating the solar flare duration
 //    const start = new moment(latestFLR.beginTime);
 //    const end = new moment(latestFLR.endTime);
 //    const duration = moment.duration(end.diff(start)).as("minutes");
-   
+
 //    flrDateEl.textContent = flrDate;
 //    flrDurationEl.textContent = `${duration} minutes`;
 //    flrRegionEl.textContent = latestFLR.activeRegionNum;
@@ -161,68 +222,6 @@
 //    flrEndTimeEl.textContent = endTime;
 //    flrLocationEl.textContent = latestFLR.sourceLocation;
 //    flrClassEl.textContent = latestFLR.classType;
-// };
-
-
-// api call | loops through api object's name array to get the latest CME & FLR data 
-function getApi() {
-   const api = {
-      url: "https://api.nasa.gov/DONKI",
-      key: "DEMO_KEY",
-      startDate: moment().subtract(7, "days").format("YYYY-MM-DD"),
-      endDate: moment().format("YYYY-MM-DD"),
-      donki: [ "CME", "FLR"]
-   }
-
-   api.donki.forEach((name) => {
-      const path = `${api.url}/${name}?startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.key}`;
-      console.log(path)
-      fetch(path).then(res => {
-         if (res.status !== 200) {
-            throw new err
-         }
-         return res.json();
-      })
-      .then(data => {
-         console.log(data.reverse());
-      })
-      .catch(err => {
-         console.log(err)
-      })
-   })
-}
-
-// function getCoronalMassEjections() {
-//    const apiUrl = `${api.url}/${api.name[0]}/startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.key}`;
-
-//    // fetching the array of recent coronal mass ejections
-//    fetch(apiUrl).then(function(response) {
-//       // method formats the response as json. returns a promise. the then() method captures the actual data
-//       response.json().then(function(data) {
-//          displayCoronalMassEjections(data)
-//          // to-do | populate a list with recent cmeID's. clicking on a cmeID, will show its details.
-//          // for (let i = 0; i < data.length; i++) {
-//          //    console.log(data[i]);
-//          // }
-//       });
-//    });
-// };
-
-// function getSolarFlares() {
-//    const apiUrl = `https://api.nasa.gov/DONKI/FLR?startDate=${startDate}&endDate=${endDate}&api_key=${apiKey}`;
-
-//    // fetching the array of recent solar flares
-//    fetch(apiUrl).then(function(response) {
-//       // method formats the response as json. returns a promise. the then() method captures the actual data
-//       response.json().then(function(data) {
-//          displaySolarFlares(data);
-
-//          // to-do | populate a list with recent flrID's. clicking on a flrID, will show its details.
-//          // for (let i = 0; i < data.length; i++) {
-//          //    console.log(data[i].flrID);
-//          // }
-//       });
-//    });
 // };
 
 // calls
