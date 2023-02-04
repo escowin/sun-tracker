@@ -168,7 +168,7 @@
 function getApi() {
    const api = {
       url: "https://api.nasa.gov/DONKI",
-      key: "6A1y0rvnJMsU6o8M6uarriaTvGLsCSeQbaIuLfU0",
+      key: "DEMO_KEY",
       startDate: moment().subtract(7, "days").format("YYYY-MM-DD"),
       endDate: moment().format("YYYY-MM-DD"),
       donki: [ "CME", "FLR"]
@@ -177,17 +177,19 @@ function getApi() {
    api.donki.forEach((name) => {
       const path = `${api.url}/${name}?startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.key}`;
       console.log(path)
+      fetch(path).then(res => {
+         if (res.status !== 200) {
+            throw new err
+         }
+         return res.json();
+      })
+      .then(data => {
+         console.log(data.reverse());
+      })
+      .catch(err => {
+         console.log(err)
+      })
    })
-   // for (let i = 0; i < api.name.length; i++) {
-   //    const path = `${api.url}/${api.name[i]}?startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.key}`;
-   //    console.log(path)
-   //    fetch(path).then((res) => {
-   //       res.json().then((data) => {
-            
-   //          console.log(data.reverse());
-   //       })
-   //    })
-   // }
 }
 
 // function getCoronalMassEjections() {
