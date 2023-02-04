@@ -168,45 +168,40 @@
 function getApi() {
    const api = {
       url: "https://api.nasa.gov/DONKI",
-      key: "UJO2NYWIRwCuDl6l431qKvjZviS8TPLUatA1E0xd",
+      key: "6A1y0rvnJMsU6o8M6uarriaTvGLsCSeQbaIuLfU0",
       startDate: moment().subtract(7, "days").format("YYYY-MM-DD"),
       endDate: moment().format("YYYY-MM-DD"),
       name: [ "CME", "FLR"]
    }
 
    for (let i = 0; i < api.name.length; i++) {
-      const path = `${api.url}/${api.name[i]}/startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.apiDetails}`;
-
+      const path = `${api.url}/${api.name[i]}?startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.key}`;
+      console.log(path)
       fetch(path).then((res) => {
          res.json().then((data) => {
-            // passess res data into corresponding function.
-            if (api.name === "CME") {
-               displayCoronalMassEjections(data);
-            }
-            if (api.name === "FLR") {
-               displaySolarFlares(data)
-            }
+            // * pause * | 403 error
+            console.log(data);
          })
       })
-      console.log(path)
+      // console.log(path)
    }
 }
 
-function getCoronalMassEjections() {
-   const apiUrl = `${api.url}/${api.name[0]}/startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.key}`;
+// function getCoronalMassEjections() {
+//    const apiUrl = `${api.url}/${api.name[0]}/startDate=${api.startDate}&endDate=${api.endDate}&api_key=${api.key}`;
 
-   // fetching the array of recent coronal mass ejections
-   fetch(apiUrl).then(function(response) {
-      // method formats the response as json. returns a promise. the then() method captures the actual data
-      response.json().then(function(data) {
-         displayCoronalMassEjections(data)
-         // to-do | populate a list with recent cmeID's. clicking on a cmeID, will show its details.
-         // for (let i = 0; i < data.length; i++) {
-         //    console.log(data[i]);
-         // }
-      });
-   });
-};
+//    // fetching the array of recent coronal mass ejections
+//    fetch(apiUrl).then(function(response) {
+//       // method formats the response as json. returns a promise. the then() method captures the actual data
+//       response.json().then(function(data) {
+//          displayCoronalMassEjections(data)
+//          // to-do | populate a list with recent cmeID's. clicking on a cmeID, will show its details.
+//          // for (let i = 0; i < data.length; i++) {
+//          //    console.log(data[i]);
+//          // }
+//       });
+//    });
+// };
 
 // function getSolarFlares() {
 //    const apiUrl = `https://api.nasa.gov/DONKI/FLR?startDate=${startDate}&endDate=${endDate}&api_key=${apiKey}`;
