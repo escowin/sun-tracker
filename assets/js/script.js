@@ -25,12 +25,12 @@ function getApi() {
         return res.json();
       })
       .then((donkiArr) => {
-         donkiArr.reverse();
+        donkiArr.reverse();
         if (path.includes("CME")) {
           displayCME(donkiArr);
         }
         if (path.includes("FLR")) {
-         console.log(path)
+          console.log(path);
           displayFLR("testing flr");
         }
       })
@@ -41,29 +41,48 @@ function getApi() {
 }
 
 function displayCME(cmeArr) {
-   cmeArr.forEach(object => {
-   const activityId = object.activityID
-   const start = object.startTime
-   const latitude = object.cmeAnalyses[0].latitude
-   const longitude = object.cmeAnalyses[0].longitude
-   const halfAngle = object.cmeAnalyses[0].halfAngle
-   const note = object.cmeAnalyses[0].note
-   const speed = object.cmeAnalyses[0].speed
-   const time = object.cmeAnalyses[0].time
-   const type = object.cmeAnalyses[0].type
+  cmeArr.forEach((object) => {
+    const activityId = object.activityID;
+    const start = object.startTime;
+    const latitude = object.cmeAnalyses[0].latitude;
+    const longitude = object.cmeAnalyses[0].longitude;
+    const halfAngle = object.cmeAnalyses[0].halfAngle;
+    const note = object.cmeAnalyses[0].note;
+    const speed = object.cmeAnalyses[0].speed;
+    const time = object.cmeAnalyses[0].time;
+    const type = object.cmeAnalyses[0].type;
 
+    const template = `
+   <article class="donki-card">
+      <h3>${formatDate(activityId)}</h3>
+   </article>`;
 
-  })
-
+    console.log(formatDate(activityId));
+  });
 }
 
 function displayFLR(flrArr) {
   console.log(flrArr);
 }
 
+function formatDate(data) {
+  const splitIndex = data.indexOf("-") + 1;
+  let timestamp = data.slice(0, splitIndex - 1);
+  let id = data.slice(splitIndex);
 
-function formatDate(date) {
+  let date = new Date(timestamp);
+  let options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
 
+  let formattedDate = date.toLocaleString("en-US", options);
+  console.log(formattedDate)
+//   return `${formattedDate} ${id}`;
 }
 // logic.display selected units
 // function displayUnits(au, lm, km, mi) {
