@@ -51,13 +51,22 @@ function displayCME(cmeArr) {
     const speed = object.cmeAnalyses[0].speed;
     const time = object.cmeAnalyses[0].time;
     const type = object.cmeAnalyses[0].type;
+    // console.log(formatDate(activityId));
 
     const template = `
    <article class="donki-card">
-      <h3>${formatDate(activityId)}</h3>
+      <h3>${activityId}</h3>
+      <p>Type</p> <p>${type}
+      <p>Lat</p> <p>${latitude}</p>
+      <p>Time</p> <p>${longitude}</p>
+      <p>Time</p> <p>${halfAngle}</p>
+      <p>Time</p> <p>${speed}</p>
+      <p>Time</p> <p>${start}</p>
+
+      <p class="span-2">${note}</p>
+
    </article>`;
 
-    console.log(formatDate(activityId));
   });
 }
 
