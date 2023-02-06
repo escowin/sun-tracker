@@ -100,6 +100,8 @@ function formatDate(data) {
 
 // non-api functions
 function displayForecast() {
+  let templateArr = []
+  const forecastEl = document.getElementById('forecast')
   const forecast = [
     {
       day: "Today",
@@ -107,38 +109,50 @@ function displayForecast() {
       low: Math.floor(Math.random() * (5750 - 5500 + 1) + 5500)
     },
     {
-      day: moment().add(1, "days").format('dddd'),
+      day: moment().add(1, "days").format('ddd'),
       high: Math.floor(Math.random() * (6000 - 5750 + 1) + 5750),
       low: Math.floor(Math.random() * (5750 - 5500 + 1) + 5500)
     },
     {
-      day: moment().add(2, "days").format('dddd'),
+      day: moment().add(2, "days").format('ddd'),
       high: Math.floor(Math.random() * (6000 - 5750 + 1) + 5750),
       low: Math.floor(Math.random() * (5750 - 5500 + 1) + 5500)
     },
     {
-      day: moment().add(3, "days").format('dddd'),
+      day: moment().add(3, "days").format('ddd'),
       high: Math.floor(Math.random() * (6000 - 5750 + 1) + 5750),
       low: Math.floor(Math.random() * (5750 - 5500 + 1) + 5500)
     },
     {
-      day: moment().add(4, "days").format('dddd'),
+      day: moment().add(4, "days").format('ddd'),
       high: Math.floor(Math.random() * (6000 - 5750 + 1) + 5750),
       low: Math.floor(Math.random() * (5750 - 5500 + 1) + 5500)
     },
     {
-      day: moment().add(5, "days").format('dddd'),
+      day: moment().add(5, "days").format('ddd'),
       high: Math.floor(Math.random() * (6000 - 5750 + 1) + 5750),
       low: Math.floor(Math.random() * (5750 - 5500 + 1) + 5500)
     },
     {
-      day: moment().add(6, "days").format('dddd'),
+      day: moment().add(6, "days").format('ddd'),
       high: Math.floor(Math.random() * (6000 - 5750 + 1) + 5750),
       low: Math.floor(Math.random() * (5750 - 5500 + 1) + 5500)
     },
   ]
 
-  
+  forecast.forEach(day => {
+    const template = `<article class="day-forecast">
+    <div class="sun"></div>
+    <p class="day">${day.day}</p>
+    <p class="temp">H: ${day.high}</p>
+    <p class="temp">L: ${day.low}</p>
+    </article>`
+
+    templateArr.push(template)
+  })
+
+  const final = templateArr.toString().replace(/,/g, " ")
+  forecastEl.innerHTML = final
 }
 
 // logic.display selected units
