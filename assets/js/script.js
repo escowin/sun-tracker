@@ -1,8 +1,8 @@
 // data.dom
-const selectUnits = document.querySelector("#temp-units");
-const kelvinRadio = document.querySelector("#kelvin");
-const fahrenheitRadio = document.querySelector("#fahrenheit");
-const celsiusRadio = document.querySelector("#celsius");
+// const selectUnits = document.querySelector("#temp-units");
+// const kelvinRadio = document.querySelector("#kelvin");
+// const fahrenheitRadio = document.querySelector("#fahrenheit");
+// const celsiusRadio = document.querySelector("#celsius");
 
 // api call | loops through api object's name array to get the latest CME & FLR data
 function getApi() {
@@ -40,8 +40,11 @@ function getApi() {
   });
 }
 
-function displayCME(cmeArr) {
-  cmeArr.forEach((object) => {
+function displayCME(cme) {
+  const cmeEl = document.getElementById('cme');
+  let templateArr = []
+
+  cme.forEach((object) => {
     const activityId = object.activityID;
     const start = object.startTime;
     const latitude = object.cmeAnalyses[0].latitude;
@@ -51,23 +54,24 @@ function displayCME(cmeArr) {
     const speed = object.cmeAnalyses[0].speed;
     const time = object.cmeAnalyses[0].time;
     const type = object.cmeAnalyses[0].type;
-    // console.log(formatDate(activityId));
 
-    const template = `
-   <article class="donki-card">
+    const template = `<article class="donki-card">
       <h3>${activityId}</h3>
-      <p>Type</p> <p>${type}
+      <p>Type</p> <p>${type}</p>
       <p>Lat</p> <p>${latitude}</p>
       <p>Time</p> <p>${longitude}</p>
       <p>Time</p> <p>${halfAngle}</p>
       <p>Time</p> <p>${speed}</p>
       <p>Time</p> <p>${start}</p>
-
       <p class="span-2">${note}</p>
-
    </article>`;
 
+   templateArr.push(template)
   });
+
+ const final = templateArr.toString().replace(/,/g, " ")
+ cmeEl.innerHTML = final
+ console.log(cmeEl)
 }
 
 function displayFLR(flrArr) {

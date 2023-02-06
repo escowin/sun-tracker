@@ -26,6 +26,10 @@ body {
     padding: 1vw 2vw;
 }
 
+header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
 main {
     width: 100%;
 }
