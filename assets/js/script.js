@@ -100,20 +100,45 @@ function formatDate(data) {
 
 // non-api functions
 function displayForecast() {
-  const day2El = document.querySelector("#day-2");
-  const day3El = document.querySelector("#day-3");
-  const day4El = document.querySelector("#day-4");
-  const day5El = document.querySelector("#day-5");
-
   const forecast = [
     {
-      day: moment().format('dddd'),
-      high: Math.floor(Math.random() * (6000 - 5500 + 1) + 5500),
-      low: Math.floor(Math.random() * (6000 - 5500 + 1) + 5500)
+      day: "Today",
+      high: Math.floor(Math.random() * (6000 - 5750 + 1) + 5750),
+      low: Math.floor(Math.random() * (5750 - 5500 + 1) + 5500)
+    },
+    {
+      day: moment().add(1, "days").format('dddd'),
+      high: Math.floor(Math.random() * (6000 - 5750 + 1) + 5750),
+      low: Math.floor(Math.random() * (5750 - 5500 + 1) + 5500)
+    },
+    {
+      day: moment().add(2, "days").format('dddd'),
+      high: Math.floor(Math.random() * (6000 - 5750 + 1) + 5750),
+      low: Math.floor(Math.random() * (5750 - 5500 + 1) + 5500)
+    },
+    {
+      day: moment().add(3, "days").format('dddd'),
+      high: Math.floor(Math.random() * (6000 - 5750 + 1) + 5750),
+      low: Math.floor(Math.random() * (5750 - 5500 + 1) + 5500)
+    },
+    {
+      day: moment().add(4, "days").format('dddd'),
+      high: Math.floor(Math.random() * (6000 - 5750 + 1) + 5750),
+      low: Math.floor(Math.random() * (5750 - 5500 + 1) + 5500)
+    },
+    {
+      day: moment().add(5, "days").format('dddd'),
+      high: Math.floor(Math.random() * (6000 - 5750 + 1) + 5750),
+      low: Math.floor(Math.random() * (5750 - 5500 + 1) + 5500)
+    },
+    {
+      day: moment().add(6, "days").format('dddd'),
+      high: Math.floor(Math.random() * (6000 - 5750 + 1) + 5750),
+      low: Math.floor(Math.random() * (5750 - 5500 + 1) + 5500)
     },
   ]
 
-  console.log(forecast[0])
+  
 }
 
 // logic.display selected units
