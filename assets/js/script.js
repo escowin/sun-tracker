@@ -97,6 +97,25 @@ function formatDate(data) {
   console.log(formattedDate)
 //   return `${formattedDate} ${id}`;
 }
+
+// non-api functions
+function displayForecast() {
+  const day2El = document.querySelector("#day-2");
+  const day3El = document.querySelector("#day-3");
+  const day4El = document.querySelector("#day-4");
+  const day5El = document.querySelector("#day-5");
+
+  const forecast = [
+    {
+      day: moment().format('dddd'),
+      high: Math.floor(Math.random() * (6000 - 5500 + 1) + 5500),
+      low: Math.floor(Math.random() * (6000 - 5500 + 1) + 5500)
+    },
+  ]
+
+  console.log(forecast[0])
+}
+
 // logic.display selected units
 // function displayUnits(au, lm, km, mi) {
 //    const temp = 5772;
@@ -173,50 +192,11 @@ function formatDate(data) {
 // };
 
 // logic.display days of the week
-// function forecast() {
-//    const day2El = document.querySelector("#day-2");
-//    const day3El = document.querySelector("#day-3");
-//    const day4El = document.querySelector("#day-4");
-//    const day5El = document.querySelector("#day-5");
+function forecast() {
 
-//    const tomorrow = moment().add(1, "days");
-//    day2El.textContent = tomorrow.format("dddd");
+};
 
-//    const day3 = moment().add(2, "days");
-//    day3El.textContent = day3.format("dddd");
 
-//    const day4 = moment().add(3, "days");
-//    day4El.textContent = day4.format("dddd");
-
-//    const day5 = moment().add(4, "days");
-//    day5El.textContent = day5.format("dddd");
-// };
-
-// logic.display api data
-// function displayCoronalMassEjections(CME) {
-//    const cmeTimeEl = document.querySelector("#cme-time");
-//    const cmeLatitudeEl = document.querySelector("#cme-latitude");
-//    const cmeLongitudeEl = document.querySelector("#cme-longitude");
-//    const cmeAngleEl = document.querySelector("#cme-angle");
-//    const cmeSpeedEl = document.querySelector("#cme-speed");
-//    const cmeTypeEl = document.querySelector("#cme-type");
-//    const cmeNoteEl = document.querySelector("#cme-note");
-
-//    // get latest coronal mass ejection data
-//    latestCME = CME[CME.length - 1];
-
-//    // reformat time
-//    const startTime = moment(latestCME.startTime).format("dddd, MMMM Do h:mm a");
-
-//    // display data
-//    cmeTimeEl.textContent = startTime;
-//    cmeLatitudeEl.textContent = `${latestCME.cmeAnalyses[0].latitude}°`;
-//    cmeLongitudeEl.textContent = `${latestCME.cmeAnalyses[0].longitude}°`;
-//    cmeAngleEl.textContent = `${latestCME.cmeAnalyses[0].halfAngle}°`;
-//    cmeSpeedEl.textContent = `${latestCME.cmeAnalyses[0].speed} kph`;
-//    cmeTypeEl.textContent = latestCME.cmeAnalyses[0].type;
-//    cmeNoteEl.textContent = latestCME.note;
-// };
 
 // function displaySolarFlares(FLR) {
 //    const flrDateEl = document.querySelector("#flr-date");
@@ -264,4 +244,5 @@ function formatDate(data) {
 // getCoronalMassEjections();
 // getSolarFlares();
 
-getApi();
+// getApi();
+displayForecast();
