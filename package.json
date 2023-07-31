@@ -1,22 +1,25 @@
 {
-  "name": "helios",
+  "name": "solData",
   "version": "1.0.0",
-  "description": "* [Repo](https://github.com/escowin/solar-weather-app)",
+  "description": "PWA that tracks Sun activity with data provided by NASA's DONKI API",
   "main": "index.js",
   "scripts": {
+    "webpack": "webpack --watch",
+    "build": "webpack",
+    "start:dev": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/escowin/helios.git"
+    "url": "git+https://github.com/escowin/solData.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/escowin/helios/issues"
+    "url": "https://github.com/escowin/solData/issues"
   },
-  "homepage": "https://github.com/escowin/helios#readme",
+  "homepage": "https://github.com/escowin/solData#readme",
   "dependencies": {
     "image-webpack-loader": "^8.1.0"
   },
