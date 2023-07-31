@@ -1,6 +1,6 @@
 {
-  "name": "solData",
-  "version": "1.0.0",
+  "name": "sol-data",
+  "version": "2.0.0",
   "description": "PWA that tracks Sun activity with data provided by NASA's DONKI API",
   "main": "index.js",
   "scripts": {
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/escowin/solData.git"
+    "url": "git+https://github.com/escowin/sol-data.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/escowin/solData/issues"
+    "url": "https://github.com/escowin/sol-data/issues"
   },
-  "homepage": "https://github.com/escowin/solData#readme",
+  "homepage": "https://github.com/escowin/sol-data#readme",
   "dependencies": {
     "image-webpack-loader": "^8.1.0"
   },
