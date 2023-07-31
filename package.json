@@ -1,0 +1,31 @@
+{
+  "name": "helios",
+  "version": "1.0.0",
+  "description": "* [Repo](https://github.com/escowin/solar-weather-app)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/escowin/helios.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/escowin/helios/issues"
+  },
+  "homepage": "https://github.com/escowin/helios#readme",
+  "dependencies": {
+    "image-webpack-loader": "^8.1.0"
+  },
+  "devDependencies": {
+    "file-loader": "^6.2.0",
+    "webpack": "^5.88.2",
+    "webpack-bundle-analyzer": "^4.9.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "webpack-pwa-manifest": "^4.3.0"
+  }
+}
