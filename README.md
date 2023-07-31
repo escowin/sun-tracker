@@ -1,36 +1,43 @@
 
-# solar-weather-app
+# sol-data
 
-  * [Repo](https://github.com/escowin/solar-weather-app)
-
-  * [Live URL](https://escowin.github.io/solar-weather-app)
-  
 ## Description
-
-  Taking a trip to the sun, but don't know what to pack? Look no further. Checkout the latest solar temperature and activity right here.
-
-## Languages
-
-  CSS, HTML, JavaScript, ES6, Moment.js, jQuery
-
+[Repo](https://github.com/escowin/sol-data) |
+[Live URL](https://escowin.github.io/sol-data)
+    
+PWA that tracks Sun activity (coronal mass ejections, solar flares) with data provided by NASA's DONKI API.
+  
 ## Table of Contents
+- [Installation](#installation)
+- [Test](#test)
+- [Usage](#usage)
+- [Features](#features)
+- [Credits](#credits)
+- [Author](#author)
 
-  * [Screenshots](#screenshots)
+## Installation
+- Open [live URL](https://escowin.github.io/sol-data) in browser. 
+- On desktop, click 'Install solData' icon in address bar.
+- On iOS, click 'Add to Home Screen'.
 
-  * [Author](#author)
+## Usage
 
-## Screenshots
+![mobile](./assets/images/screenshots/sol-data-sm.jpg)
 
-![mobile display](./assets/images/screenshot/solar-weather-mobile.jpg)
+![tablet](./assets/images/screenshots/sol-data-md.jpg)
 
-![tablet display](./assets/images/screenshot/solar-weather-tablet.jpg)
+![desktop](./assets/images/screenshots/sol-data-lg.jpg)
 
-![desktop display](./assets/images/screenshot/solar-weather-desktop.jpg)
+## Features
+- PWA installation (see: [Installation](#installation))
+- Lighthouse Score: 55 | 100 | 100 | 91 | \-
+
+## Credits
+- Languages: HTML, CSS, JavaScript
+- Libraries: [moment](https://github.com/moment/moment), [jQuery](https://api.jquery.com/), [webpack](https://github.com/webpack/webpack), et al.
+- Databases: [DONKI (NASA API)](https://ccmc.gsfc.nasa.gov/tools/DONKI/), Cache Storage
 
 ## Author
-
-  Edwin Escobar
-
-  * [Email](mailto:edwin@escowinart.com)
-
-  * [GitHub](https://github.com/escowin)
+### Edwin Escobar
+- [Email](mailto:edwin@escowinart.com)
+- [GitHub](https://github.com/escowin)
