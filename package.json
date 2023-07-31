@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/escowin/sol-data#readme",
   "dependencies": {
-    "image-webpack-loader": "^8.1.0"
+    "image-webpack-loader": "^8.1.0",
+    "jquery": "^3.7.0",
+    "moment": "^2.29.4"
   },
   "devDependencies": {
     "file-loader": "^6.2.0",
