@@ -1,13 +1,13 @@
 
-# sol-data
+# sun-tracker
 
 ## Description
-[Repo](https://github.com/escowin/sol-data) |
-[Live URL](https://escowin.github.io/sol-data)
+[Repo](https://github.com/escowin/sun-tracker) |
+[Live URL](https://escowin.github.io/sun-tracker)
     
-PWA that tracks Sun activity (coronal mass ejections, solar flares) with data provided by NASA's DONKI API. 
+PWA that tracks Sun activity (coronal mass ejections, solar flares) with data provided by NASA's DONKI API. Methods performed on `Math` namespace object to calculate current stats and to convert between SI, metric, and imperial measurements. Web API
 
-Initially, this application was an exercise in Array iteration, ES6 synatx, DOM manipulation, Third-Party API methods, and fetch requests. Now, I have learned to further optimize applications through Lighthouse audits, minifying the codebase, and using cache data to enable offline functionality. 
+Initially, this application was an exercise in JavaScript math, array iteration, ES6 synatx, DOM manipulation, and Third-Party API methods. Through Lighthouse audits & webpack configurations, I have further pushed my understanding of application optimization, offline functionality & PWA installability.
 
 ## Table of Contents
 - [Installation](#installation)
@@ -18,17 +18,17 @@ Initially, this application was an exercise in Array iteration, ES6 synatx, DOM 
 - [Author](#author)
 
 ## Installation
-- Open [live URL](https://escowin.github.io/sol-data) in browser. 
+- Open [live URL](https://escowin.github.io/sun-tracker) in browser. 
 - On desktop, click 'Install solData' icon in address bar.
 - On iOS, click 'Add to Home Screen'.
 
 ## Usage
 
-![mobile](./assets/images/screenshots/sol-data-sm.jpg)
+![mobile](./assets/images/screenshots/sun-tracker-sm.jpg)
 
-![tablet](./assets/images/screenshots/sol-data-md.jpg)
+![tablet](./assets/images/screenshots/sun-tracker-md.jpg)
 
-![desktop](./assets/images/screenshots/sol-data-lg.jpg)
+![desktop](./assets/images/screenshots/sun-tracker-lg.jpg)
 
 ## Features
 - PWA installation (see: [Installation](#installation))
