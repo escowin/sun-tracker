@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const WebpackPwaManifest = require("webpack-pwa-manifest");
 // to-do: css stylesheets & background image
 
 module.exports = {
@@ -48,6 +49,23 @@ module.exports = {
       // note : moment.js takes up 679.35KB/1.04MB
       analyzerMode: "disable",
     }),
+    new WebpackPwaManifest({
+      // `manifest.json` object key-values
+      publicPath: "./",
+      name: "solData",
+      short_name: "sol-data",
+      description: "tracks sun activitiy with math formulas, and fetching API data",
+      start_url: "../index.html",
+      background_color:  "#860e0e",
+      theme_color: "#bf9732",
+      fingerprints: false,
+      inject: false,
+      icons: [{
+        src: path.resolve("./assets/images/icons/icon-512x512.png"),
+        sizes: [96, 128, 192, 256, 384, 512],
+        destination: path.join("assets", "icons")
+      }]
+    })
   ],
   mode: "development", // webpack runs during development
   devServer: { static: "./" }, // non-webpack content loads from root in development environment
