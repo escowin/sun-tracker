@@ -30,7 +30,11 @@ PWA that tracks Sun activity (coronal mass ejections, solar flares) with data pr
 
 ## Features
 - PWA installation (see: [Installation](#installation))
-- Lighthouse Score: 55 | 100 | 100 | 91 | \-
+- Lighthouse Score: 
+``````
+Orignal : 54 | 100 | 100 | 91 | -
+Current : 55 | 100 | 100 | 91 | -
+``````
 
 ## Credits
 - Languages: HTML, CSS, JavaScript
