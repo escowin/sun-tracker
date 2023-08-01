@@ -6,7 +6,7 @@
 }
 
 :root {
-    --primary: rgba(28, 23, 23, .8);
+    --primary: rgba(28, 23, 23, 0.8);
     --secondary: rgba(245, 220, 220, 0.9);
     --tertiary: rgba(134, 14, 14, 0.9);
     --accent: rgb(156, 84, 62);
