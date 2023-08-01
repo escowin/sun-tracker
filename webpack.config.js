@@ -52,8 +52,8 @@ module.exports = {
     new WebpackPwaManifest({
       // `manifest.json` object key-values
       publicPath: "./",
-      name: "solData",
-      short_name: "sol-data",
+      name: "Sun tracker",
+      short_name: "sun-tracker",
       description: "tracks sun activitiy with math formulas, and fetching API data",
       start_url: "../index.html",
       background_color:  "#860e0e",
