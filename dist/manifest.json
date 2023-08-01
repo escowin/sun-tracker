@@ -31,8 +31,8 @@
       "type": "image/png"
     }
   ],
-  "name": "solData",
-  "short_name": "sol-data",
+  "name": "Sun tracker",
+  "short_name": "sun-tracker",
   "orientation": "portrait",
   "display": "standalone",
   "start_url": "../index.html",
