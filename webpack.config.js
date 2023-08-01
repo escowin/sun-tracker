@@ -37,7 +37,6 @@ module.exports = {
       },
     ],
   },
-  mode: "development", // webpack runs during development
   plugins: [
     new webpack.ProvidePlugin({
       $: "jquery",
@@ -46,8 +45,10 @@ module.exports = {
     }),
     new BundleAnalyzerPlugin({
       // outputs `report.html` in `dist`. "disable" stops report generation
-      // note : moment.js takes up 679.35KB/1.04MB        
-      analyzerMode: "static",
+      // note : moment.js takes up 679.35KB/1.04MB
+      analyzerMode: "disable",
     }),
   ],
+  mode: "development", // webpack runs during development
+  devServer: { static: "./" }, // non-webpack content loads from root in development environment
 };

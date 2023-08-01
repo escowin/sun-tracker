@@ -1,151 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/styles.css">
-    <script src="./dist/main.bundle.js" defer></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <script defer src="./dist/main.bundle.js"></script>
+    <script defer>
+      (function () {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker
+            .register("./service-worker.js")
+            .then(() => console.log("registered service worker"))
+            .catch((error) => console.log("service worker registration failed"));
+        }
+      })();
+    </script>
     <title>solData</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        &copy; <span id="copyright-year"></span> <a href="https://github.com/escowin/solar-weather-app/" target="_blank" class="link">Edwin m. escobar</a>
+      &copy; <span id="copyright-year"></span>
+      <a
+        href="https://github.com/escowin/solar-weather-app/"
+        target="_blank"
+        class="link"
+        >Edwin m. escobar</a
+      >
     </header>
     <main>
-        <section id="header">
-            <h1 id="title">Sun &#8857;</h1>
+      <section id="header">
+        <h1 id="title">Sun &#8857;</h1>
+        <div class="sun"></div>
+        <div id="current-temp">
+          H:<span class="temp">5772 K</span>&emsp;
+          <span class="desktop"><br /></span>
+          L:<span class="temp">5772 K</span>
+        </div>
+
+        <fieldset class="units" id="temp-units">
+          <input type="radio" id="kelvin" name="temp-unit" />
+          <label for="kelvin">K</label>
+
+          <input type="radio" id="celsius" name="temp-unit" />
+          <label for="celsius">C&deg;</label>
+
+          <input type="radio" id="fahrenheit" name="temp-unit" />
+          <label for="fahrenheit">F&deg;</label>
+        </fieldset>
+        <p class="date" id="current-date"></p>
+      </section>
+
+      <section id="forecast">
+        <h2 class="subheader">5-day forecast</h2>
+        <div id="forecast-container">
+          <article class="day">
+            <p id="day-1">Today</p>
             <div class="sun"></div>
-            <div id="current-temp">
-                H:<span class="temp">5772 K</span>&emsp;
-                <span class="desktop"><br/></span>
-                L:<span class="temp">5772 K</span>
-            </div>
-
-            <fieldset class="units" id="temp-units">
-                <input type="radio" id="kelvin" name="temp-unit">
-                <label for="kelvin">K</label>
-
-                <input type="radio" id="celsius" name="temp-unit">
-                <label for="celsius">C&deg;</label>
-
-                <input type="radio" id="fahrenheit" name="temp-unit">
-                <label for="fahrenheit">F&deg;</label>
-            </fieldset>                
-            <p class="date" id="current-date"></p>
-        </section>
-
-        <section id="forecast">
-            <h2 class="subheader">5-day forecast</h2>
-            <div id="forecast-container">
-                <article class="day">
-                    <p id="day-1">Today</p>
-                    <div class="sun"></div>
-                    <p class="temp">5772 K</p>
-                </article>
-                <article class="day">
-                    <p id="day-2"></p>
-                    <div class="sun"></div>
-                    <p class="temp">5772 K</p>
-                </article>
-                <article class="day">
-                    <p id="day-3"></p>
-                    <div class="sun"></div>
-                    <p class="temp">5772 K</p>
-                </article>
-                <article class="day">
-                    <p id="day-4"></p>
-                    <div class="sun"></div>
-                    <p class="temp">5772 K</p>
-                </article>
-                <article class="day">
-                    <p id="day-5"></p>
-                    <div class="sun"></div>
-                    <p class="temp">5772 K</p>
-                </article>
-            </div>
-        </section>
-
-        <section class="section" id="current-stats">
-            <h2 class="subheader">Current stats</h2>
+            <p class="temp">5772 K</p>
+          </article>
+          <article class="day">
+            <p id="day-2"></p>
             <div class="sun"></div>
+            <p class="temp">5772 K</p>
+          </article>
+          <article class="day">
+            <p id="day-3"></p>
+            <div class="sun"></div>
+            <p class="temp">5772 K</p>
+          </article>
+          <article class="day">
+            <p id="day-4"></p>
+            <div class="sun"></div>
+            <p class="temp">5772 K</p>
+          </article>
+          <article class="day">
+            <p id="day-5"></p>
+            <div class="sun"></div>
+            <p class="temp">5772 K</p>
+          </article>
+        </div>
+      </section>
 
-            <div id="sun-details">
-                <p>Spectral</p>
-                <p>G2V</p>
+      <section class="section" id="current-stats">
+        <h2 class="subheader">Current stats</h2>
+        <div class="sun"></div>
 
-                <p>Luminosity</p>
-                <p>
-                    L<span class="sub">&#8857;</span> = 4&#960;kI<span class="sub">&#8857;</span>A<span class="sup">2</span>
-                </p>
+        <div id="sun-details">
+          <p>Spectral</p>
+          <p>G2V</p>
 
-                <p>Metallicity</p>
-                <p>Z = 0.0122</p>
+          <p>Luminosity</p>
+          <p>
+            L<span class="sub">&#8857;</span> = 4&#960;kI<span class="sub"
+              >&#8857;</span
+            >A<span class="sup">2</span>
+          </p>
 
-                <p>Distance</p>
-                <p>
-                    <span id="light-minute"></span><br>
-                    (<span id="distance">1 au</span>)
-                </p>
+          <p>Metallicity</p>
+          <p>Z = 0.0122</p>
 
-            </div>
-        </section>
+          <p>Distance</p>
+          <p>
+            <span id="light-minute"></span><br />
+            (<span id="distance">1 au</span>)
+          </p>
+        </div>
+      </section>
 
-        <section class="section" id="recent">
-            <h2 class="subheader">Recent activity</h2>
+      <section class="section" id="recent">
+        <h2 class="subheader">Recent activity</h2>
 
-            <article class="article" id="coronal-mass-ejection">
-                <h3>Coronal mass ejection</h3>
-                <p class="time" id="cme-time">time</p>
+        <article class="article" id="coronal-mass-ejection">
+          <h3>Coronal mass ejection</h3>
+          <p class="time" id="cme-time">time</p>
 
-                <p>&sdot; latitude</p>
-                <p><span id="cme-latitude"></span></p>
+          <p>&sdot; latitude</p>
+          <p><span id="cme-latitude"></span></p>
 
-                <p>&sdot; longitude</p>
-                <p><span id="cme-longitude"></span></p>
+          <p>&sdot; longitude</p>
+          <p><span id="cme-longitude"></span></p>
 
-                <p>&sdot; half &angle;</p>
-                <p><span id="cme-angle"></span></p>
+          <p>&sdot; half &angle;</p>
+          <p><span id="cme-angle"></span></p>
 
-                <p>&sdot; speed</p>
-                <p><span id="cme-speed"></span></p>
+          <p>&sdot; speed</p>
+          <p><span id="cme-speed"></span></p>
 
-                <p>&sdot; type</p>
-                <p><span id="cme-type"></span></p>
+          <p>&sdot; type</p>
+          <p><span id="cme-type"></span></p>
 
-                <br>
-                <p id="cme-note">Note</p>
-            </article>
+          <br />
+          <p id="cme-note">Note</p>
+        </article>
 
-            <article class="article" id="solar-flare">
-                <h3>Solar flare</h3>
-                <p class="time" id="flr-date">time</p>
+        <article class="article" id="solar-flare">
+          <h3>Solar flare</h3>
+          <p class="time" id="flr-date">time</p>
 
-                <p>&sdot; duration</p>
-                <p id="flr-duration"></p>
+          <p>&sdot; duration</p>
+          <p id="flr-duration"></p>
 
-                <p class="indent">start</p>
-                <p class="indent"><span id="flr-begin"></span></p>
+          <p class="indent">start</p>
+          <p class="indent"><span id="flr-begin"></span></p>
 
-                <p class="indent">peak</p>
-                <p class="indent"><span id="flr-peak"></span></p>
+          <p class="indent">peak</p>
+          <p class="indent"><span id="flr-peak"></span></p>
 
-                <p class="indent">end</p>
-                <p class="indent"><span id="flr-end"></span></p>
+          <p class="indent">end</p>
+          <p class="indent"><span id="flr-end"></span></p>
 
-                <p>&sdot; active region</p>
-                <p id="flr-region"></p>
+          <p>&sdot; active region</p>
+          <p id="flr-region"></p>
 
-                <p>&sdot; location</p>
-                <p><span id="flr-location"></span></p>
+          <p>&sdot; location</p>
+          <p><span id="flr-location"></span></p>
 
-                <p>&sdot; class</p>
-                <p><span id="flr-class"></span></p>
-            </article>
-        </section>
-        <section id="api-info">
-            <p>Powered by <a href="https://api.nasa.gov/" target="_blank">NASA DONKI</a></p>
-        </section>
+          <p>&sdot; class</p>
+          <p><span id="flr-class"></span></p>
+        </article>
+      </section>
+      <section id="api-info">
+        <p>
+          Powered by
+          <a href="https://api.nasa.gov/" target="_blank">NASA DONKI</a>
+        </p>
+      </section>
     </main>
-</body>
+  </body>
 </html>
