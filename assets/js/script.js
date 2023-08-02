@@ -1,8 +1,4 @@
-const dayjs = require("dayjs");
-const utc = require('dayjs-plugin-utc')
-const advancedFormat = require('dayjs/plugin/advancedFormat')
-dayjs.extend(utc);
-dayjs.extend(advancedFormat)
+const formattedTime = require("./time");
 
 // data.dom
 const selectUnits = document.querySelector("#temp-units");
@@ -65,21 +61,14 @@ const currentDistance = function () {
   displayUnits(au, lm, km, mi);
 };
 
-// logic.display copyright year
-const copyrightYear = function () {
-  let year = new Date().getFullYear();
-  const copyrightYearEl = document.querySelector("#copyright-year");
-  copyrightYearEl.textContent = year;
-};
-
 // logic.display current date
-const currentDate = function () {
-  const now = dayjs()
-  console.log(now)
-  const year = dayjs().format("YYYY");
-  const today = dayjs().format("MMMM Do")
+function currentDate() {
+  const { now, year } = formattedTime;
   const currentDateEl = document.querySelector("#current-date");
-  currentDateEl.textContent = today;
+  const copyrightYearEl = document.querySelector("#copyright-year");
+
+  currentDateEl.textContent = now;
+  copyrightYearEl.textContent = year;
   console.log(`
    \u00A9 ${year} Edwin M. Escobar
    https://github.com/escowin/sun-tracker
@@ -168,38 +157,36 @@ const displaySolarFlares = function (FLR) {
 
 // logic.api set-up
 // to-do : hide real api key
-const apiKey = "DEMO_KEY";
-const startDate = dayjs().subtract(7, "day").format("YYYY-MM-DD");
-const endDate = dayjs().format("YYYY-MM-DD");
+function apiCalls() {
+  const apiKey = "DEMO_KEY";
+  const { apiStart, apiEnd } = formattedTime;
 
-const getCoronalMassEjections = function () {
-  const apiUrl = `https://api.nasa.gov/DONKI/CME?startDate=${startDate}&endDate=${endDate}&api_key=${apiKey}`;
+  getCoronalMassEjections(apiKey, apiStart, apiEnd);
+  getSolarFlares(apiKey, apiStart, apiEnd);
+}
+
+function getCoronalMassEjections(key, start, end) {
+  const apiUrl = `https://api.nasa.gov/DONKI/CME?startDate=${start}&endDate=${end}&api_key=${key}`;
 
   // fetching the array of recent coronal mass ejections
-  fetch(apiUrl).then(function (response) {
+  fetch(apiUrl).then((response) => {
     // method formats the response as json. returns a promise. the then() method captures the actual data
-    response.json().then(function (data) {
-      displayCoronalMassEjections(data);
-    });
+    response.json().then((data) => displayCoronalMassEjections(data));
   });
-};
+}
 
-const getSolarFlares = function () {
-  const apiUrl = `https://api.nasa.gov/DONKI/FLR?startDate=${startDate}&endDate=${endDate}&api_key=${apiKey}`;
+function getSolarFlares(key, start, end) {
+  const apiUrl = `https://api.nasa.gov/DONKI/FLR?startDate=${start}&endDate=${end}&api_key=${key}`;
 
   // fetching the array of recent solar flares
-  fetch(apiUrl).then(function (response) {
+  fetch(apiUrl).then((response) => {
     // method formats the response as json. returns a promise. the then() method captures the actual data
-    response.json().then(function (data) {
-      displaySolarFlares(data);
-    });
+    response.json().then((data) => displaySolarFlares(data));
   });
-};
+}
 
 // calls
-copyrightYear();
 currentDate();
 // forecast();
 currentDistance();
-getCoronalMassEjections();
-getSolarFlares();
+apiCalls();
