@@ -7,10 +7,11 @@ dayjs.extend(advancedFormat);
 const formattedTime = {
   dayjs,
   now: dayjs().utc().format(),
-  year: dayjs(now).format("YYYY"),
-  currentDate: dayjs(now).format("MMMM Do, YYYY"),
-  apiStart: dayjs(now).subtract(7, "days").format("YYYY-MM-DD"),
-  apiEnd: dayjs(now).format("YYYY-MM-DD"),
+  year: dayjs(this.now).format("YYYY"),
+  currentDate: dayjs(this.now).format("MMMM Do, YYYY"),
+  apiStart: dayjs(this.now).subtract(7, "days").format("YYYY-MM-DD"),
+  apiEnd: dayjs(this.now).format("YYYY-MM-DD"),
+  
   flareDuration: (start, end) => {
     const startTime = dayjs(start, "h:mm a");
     const endTime = dayjs(end, "h:mm a");

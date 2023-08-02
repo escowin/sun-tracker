@@ -6,7 +6,9 @@ const WebpackPwaManifest = require("webpack-pwa-manifest");
 
 module.exports = {
   // PWA configuraton settings
-  entry: "./assets/js/script.js",
+  entry:{
+     app: "./assets/js/script.js",
+    },
   output: {
     // saves bundle file to `dist/`
     path: path.resolve(__dirname, "dist"),
