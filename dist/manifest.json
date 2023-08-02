@@ -36,7 +36,7 @@
   "orientation": "portrait",
   "display": "standalone",
   "start_url": "../index.html",
-  "description": "tracks sun activitiy with math formulas, and fetching API data",
+  "description": "tracks Sun activity with math formulas & data fetched from NASA's DONKI API",
   "background_color": "#860e0e",
-  "theme_color": "#bf9732"
+  "theme_color": "#860e0e"
 }

@@ -42,11 +42,10 @@ module.exports = {
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery",
-      moment: "moment",
+      dayjs: "dayjs",
     }),
     new BundleAnalyzerPlugin({
       // outputs `report.html` in `dist`. "disable" stops report generation
-      // note : moment.js takes up 679.35KB/1.04MB
       analyzerMode: "disable",
     }),
     new WebpackPwaManifest({
@@ -54,10 +53,10 @@ module.exports = {
       publicPath: "./",
       name: "Sun tracker",
       short_name: "sun-tracker",
-      description: "tracks sun activitiy with math formulas, and fetching API data",
+      description: "tracks Sun activity with math formulas & data fetched from NASA's DONKI API",
       start_url: "../index.html",
       background_color:  "#860e0e",
-      theme_color: "#bf9732",
+      theme_color: "#860e0e", // nee bf9732
       fingerprints: false,
       inject: false,
       icons: [{

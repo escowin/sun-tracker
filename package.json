@@ -1,7 +1,7 @@
 {
-  "name": "sol-tracker",
+  "name": "sun-tracker",
   "version": "2.0.0",
-  "description": "PWA that tracks Sun activity with data provided by NASA's DONKI API",
+  "description": "PWA that tracks Sun activity with math formulas & data fetched from NASA's DONKI API",
   "main": "index.js",
   "scripts": {
     "webpack": "webpack --watch",
@@ -11,19 +11,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/escowin/sol-tracker.git"
+    "url": "git+https://github.com/escowin/sun-tracker.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/escowin/sol-tracker/issues"
+    "url": "https://github.com/escowin/sun-tracker/issues"
   },
-  "homepage": "https://github.com/escowin/sol-tracker#readme",
+  "homepage": "https://github.com/escowin/sun-tracker#readme",
   "dependencies": {
+    "dayjs": "^1.11.9",
+    "dayjs-plugin-utc": "^0.1.2",
     "image-webpack-loader": "^8.1.0",
-    "jquery": "^3.7.0",
-    "moment": "^2.29.4"
+    "jquery": "^3.7.0"
   },
   "devDependencies": {
     "file-loader": "^6.2.0",

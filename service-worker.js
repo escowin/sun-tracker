@@ -1,6 +1,6 @@
 // service worker enables offline functionality
 // development note: clear storage in devTools whenever changes are made to service worker
-const APP_PREFIX = "solData-";
+const APP_PREFIX = "SunTracker-";
 const VERSION = "2.0.0";
 const CACHE_NAME = APP_PREFIX + VERSION;
 
@@ -43,7 +43,7 @@ self.addEventListener("activate", (e) => {
 
 // fetches cache data
 self.addEventListener("fetch", (e) => {
-  console.log(e.request.url + " fetched");
+  console.log("fetched " + e.request.url);
   // method intercepts fetch requests
   e.respondWith(
     // methods checks if cache resource exists in `caches` to determine a cache or fetch request return
