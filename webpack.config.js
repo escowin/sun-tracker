@@ -2,7 +2,6 @@ const path = require("path");
 const webpack = require("webpack");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
-// to-do: css stylesheets & background image
 
 module.exports = {
   // PWA configuraton settings
@@ -17,26 +16,22 @@ module.exports = {
   module: {
     rules: [
       {
+        // preprocesses css stylesheets
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+      {
         // pre-processes image files using regex to search for `.jpg` extension
         test: /\.jpg$/i,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              esModule: false,
-              name(file) {
-                return "[path][name].[ext]";
-              },
-              publicPath: function (url) {
-                return url.replace("../", "/assets/");
-              },
-            },
-          },
-          {
-            // optimizes images
-            loader: "image-webpack-loader",
-          },
-        ],
+        type: "asset/resource", // Use asset/resource to handle images in CSS
+        generator: {
+          filename: "[path][name].[ext]",
+        },
+        exclude: [/node_modules/, /assets\/css/], // Exclude images from being processed in the CSS folder
+      },
+      {
+        // optimizes images
+        loader: "image-webpack-loader",
       },
     ],
   },
@@ -48,7 +43,7 @@ module.exports = {
     }),
     new BundleAnalyzerPlugin({
       // outputs `report.html` in `dist`. "disable" stops report generation
-      analyzerMode: "disable",
+      analyzerMode: "static",
     }),
     new WebpackPwaManifest({
       // `manifest.json` object key-values

@@ -8,8 +8,8 @@ const CACHE_NAME = APP_PREFIX + VERSION;
 const FILES_TO_CACHE = [
   "./index.html",
   "./assets/css/styles.css",
-  "./dist/main.bundle.js",
-  "./assets/images/background.jpg",
+  "./dist/app.bundle.js",
+  "./dist/images/background.jpg",
 ];
 
 // installs service worker

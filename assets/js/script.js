@@ -1,3 +1,4 @@
+import "../css/styles.css";
 const formattedTime = require("./time");
 
 // data.dom
@@ -73,7 +74,7 @@ function currentDate() {
    \u00A9 ${year} Edwin M. Escobar
    https://github.com/escowin/sun-tracker
    `);
-};
+}
 
 // logic.display days of the week
 // const forecast = function () {
@@ -158,7 +159,7 @@ const displaySolarFlares = function (FLR) {
 // logic.api set-up
 // to-do : hide real api key
 function apiCalls() {
-  const apiKey = "DEMO_KEY";
+  const apiKey = "UJO2NYWIRwCuDl6l431qKvjZviS8TPLUatA1E0xd";
   const { apiStart, apiEnd } = formattedTime;
 
   getCoronalMassEjections(apiKey, apiStart, apiEnd);
