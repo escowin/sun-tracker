@@ -83,8 +83,6 @@ function apiCalls() {
   const { apiStart, apiEnd } = formattedTime;
   const sunActivity = ["CME", "FLR"];
 
-  // getCoronalMassEjections(apiKey, apiStart, apiEnd);
-  // getSolarFlares(apiKey, apiStart, apiEnd);
   sunActivity.forEach((activity) => {
     getSunActivity(activity, apiKey, apiStart, apiEnd);
   });
@@ -109,10 +107,13 @@ function displayCoronalMassEjections(CME) {
   // selects last object in CME array to get the most recent data
   const latestCME = CME[CME.length - 1];
   console.log(latestCME);
-
   // retrieves relevant variables through object destructuring
   const { startTime, note, sourceLocation, cmeAnalyses } = latestCME;
   const { latitude, longitude, halfAngle, speed, type } = cmeAnalyses[0];
+
+  console.log(startTime)
+  console.log(startTime)
+
 }
 
 function displaySolarFlares(FLR) {

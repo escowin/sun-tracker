@@ -5,18 +5,17 @@ dayjs.extend(utc);
 dayjs.extend(advancedFormat);
 
 const formattedTime = {
+  // variables
   dayjs,
   now: dayjs().utc().format(),
   year: dayjs(this.now).format("YYYY"),
   currentDate: dayjs(this.now).format("MMMM Do, YYYY"),
   apiStart: dayjs(this.now).subtract(7, "days").format("YYYY-MM-DD"),
   apiEnd: dayjs(this.now).format("YYYY-MM-DD"),
-  
-  flareDuration: (start, end) => {
-    const startTime = dayjs(start, "h:mm a");
-    const endTime = dayjs(end, "h:mm a");
-    return endTime.diff(startTime, "minute");
-  },
+
+  // functions to calculate & format UTC strings
+  calculateDuration: (start, end) => end.diff(start, "minute"),
+  formatDateTime: (string) => dayjs(string).format("MMMM Do, h:mm a"),
 };
 
 module.exports = formattedTime;
