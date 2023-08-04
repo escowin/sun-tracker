@@ -14,7 +14,7 @@ const formattedTime = {
   apiEnd: dayjs(this.now).format("YYYY-MM-DD"),
 
   // functions to calculate & format UTC strings
-  calculateDuration: (start, end) => end.diff(start, "minute"),
+  calculateDuration: (start, end) => dayjs(end).diff(dayjs(start), "minute"),
   formatDateTime: (string) => dayjs(string).local().format("MMMM Do, h:mm a"),
 };
 
