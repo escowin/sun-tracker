@@ -1,5 +1,6 @@
 import "../css/styles.css";
 const { formatDateTime, calculateDuration, ...time } = require("./time");
+const { mockFLR, mockCME } = require("./mock-data");
 
 // data.dom
 const selectUnits = document.querySelector("#temp-units");
@@ -77,24 +78,30 @@ function apiCalls() {
   const { apiStart, apiEnd } = time;
   const sunActivity = ["CME", "FLR"];
 
-  sunActivity.forEach((activity) =>
-    getSunActivity(
-      `${URL}/${activity}?startDate=${apiStart}&endDate=${apiEnd}&api_key=${key}`
-    )
-  );
+  // DEVELOPMENT CODE
+  displayCoronalMassEjections(mockCME);
+  displaySolarFlares(mockFLR);
+
+  //  PRODUCTION CODE
+  // sunActivity.forEach((activity) =>
+  //   getSunActivity(
+  //     `${URL}/${activity}?startDate=${apiStart}&endDate=${apiEnd}&api_key=${key}`
+  //   )
+  // );
 }
 
 // makes fetch requests to NASA API to get data,
 function getSunActivity(apiUrl) {
   fetch(apiUrl).then((res) => {
-    // formats response as a JSON object. URL composition determines function call
+    // formats response as a JSON object
     res.json().then((data) => {
+      // URL composition determines function call
       if (apiUrl.includes("CME")) {
         displayCoronalMassEjections(data);
       } else if (apiUrl.includes("FLR")) {
         displaySolarFlares(data);
       } else {
-        console.log("failed fetch request")
+        console.log("failed fetch request");
       }
     });
   });
@@ -116,7 +123,7 @@ function displayCoronalMassEjections(CME) {
     speed,
     type,
   };
-  console.log(object);
+  console.log(CME);
 }
 
 function displaySolarFlares(FLR) {
@@ -131,6 +138,8 @@ function displaySolarFlares(FLR) {
     sourceLocation,
     classType,
   } = latestFLR;
+
+  console.log(FLR);
 }
 
 // jquery functions execute once dom is fully loaded
