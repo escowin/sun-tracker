@@ -84,16 +84,19 @@ function apiCalls() {
   );
 }
 
-// makes fetch requests to NASA API to get data, 
+// makes fetch requests to NASA API to get data,
 function getSunActivity(apiUrl) {
-  // formats response as a JSON object. URL composition determines function call
   fetch(apiUrl).then((res) => {
-    if (apiUrl.includes("CME")) {
-      res.json().then((data) => displayCoronalMassEjections(data));
-    }
-    if (apiUrl.includes("FLR")) {
-      res.json().then((data) => displaySolarFlares(data));
-    }
+    // formats response as a JSON object. URL composition determines function call
+    res.json().then((data) => {
+      if (apiUrl.includes("CME")) {
+        displayCoronalMassEjections(data);
+      } else if (apiUrl.includes("FLR")) {
+        displaySolarFlares(data);
+      } else {
+        console.log("failed fetch request")
+      }
+    });
   });
 }
 
