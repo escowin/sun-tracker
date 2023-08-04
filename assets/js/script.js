@@ -8,6 +8,8 @@ const kelvinRadio = document.querySelector("#kelvin");
 const fahrenheitRadio = document.querySelector("#fahrenheit");
 const celsiusRadio = document.querySelector("#celsius");
 
+let cmeData;
+
 // logic.display selected units
 const displayUnits = function (au, lm, km, mi) {
   const temp = 5772;
@@ -114,7 +116,7 @@ function displayCoronalMassEjections(CME) {
   const { startTime, note, cmeAnalyses } = latestCME;
   const { latitude, longitude, halfAngle, speed, type } = cmeAnalyses[0];
   // CME object is
-  const object = {
+  cmeData = {
     startTime,
     note,
     latitude,
@@ -123,7 +125,6 @@ function displayCoronalMassEjections(CME) {
     speed,
     type,
   };
-  console.log(CME);
 }
 
 function displaySolarFlares(FLR) {
@@ -139,7 +140,7 @@ function displaySolarFlares(FLR) {
     classType,
   } = latestFLR;
 
-  console.log(FLR);
+  // console.log(FLR);
 }
 
 // jquery functions execute once dom is fully loaded
@@ -148,6 +149,7 @@ $(() => {
   $("#current-date").text(time.currentDate);
 
   $(".temp").text("jQuery test");
+  console.log(cmeData)
 });
 
 // calls
