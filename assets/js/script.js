@@ -1,5 +1,6 @@
 import "../css/styles.css";
-const formattedTime = require("./time");
+const { formatDateTime, calculateDuration, ...formattedTime} = require("./time");
+console.log(formattedTime)
 
 // data.dom
 const selectUnits = document.querySelector("#temp-units");
@@ -111,9 +112,8 @@ function displayCoronalMassEjections(CME) {
   const { startTime, note, sourceLocation, cmeAnalyses } = latestCME;
   const { latitude, longitude, halfAngle, speed, type } = cmeAnalyses[0];
 
-  console.log(startTime)
-  console.log(startTime)
-
+  const temp = formatDateTime(startTime)
+  console.log(temp)
 }
 
 function displaySolarFlares(FLR) {
