@@ -5,7 +5,13 @@ const { mockFLR, mockCME } = require("./mock-data");
 // let variables used to maintain seperation of concerns between js & jquery functions
 let cmeData;
 let flrData;
-let stats = { temp: 5772, distance };
+let stats = {
+  temp: 5772,
+  distance,
+  au,
+  spectral: "G2V",
+  metallicity: "Z = 0.0122",
+};
 
 // javascript functions handles data before the dom
 function currentDate() {
@@ -25,16 +31,16 @@ function currentDistance() {
   // earth-sun distance equation
   const orbit = (a * (1 - e * e)) / (1 + e * Math.cos(t));
   stats.distance = orbit;
+  stats.au = orbit / 149597870.7
 }
 
 // sets units by checked radio value
 function displayUnits(unit) {
   if (unit === "metric") {
     stats.temp = Math.round(stats.temp - 273.15);
-    stats.distance
+    stats.distance;
   }
   // convert to relevant units of length
-  // const au = stats.distance / 149597870.7;
   // const lm = stats.distance / 17987547.48;
   // const km = stats.distance;
   // const mi = stats.distance / 1.609344;
@@ -118,8 +124,11 @@ $(() => {
   // use event listener to tie radio
   displayUnits("metric");
   $(".temp").text(stats.temp);
+  $("#spectral").text(stats.spectral);
+  $("#metallicity").text(stats.metallicity);
+  $("#distance").text(stats.distance.toLocaleString("en-US"));
+  $("#au").text(`${stats.au.toLocaleString("en-US")} au`);
 
-  console.log(stats.distance);
   console.log(cmeData);
 });
 
