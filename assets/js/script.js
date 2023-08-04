@@ -1,6 +1,5 @@
 import "../css/styles.css";
-const { formatDateTime, calculateDuration, ...formattedTime} = require("./time");
-console.log(formattedTime)
+const { formatDateTime, calculateDuration, ...time } = require("./time");
 
 // data.dom
 const selectUnits = document.querySelector("#temp-units");
@@ -65,35 +64,29 @@ const currentDistance = function () {
 
 // logic.display current date
 function currentDate() {
-  const { now, year } = formattedTime;
-  const currentDateEl = document.querySelector("#current-date");
-  const copyrightYearEl = document.querySelector("#copyright-year");
-
-  currentDateEl.textContent = now;
-  copyrightYearEl.textContent = year;
   console.log(`
-   \u00A9 ${year} Edwin M. Escobar
+   \u00A9 ${time.year} Edwin M. Escobar
    https://github.com/escowin/sun-tracker
    `);
 }
 
-// logic.api set-up
-// to-do : hide real api key
+// variables used to dynamically create URL for fetch requests
 function apiCalls() {
-  const apiKey = "UJO2NYWIRwCuDl6l431qKvjZviS8TPLUatA1E0xd";
-  const { apiStart, apiEnd } = formattedTime;
+  const URL = "https://api.nasa.gov/DONKI";
+  const key = "UJO2NYWIRwCuDl6l431qKvjZviS8TPLUatA1E0xd";
+  const { apiStart, apiEnd } = time;
   const sunActivity = ["CME", "FLR"];
 
-  sunActivity.forEach((activity) => {
-    getSunActivity(activity, apiKey, apiStart, apiEnd);
-  });
+  sunActivity.forEach((activity) =>
+    getSunActivity(
+      `${URL}/${activity}?startDate=${apiStart}&endDate=${apiEnd}&api_key=${key}`
+    )
+  );
 }
 
-// makes fetch requests to NASA API to get data
-function getSunActivity(type, key, start, end) {
-  const apiUrl = `https://api.nasa.gov/DONKI/${type}?startDate=${start}&endDate=${end}&api_key=${key}`;
-
-  // fetch request response is formmated as a JSON object that is then passed as an argument depending on activity
+// makes fetch requests to NASA API to get data, 
+function getSunActivity(apiUrl) {
+  // formats response as a JSON object. URL composition determines function call
   fetch(apiUrl).then((res) => {
     if (apiUrl.includes("CME")) {
       res.json().then((data) => displayCoronalMassEjections(data));
@@ -107,22 +100,43 @@ function getSunActivity(type, key, start, end) {
 function displayCoronalMassEjections(CME) {
   // selects last object in CME array to get the most recent data
   const latestCME = CME[CME.length - 1];
-  console.log(latestCME);
   // retrieves relevant variables through object destructuring
-  const { startTime, note, sourceLocation, cmeAnalyses } = latestCME;
+  const { startTime, note, cmeAnalyses } = latestCME;
   const { latitude, longitude, halfAngle, speed, type } = cmeAnalyses[0];
-
-  const temp = formatDateTime(startTime)
-  console.log(temp)
+  // CME object is
+  const object = {
+    startTime,
+    note,
+    latitude,
+    longitude,
+    halfAngle,
+    speed,
+    type,
+  };
+  console.log(object);
 }
 
 function displaySolarFlares(FLR) {
   // get latest solar flare data
   const latestFLR = FLR[FLR.length - 1];
-  console.log(latestFLR);
   // retrieves relevant variables through object destructuring
-  const { beginTime, peakTime, endTime, activeRegionNum, sourceLocation, classType } = latestFLR;
+  const {
+    beginTime,
+    peakTime,
+    endTime,
+    activeRegionNum,
+    sourceLocation,
+    classType,
+  } = latestFLR;
 }
+
+// jquery functions execute once dom is fully loaded
+$(() => {
+  $("#copyright-year").text(time.year);
+  $("#current-date").text(time.currentDate);
+
+  $(".temp").text("jQuery test");
+});
 
 // calls
 currentDate();

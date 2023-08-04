@@ -4,7 +4,7 @@ const advancedFormat = require("dayjs/plugin/advancedFormat");
 dayjs.extend(utc);
 dayjs.extend(advancedFormat);
 
-const formattedTime = {
+const time = {
   // variables
   dayjs,
   now: dayjs().utc().format(),
@@ -18,4 +18,4 @@ const formattedTime = {
   formatDateTime: (string) => dayjs(string).local().format("MMMM Do, h:mm a"),
 };
 
-module.exports = formattedTime;
+module.exports = time;
