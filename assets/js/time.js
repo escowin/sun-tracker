@@ -5,7 +5,7 @@ dayjs.extend(utc);
 dayjs.extend(advancedFormat);
 
 const time = {
-  // time string variables
+  // time strings
   dayjs,
   now: dayjs().utc().format(),
   year: dayjs(this.now).format("YYYY"),

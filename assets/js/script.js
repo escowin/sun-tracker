@@ -1,5 +1,5 @@
 import "../css/styles.css";
-const { luminosity, pluralization, fluctuate} = require("./helper");
+const { luminosity, pluralization, fluctuate } = require("./helper");
 const {
   formatDateTime,
   formatDay,
@@ -9,7 +9,6 @@ const {
   forecast,
   ...time
 } = require("./time");
-const { mockFLR, mockCME } = require("./mock-data");
 
 // let variables used to maintain seperation of concerns between js & jquery functions
 let cmeData;
@@ -21,13 +20,11 @@ let stats = {
   luminosity: "L⊙ = 4πkI⊙A2",
 };
 
-// javascript functions handles data before the dom
-function currentDate() {
-  console.log(`
+// javascript functions handle data before the dom
+console.log(`
    \u00A9 ${time.year} Edwin M. Escobar
    https://github.com/escowin/sun-tracker
    `);
-}
 
 function currentDistance() {
   const date = new Date();
@@ -49,9 +46,9 @@ function currentDistance() {
 // sets units by checked radio value
 function displayUnits(unit) {
   const { kelvin } = stats;
-  let temp = fluctuate(kelvin)
-  let distance;
   // current set up will fluctuate temp each time a unit is selected
+  let temp = fluctuate(kelvin);
+  let distance;
 
   switch (unit) {
     case "metric":
@@ -66,7 +63,7 @@ function displayUnits(unit) {
       break;
     case "si":
       distance = stats.orbit / 17987547.48;
-      stats.distance = `${distance.toLocaleString("en-US")} ly`;
+      stats.distance = `${distance.toLocaleString("en-US")} lm`;
       stats.temp = `${temp} K`;
       break;
     default:
@@ -81,16 +78,12 @@ function apiCalls() {
   const { apiStart, apiEnd } = time;
   const sunActivity = ["CME", "FLR"];
 
-  // DEVELOPMENT CODE
-  displayCoronalMassEjections(mockCME);
-  displaySolarFlares(mockFLR);
-
-  //  PRODUCTION CODE
-  // sunActivity.forEach((activity) =>
-  //   getSunActivity(
-  //     `${URL}/${activity}?startDate=${apiStart}&endDate=${apiEnd}&api_key=${key}`
-  //   )
-  // );
+  // iterates through array to configure appropriate api url
+  sunActivity.forEach((activity) =>
+    getSunActivity(
+      `${URL}/${activity}?startDate=${apiStart}&endDate=${apiEnd}&api_key=${key}`
+    )
+  );
 }
 
 // makes fetch requests to NASA API to get data,
@@ -149,6 +142,7 @@ function displaySolarFlares(FLR) {
   };
 }
 
+// bug : sun activity properties are undefined in production
 // jquery functions manipulate DOM elements
 $(() => {
   // appends 5 forecast elements to forecast container
@@ -204,7 +198,5 @@ $(() => {
 });
 
 // calls
-currentDate();
 currentDistance();
-// setInterval(currentDistance, 5000);
 apiCalls();
