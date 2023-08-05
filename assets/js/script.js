@@ -6,6 +6,7 @@ const {
   calculateDuration,
   formatNow,
   formatTime,
+  forecast,
   ...time
 } = require("./time");
 const { mockFLR, mockCME } = require("./mock-data");
@@ -153,7 +154,7 @@ $(() => {
   // appends 5 forecast elements to forecast container
   for (let i = 0; i < 5; i++) {
     $("#forecast-container").append(`<article class="day">
-    <p>Today</p>
+    <p>${forecast(i)}</p>
     <div class="sun"></div>
     <p class="temp">${stats.temp}</p>
   </article>`);
