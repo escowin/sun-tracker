@@ -1,5 +1,10 @@
 import "../css/styles.css";
-const { formatDateTime, calculateDuration, ...time } = require("./time");
+const {
+  formatDateTime,
+  calculateDuration,
+  formatNow,
+  ...time
+} = require("./time");
 const { mockFLR, mockCME } = require("./mock-data");
 
 // let variables used to maintain seperation of concerns between js & jquery functions
@@ -20,7 +25,10 @@ function currentDate() {
 }
 
 function currentDistance() {
-  const totalDays = calculateDuration(time.perihelion, time.now, "day");
+  const date = new Date();
+  const now = formatNow(date);
+
+  const totalDays = calculateDuration(time.perihelion, now, "day");
   // time, semi-major axis, eccentricity
   const t = (totalDays * 365.25) / 360;
   const a = 149600000;
@@ -28,12 +36,14 @@ function currentDistance() {
 
   // earth-sun distance equation
   const orbit = (a * (1 - e * e)) / (1 + e * Math.cos(t));
+  // console.log(orbit)
   stats.orbit = orbit;
   stats.au = orbit / 149597870.7;
 }
 
 // sets units by checked radio value
 function displayUnits(unit) {
+  console.log(unit)
   const { kelvin } = stats;
   switch (unit) {
     case "metric":
@@ -44,9 +54,12 @@ function displayUnits(unit) {
       stats.temp = `${Math.round(kelvin * (9 / 5) - 459.76)}\u2109`;
       stats.distance = stats.orbit / 1.609344;
       break;
-    default:
+    case "si":
       stats.temp = `${kelvin} K`;
       stats.distance = stats.orbit / 17987547.48;
+      break;
+    default:
+      console.log("default case");
   }
 }
 
@@ -122,6 +135,11 @@ function displaySolarFlares(FLR) {
 
 // jquery functions manipulate DOM elements
 $(() => {
+  $("#kelvin").prop("checked", true);
+  displayUnits($("#kelvin").val())
+  $(".temp").text(stats.temp.toLocaleString("en-US"));
+  $("#distance").text(stats.distance.toLocaleString("en-US"));
+  
   // time
   $("#copyright-year").text(time.year);
   $("#current-date").text(time.currentDate);
@@ -135,10 +153,11 @@ $(() => {
     $("#distance").text(stats.distance.toLocaleString("en-US"));
   });
   $("#au").text(`${stats.au.toLocaleString("en-US")} au`);
-  console.log(cmeData);
+  // console.log(cmeData);
 });
 
 // calls
 currentDate();
 currentDistance();
+// setInterval(currentDistance, 5000);
 apiCalls();

@@ -8,7 +8,7 @@ const time = {
   // time string variables
   dayjs,
   now: dayjs().utc().format(),
-  year: dayjs(this.now).format("YYYY"),
+  year: (dayjs(this.now).format("YYYY")),
   currentDate: dayjs(this.now).format("MMMM Do, YYYY"),
   apiStart: dayjs(this.now).subtract(7, "days").format("YYYY-MM-DD"),
   apiEnd: dayjs(this.now).format("YYYY-MM-DD"),
@@ -18,6 +18,7 @@ const time = {
   // time functions
   calculateDuration: (start, end, length) => dayjs(end).diff(dayjs(start), length),
   formatDateTime: (string) => dayjs(string).local().format("MMMM Do, h:mm a"),
+  formatNow: (string) => dayjs(string).utc().format()
 };
 
 module.exports = time;
