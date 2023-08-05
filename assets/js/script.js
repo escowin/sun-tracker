@@ -6,9 +6,7 @@ const { mockFLR, mockCME } = require("./mock-data");
 let cmeData;
 let flrData;
 let stats = {
-  temp: 5772,
-  distance,
-  au,
+  kelvin: 5772,
   spectral: "G2V",
   metallicity: "Z = 0.0122",
 };
@@ -30,20 +28,26 @@ function currentDistance() {
 
   // earth-sun distance equation
   const orbit = (a * (1 - e * e)) / (1 + e * Math.cos(t));
-  stats.distance = orbit;
-  stats.au = orbit / 149597870.7
+  stats.orbit = orbit;
+  stats.au = orbit / 149597870.7;
 }
 
 // sets units by checked radio value
 function displayUnits(unit) {
-  if (unit === "metric") {
-    stats.temp = Math.round(stats.temp - 273.15);
-    stats.distance;
+  const { kelvin } = stats;
+  switch (unit) {
+    case "metric":
+      stats.temp = `${Math.round(kelvin - 273.15)}\u2103`;
+      stats.distance = stats.orbit;
+      break;
+    case "imperial":
+      stats.temp = `${Math.round(kelvin * (9 / 5) - 459.76)}\u2109`;
+      stats.distance = stats.orbit / 1.609344;
+      break;
+    default:
+      stats.temp = `${kelvin} K`;
+      stats.distance = stats.orbit / 17987547.48;
   }
-  // convert to relevant units of length
-  // const lm = stats.distance / 17987547.48;
-  // const km = stats.distance;
-  // const mi = stats.distance / 1.609344;
 }
 
 // variables used to dynamically create URL for fetch requests
@@ -122,8 +126,8 @@ $(() => {
   $("#copyright-year").text(time.year);
   $("#current-date").text(time.currentDate);
   // use event listener to tie radio
-  displayUnits("metric");
-  $(".temp").text(stats.temp);
+  displayUnits("imperial");
+  $(".temp").text(stats.temp.toLocaleString("en-US"));
   $("#spectral").text(stats.spectral);
   $("#metallicity").text(stats.metallicity);
   $("#distance").text(stats.distance.toLocaleString("en-US"));
@@ -135,5 +139,4 @@ $(() => {
 // calls
 currentDate();
 currentDistance();
-// calculateStats();
 apiCalls();
