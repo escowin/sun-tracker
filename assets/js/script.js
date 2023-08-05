@@ -50,6 +50,7 @@ function displayUnits(unit) {
   const { kelvin } = stats;
   let temp = fluctuate(kelvin)
   let distance;
+  // current set up will fluctuate temp each time a unit is selected
 
   switch (unit) {
     case "metric":
@@ -65,7 +66,7 @@ function displayUnits(unit) {
     case "si":
       distance = stats.orbit / 17987547.48;
       stats.distance = `${distance.toLocaleString("en-US")} ly`;
-      stats.temp = `${fluctuate(temp)} K`;
+      stats.temp = `${temp} K`;
       break;
     default:
       console.log("default case");
