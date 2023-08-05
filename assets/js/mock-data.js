@@ -1,372 +1,370 @@
 const mockFLR = [
-  [
-    {
-      flrID: "2023-07-28T15:39:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-07-28T15:39Z",
-      peakTime: "2023-07-28T15:58Z",
-      endTime: "2023-07-28T16:13Z",
-      classType: "M4.1",
-      sourceLocation: "N25W99",
-      activeRegionNum: 13376,
-      linkedEvents: [
-        {
-          activityID: "2023-07-28T15:53:00-CME-001",
-        },
-        {
-          activityID: "2023-07-28T18:12:00-SEP-001",
-        },
-        {
-          activityID: "2023-07-28T19:05:00-SEP-001",
-        },
-        {
-          activityID: "2023-07-28T19:19:00-SEP-001",
-        },
-        {
-          activityID: "2023-07-28T19:23:00-SEP-001",
-        },
-        {
-          activityID: "2023-07-28T23:50:00-SEP-001",
-        },
-        {
-          activityID: "2023-07-29T00:53:00-SEP-001",
-        },
-      ],
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26212/-1",
-    },
-    {
-      flrID: "2023-07-29T06:55:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-07-29T06:55Z",
-      peakTime: "2023-07-29T07:34Z",
-      endTime: "2023-07-29T08:12Z",
-      classType: "C6.7",
-      sourceLocation: "N15E88",
-      activeRegionNum: null,
-      linkedEvents: [
-        {
-          activityID: "2023-07-29T07:53:00-CME-001",
-        },
-      ],
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26240/-1",
-    },
-    {
-      flrID: "2023-07-29T16:11:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-07-29T16:11Z",
-      peakTime: "2023-07-29T16:24Z",
-      endTime: "2023-07-29T16:37Z",
-      classType: "M1.4",
-      sourceLocation: "S10W10",
-      activeRegionNum: 13380,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26248/-1",
-    },
-    {
-      flrID: "2023-07-30T08:01:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-07-30T08:01Z",
-      peakTime: "2023-07-30T08:14Z",
-      endTime: "2023-07-30T08:18Z",
-      classType: "M1.8",
-      sourceLocation: "S18E57",
-      activeRegionNum: 13390,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26265/-1",
-    },
-    {
-      flrID: "2023-07-30T08:18:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-07-30T08:18Z",
-      peakTime: "2023-07-30T08:22Z",
-      endTime: "2023-07-30T08:26Z",
-      classType: "M1.8",
-      sourceLocation: "S18E57",
-      activeRegionNum: 13390,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26257/-1",
-    },
-    {
-      flrID: "2023-07-31T08:42:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-07-31T08:42Z",
-      peakTime: "2023-07-31T09:00Z",
-      endTime: "2023-07-31T09:13Z",
-      classType: "M1.6",
-      sourceLocation: "S20E43",
-      activeRegionNum: 13390,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26266/-1",
-    },
-    {
-      flrID: "2023-08-01T01:38:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-08-01T01:38Z",
-      peakTime: "2023-08-01T01:56Z",
-      endTime: "2023-08-01T01:58Z",
-      classType: "M1.0",
-      sourceLocation: "S10W40",
-      activeRegionNum: 13380,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26269/-1",
-    },
-    {
-      flrID: "2023-08-01T01:58:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-08-01T01:58Z",
-      peakTime: "2023-08-01T02:03Z",
-      endTime: "2023-08-01T02:07Z",
-      classType: "M1.2",
-      sourceLocation: "S10W40",
-      activeRegionNum: 13380,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26270/-1",
-    },
-    {
-      flrID: "2023-08-01T04:27:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-08-01T04:27Z",
-      peakTime: "2023-08-01T04:47Z",
-      endTime: "2023-08-01T05:07Z",
-      classType: "M2.2",
-      sourceLocation: "S10W45",
-      activeRegionNum: 13380,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26271/-1",
-    },
-    {
-      flrID: "2023-08-01T05:30:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-08-01T05:30Z",
-      peakTime: "2023-08-01T05:37Z",
-      endTime: "2023-08-01T05:43Z",
-      classType: "M1.3",
-      sourceLocation: "S10W45",
-      activeRegionNum: 13380,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26272/-1",
-    },
-    {
-      flrID: "2023-08-01T06:28:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-08-01T06:28Z",
-      peakTime: "2023-08-01T06:57Z",
-      endTime: "2023-08-01T07:19Z",
-      classType: "M3.6",
-      sourceLocation: "S10W47",
-      activeRegionNum: 13380,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26275/-1",
-    },
-    {
-      flrID: "2023-08-01T09:03:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-08-01T09:03Z",
-      peakTime: "2023-08-01T09:09Z",
-      endTime: "2023-08-01T09:16Z",
-      classType: "M1.5",
-      sourceLocation: "S08W42",
-      activeRegionNum: 13380,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26276/-1",
-    },
-    {
-      flrID: "2023-08-01T14:03:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-08-01T14:03Z",
-      peakTime: "2023-08-01T14:09Z",
-      endTime: "2023-08-01T14:27Z",
-      classType: "M1.4",
-      sourceLocation: "S10W47",
-      activeRegionNum: 13380,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26280/-1",
-    },
-    {
-      flrID: "2023-08-01T19:48:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-08-01T19:48Z",
-      peakTime: "2023-08-01T20:08Z",
-      endTime: "2023-08-01T20:43Z",
-      classType: "C5.2",
-      sourceLocation: "N17E60",
-      activeRegionNum: null,
-      linkedEvents: [
-        {
-          activityID: "2023-08-01T20:36:00-CME-001",
-        },
-      ],
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26306/-1",
-    },
-    {
-      flrID: "2023-08-01T21:39:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-08-01T21:39Z",
-      peakTime: "2023-08-01T21:51Z",
-      endTime: "2023-08-01T21:58Z",
-      classType: "M1.0",
-      sourceLocation: "S10W51",
-      activeRegionNum: 13380,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26291/-1",
-    },
-    {
-      flrID: "2023-08-02T08:03:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-08-02T08:03Z",
-      peakTime: "2023-08-02T08:12Z",
-      endTime: "2023-08-02T08:21Z",
-      classType: "M1.3",
-      sourceLocation: "S14W60",
-      activeRegionNum: 13380,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26292/-1",
-    },
-    {
-      flrID: "2023-08-02T10:44:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-08-02T10:44Z",
-      peakTime: "2023-08-02T10:50Z",
-      endTime: "2023-08-02T10:54Z",
-      classType: "M1.2",
-      sourceLocation: "S10W61",
-      activeRegionNum: 13380,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26293/-1",
-    },
-    {
-      flrID: "2023-08-02T14:46:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-08-02T14:46Z",
-      peakTime: "2023-08-02T14:52Z",
-      endTime: "2023-08-02T14:56Z",
-      classType: "M1.6",
-      sourceLocation: "S10W63",
-      activeRegionNum: 13380,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26297/-1",
-    },
-    {
-      flrID: "2023-08-02T16:13:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-08-02T16:13Z",
-      peakTime: "2023-08-02T16:22Z",
-      endTime: "2023-08-02T16:26Z",
-      classType: "M1.3",
-      sourceLocation: "S10W63",
-      activeRegionNum: 13380,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26302/-1",
-    },
-    {
-      flrID: "2023-08-02T19:09:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-08-02T19:09Z",
-      peakTime: "2023-08-02T19:14Z",
-      endTime: "2023-08-02T19:21Z",
-      classType: "M1.1",
-      sourceLocation: "S10W66",
-      activeRegionNum: 13380,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26309/-1",
-    },
-    {
-      flrID: "2023-08-03T11:47:00-FLR-001",
-      instruments: [
-        {
-          displayName: "GOES-P: EXIS 1.0-8.0",
-        },
-      ],
-      beginTime: "2023-08-03T11:47Z",
-      peakTime: "2023-08-03T11:55Z",
-      endTime: "2023-08-03T11:59Z",
-      classType: "M2.0",
-      sourceLocation: "S10W72",
-      activeRegionNum: 13380,
-      linkedEvents: null,
-      link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26313/-1",
-    },
-  ],
+  {
+    flrID: "2023-07-28T15:39:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-07-28T15:39Z",
+    peakTime: "2023-07-28T15:58Z",
+    endTime: "2023-07-28T16:13Z",
+    classType: "M4.1",
+    sourceLocation: "N25W99",
+    activeRegionNum: 13376,
+    linkedEvents: [
+      {
+        activityID: "2023-07-28T15:53:00-CME-001",
+      },
+      {
+        activityID: "2023-07-28T18:12:00-SEP-001",
+      },
+      {
+        activityID: "2023-07-28T19:05:00-SEP-001",
+      },
+      {
+        activityID: "2023-07-28T19:19:00-SEP-001",
+      },
+      {
+        activityID: "2023-07-28T19:23:00-SEP-001",
+      },
+      {
+        activityID: "2023-07-28T23:50:00-SEP-001",
+      },
+      {
+        activityID: "2023-07-29T00:53:00-SEP-001",
+      },
+    ],
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26212/-1",
+  },
+  {
+    flrID: "2023-07-29T06:55:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-07-29T06:55Z",
+    peakTime: "2023-07-29T07:34Z",
+    endTime: "2023-07-29T08:12Z",
+    classType: "C6.7",
+    sourceLocation: "N15E88",
+    activeRegionNum: null,
+    linkedEvents: [
+      {
+        activityID: "2023-07-29T07:53:00-CME-001",
+      },
+    ],
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26240/-1",
+  },
+  {
+    flrID: "2023-07-29T16:11:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-07-29T16:11Z",
+    peakTime: "2023-07-29T16:24Z",
+    endTime: "2023-07-29T16:37Z",
+    classType: "M1.4",
+    sourceLocation: "S10W10",
+    activeRegionNum: 13380,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26248/-1",
+  },
+  {
+    flrID: "2023-07-30T08:01:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-07-30T08:01Z",
+    peakTime: "2023-07-30T08:14Z",
+    endTime: "2023-07-30T08:18Z",
+    classType: "M1.8",
+    sourceLocation: "S18E57",
+    activeRegionNum: 13390,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26265/-1",
+  },
+  {
+    flrID: "2023-07-30T08:18:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-07-30T08:18Z",
+    peakTime: "2023-07-30T08:22Z",
+    endTime: "2023-07-30T08:26Z",
+    classType: "M1.8",
+    sourceLocation: "S18E57",
+    activeRegionNum: 13390,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26257/-1",
+  },
+  {
+    flrID: "2023-07-31T08:42:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-07-31T08:42Z",
+    peakTime: "2023-07-31T09:00Z",
+    endTime: "2023-07-31T09:13Z",
+    classType: "M1.6",
+    sourceLocation: "S20E43",
+    activeRegionNum: 13390,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26266/-1",
+  },
+  {
+    flrID: "2023-08-01T01:38:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-08-01T01:38Z",
+    peakTime: "2023-08-01T01:56Z",
+    endTime: "2023-08-01T01:58Z",
+    classType: "M1.0",
+    sourceLocation: "S10W40",
+    activeRegionNum: 13380,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26269/-1",
+  },
+  {
+    flrID: "2023-08-01T01:58:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-08-01T01:58Z",
+    peakTime: "2023-08-01T02:03Z",
+    endTime: "2023-08-01T02:07Z",
+    classType: "M1.2",
+    sourceLocation: "S10W40",
+    activeRegionNum: 13380,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26270/-1",
+  },
+  {
+    flrID: "2023-08-01T04:27:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-08-01T04:27Z",
+    peakTime: "2023-08-01T04:47Z",
+    endTime: "2023-08-01T05:07Z",
+    classType: "M2.2",
+    sourceLocation: "S10W45",
+    activeRegionNum: 13380,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26271/-1",
+  },
+  {
+    flrID: "2023-08-01T05:30:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-08-01T05:30Z",
+    peakTime: "2023-08-01T05:37Z",
+    endTime: "2023-08-01T05:43Z",
+    classType: "M1.3",
+    sourceLocation: "S10W45",
+    activeRegionNum: 13380,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26272/-1",
+  },
+  {
+    flrID: "2023-08-01T06:28:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-08-01T06:28Z",
+    peakTime: "2023-08-01T06:57Z",
+    endTime: "2023-08-01T07:19Z",
+    classType: "M3.6",
+    sourceLocation: "S10W47",
+    activeRegionNum: 13380,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26275/-1",
+  },
+  {
+    flrID: "2023-08-01T09:03:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-08-01T09:03Z",
+    peakTime: "2023-08-01T09:09Z",
+    endTime: "2023-08-01T09:16Z",
+    classType: "M1.5",
+    sourceLocation: "S08W42",
+    activeRegionNum: 13380,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26276/-1",
+  },
+  {
+    flrID: "2023-08-01T14:03:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-08-01T14:03Z",
+    peakTime: "2023-08-01T14:09Z",
+    endTime: "2023-08-01T14:27Z",
+    classType: "M1.4",
+    sourceLocation: "S10W47",
+    activeRegionNum: 13380,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26280/-1",
+  },
+  {
+    flrID: "2023-08-01T19:48:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-08-01T19:48Z",
+    peakTime: "2023-08-01T20:08Z",
+    endTime: "2023-08-01T20:43Z",
+    classType: "C5.2",
+    sourceLocation: "N17E60",
+    activeRegionNum: null,
+    linkedEvents: [
+      {
+        activityID: "2023-08-01T20:36:00-CME-001",
+      },
+    ],
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26306/-1",
+  },
+  {
+    flrID: "2023-08-01T21:39:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-08-01T21:39Z",
+    peakTime: "2023-08-01T21:51Z",
+    endTime: "2023-08-01T21:58Z",
+    classType: "M1.0",
+    sourceLocation: "S10W51",
+    activeRegionNum: 13380,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26291/-1",
+  },
+  {
+    flrID: "2023-08-02T08:03:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-08-02T08:03Z",
+    peakTime: "2023-08-02T08:12Z",
+    endTime: "2023-08-02T08:21Z",
+    classType: "M1.3",
+    sourceLocation: "S14W60",
+    activeRegionNum: 13380,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26292/-1",
+  },
+  {
+    flrID: "2023-08-02T10:44:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-08-02T10:44Z",
+    peakTime: "2023-08-02T10:50Z",
+    endTime: "2023-08-02T10:54Z",
+    classType: "M1.2",
+    sourceLocation: "S10W61",
+    activeRegionNum: 13380,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26293/-1",
+  },
+  {
+    flrID: "2023-08-02T14:46:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-08-02T14:46Z",
+    peakTime: "2023-08-02T14:52Z",
+    endTime: "2023-08-02T14:56Z",
+    classType: "M1.6",
+    sourceLocation: "S10W63",
+    activeRegionNum: 13380,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26297/-1",
+  },
+  {
+    flrID: "2023-08-02T16:13:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-08-02T16:13Z",
+    peakTime: "2023-08-02T16:22Z",
+    endTime: "2023-08-02T16:26Z",
+    classType: "M1.3",
+    sourceLocation: "S10W63",
+    activeRegionNum: 13380,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26302/-1",
+  },
+  {
+    flrID: "2023-08-02T19:09:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-08-02T19:09Z",
+    peakTime: "2023-08-02T19:14Z",
+    endTime: "2023-08-02T19:21Z",
+    classType: "M1.1",
+    sourceLocation: "S10W66",
+    activeRegionNum: 13380,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26309/-1",
+  },
+  {
+    flrID: "2023-08-03T11:47:00-FLR-001",
+    instruments: [
+      {
+        displayName: "GOES-P: EXIS 1.0-8.0",
+      },
+    ],
+    beginTime: "2023-08-03T11:47Z",
+    peakTime: "2023-08-03T11:55Z",
+    endTime: "2023-08-03T11:59Z",
+    classType: "M2.0",
+    sourceLocation: "S10W72",
+    activeRegionNum: 13380,
+    linkedEvents: null,
+    link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26313/-1",
+  },
 ];
 
 const mockCME = [
@@ -1319,4 +1317,4 @@ const mockCME = [
   },
 ];
 
-module.exports = { mockCME, mockFLR }
+module.exports = { mockCME, mockFLR };

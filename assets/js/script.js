@@ -124,17 +124,22 @@ function displayCoronalMassEjections(CME) {
 function displaySolarFlares(FLR) {
   // get latest solar flare data
   const latestFLR = FLR[FLR.length - 1];
-  // retrieves relevant variables through object destructuring
-  const {
-    beginTime,
-    peakTime,
-    endTime,
-    activeRegionNum,
-    sourceLocation,
-    classType,
-  } = latestFLR;
 
-  // console.log(FLR);
+  const duration = calculateDuration(
+    latestFLR.beginTime,
+    latestFLR.endTime,
+    "minute"
+  );
+
+  flrData = {
+    beginTime: latestFLR.beginTime,
+    peakTime: latestFLR.peakTime,
+    endTime: latestFLR.endTime,
+    duration: duration,
+    activeRegionNum: latestFLR.activeRegionNum,
+    sourceLocation: latestFLR.sourceLocation,
+    classType: latestFLR.classType,
+  };
 }
 
 // jquery functions manipulate DOM elements
@@ -158,7 +163,25 @@ $(() => {
     $("#distance").text(stats.distance.toLocaleString("en-US"));
   });
   $("#au").text(`${stats.au.toLocaleString("en-US")} au`);
-  // console.log(cmeData);
+
+  // recent coronal mass ejection
+  $("#cme-time").text(cmeData.startTime);
+  $("#cme-latitude").text(cmeData.latitude);
+  $("#cme-longitude").text(cmeData.longitude);
+  $("#cme-angle").text(cmeData.halfAngle);
+  $("#cme-speed").text(cmeData.speed);
+  $("#cme-type").text(cmeData.type);
+  $("#cme-note").text(cmeData.note);
+
+  // recent solar flare
+  $("#flr-date").text(flrData.beginTime);
+  $("#flr-begin").text(flrData.beginTime);
+  $("#flr-peak").text(flrData.peakTime);
+  $("#flr-end").text(flrData.endTime);
+  $("#flr-duration").text(flrData.duration);
+  $("#flr-region").text(flrData.activeRegionNum);
+  $("#flr-location").text(flrData.sourceLocation);
+  $("#flr-class").text(flrData.classType);
 });
 
 // calls
