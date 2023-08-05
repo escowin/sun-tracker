@@ -125,14 +125,16 @@ $(() => {
   // time
   $("#copyright-year").text(time.year);
   $("#current-date").text(time.currentDate);
-  // use event listener to tie radio
-  displayUnits("imperial");
-  $(".temp").text(stats.temp.toLocaleString("en-US"));
   $("#spectral").text(stats.spectral);
   $("#metallicity").text(stats.metallicity);
-  $("#distance").text(stats.distance.toLocaleString("en-US"));
-  $("#au").text(`${stats.au.toLocaleString("en-US")} au`);
 
+  // use event listener to tie radio
+  $("#temp-units input").on("click", (e) => {
+    displayUnits(e.target.value);
+    $(".temp").text(stats.temp.toLocaleString("en-US"));
+    $("#distance").text(stats.distance.toLocaleString("en-US"));
+  });
+  $("#au").text(`${stats.au.toLocaleString("en-US")} au`);
   console.log(cmeData);
 });
 
