@@ -12,7 +12,9 @@
           navigator.serviceWorker
             .register("./service-worker.js")
             .then(() => console.log("registered service worker"))
-            .catch((error) => console.log("service worker registration failed"));
+            .catch((error) =>
+              console.log("service worker registration failed")
+            );
         }
       })();
     </script>
@@ -33,19 +35,24 @@
         <h1 id="title">Sun &#8857;</h1>
         <div class="sun"></div>
         <div id="current-temp">
-          H:<span class="temp">5772 K</span>&emsp;
+          H: <span class="temp"></span>&emsp;
           <span class="desktop"><br /></span>
-          L:<span class="temp">5772 K</span>
+          L: <span class="temp"></span>
         </div>
 
         <fieldset class="units" id="temp-units">
-          <input type="radio" id="kelvin" name="temp-unit" value="si"/>
+          <input type="radio" id="kelvin" name="temp-unit" value="si" />
           <label for="">K</label>
 
           <input type="radio" id="celsius" name="temp-unit" value="metric" />
           <label for="celsius">C&deg;</label>
 
-          <input type="radio" id="fahrenheit" name="temp-unit" value="imperial" />
+          <input
+            type="radio"
+            id="fahrenheit"
+            name="temp-unit"
+            value="imperial"
+          />
           <label for="fahrenheit">F&deg;</label>
         </fieldset>
         <p class="date" id="current-date"></p>
@@ -53,33 +60,7 @@
 
       <section id="forecast">
         <h2 class="subheader">5-day forecast</h2>
-        <div id="forecast-container">
-          <article class="day">
-            <p id="day-1">Today</p>
-            <div class="sun"></div>
-            <p class="temp">5772 K</p>
-          </article>
-          <article class="day">
-            <p id="day-2"></p>
-            <div class="sun"></div>
-            <p class="temp">5772 K</p>
-          </article>
-          <article class="day">
-            <p id="day-3"></p>
-            <div class="sun"></div>
-            <p class="temp">5772 K</p>
-          </article>
-          <article class="day">
-            <p id="day-4"></p>
-            <div class="sun"></div>
-            <p class="temp">5772 K</p>
-          </article>
-          <article class="day">
-            <p id="day-5"></p>
-            <div class="sun"></div>
-            <p class="temp">5772 K</p>
-          </article>
-        </div>
+        <div id="forecast-container"></div>
       </section>
 
       <section class="section" id="current-stats">
@@ -91,11 +72,7 @@
           <p id="spectral"></p>
 
           <p>Luminosity</p>
-          <p>
-            L<span class="sub">&#8857;</span> = 4&#960;kI<span class="sub"
-              >&#8857;</span
-            >A<span class="sup">2</span>
-          </p>
+          <p id="luminosity"></p>
 
           <p>Metallicity</p>
           <p id="metallicity"></p>

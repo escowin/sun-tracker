@@ -1,4 +1,5 @@
 import "../css/styles.css";
+const { luminosity, pluralization } = require("./helper");
 const {
   formatDateTime,
   formatDay,
@@ -16,6 +17,7 @@ let stats = {
   kelvin: 5772,
   spectral: "G2V",
   metallicity: "Z = 0.0122",
+  luminosity: "L⊙ = 4πkI⊙A2",
 };
 
 // javascript functions handles data before the dom
@@ -146,16 +148,28 @@ function displaySolarFlares(FLR) {
 
 // jquery functions manipulate DOM elements
 $(() => {
+  // appends 5 forecast elements to forecast container
+  for (let i = 0; i < 5; i++) {
+    $("#forecast-container").append(`<article class="day">
+    <p>Today</p>
+    <div class="sun"></div>
+    <p class="temp">${stats.temp}</p>
+  </article>`);
+  }
+
+  // time
+  $("#copyright-year").text(time.year);
+  $("#current-date").text(time.currentDate);
+
   // DOM loads with SI units selected and displayed
   $("#kelvin").prop("checked", true);
   displayUnits($("#kelvin").val());
   $(".temp").text(stats.temp);
   $("#distance").text(stats.distance.toLocaleString("en-US"));
 
-  // time
-  $("#copyright-year").text(time.year);
-  $("#current-date").text(time.currentDate);
+  //  sun stats
   $("#spectral").text(stats.spectral);
+  $("#luminosity").append(luminosity(stats.luminosity));
   $("#metallicity").text(stats.metallicity);
 
   // use event listener to tie radio
@@ -176,10 +190,11 @@ $(() => {
   $("#cme-note").text(cmeData.note);
 
   // recent solar flare
-  $("#flr-date").text(`${formatDay(flrData.beginTime)} - ${formatTime(flrData.endTime)}`);
+  $("#flr-date").text(
+    `${formatDay(flrData.beginTime)} - ${formatTime(flrData.endTime)}`
+  );
   $("#flr-peak").text(formatTime(flrData.peakTime));
-  // $("#flr-end").text(formatTime(flrData.endTime));
-  $("#flr-duration").text(`${flrData.duration} minutes`);
+  $("#flr-duration").text(pluralization(flrData.duration, "minute"));
   $("#flr-region").text(flrData.activeRegionNum);
   $("#flr-location").text(flrData.sourceLocation);
   $("#flr-class").text(flrData.classType);
