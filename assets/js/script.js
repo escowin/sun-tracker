@@ -1,8 +1,10 @@
 import "../css/styles.css";
 const {
   formatDateTime,
+  formatDay,
   calculateDuration,
   formatNow,
+  formatTime,
   ...time
 } = require("./time");
 const { mockFLR, mockCME } = require("./mock-data");
@@ -165,20 +167,19 @@ $(() => {
   $("#au").text(`${stats.au.toLocaleString("en-US")} au`);
 
   // recent coronal mass ejection
-  $("#cme-time").text(cmeData.startTime);
-  $("#cme-latitude").text(cmeData.latitude);
-  $("#cme-longitude").text(cmeData.longitude);
-  $("#cme-angle").text(cmeData.halfAngle);
+  $("#cme-time").text(formatDay(cmeData.startTime));
+  $("#cme-latitude").text(`${cmeData.latitude}\u00B0`);
+  $("#cme-longitude").text(`${cmeData.longitude}\u00B0`);
+  $("#cme-angle").text(`${cmeData.halfAngle}\u00B0`);
   $("#cme-speed").text(cmeData.speed);
   $("#cme-type").text(cmeData.type);
   $("#cme-note").text(cmeData.note);
 
   // recent solar flare
-  $("#flr-date").text(flrData.beginTime);
-  $("#flr-begin").text(flrData.beginTime);
-  $("#flr-peak").text(flrData.peakTime);
-  $("#flr-end").text(flrData.endTime);
-  $("#flr-duration").text(flrData.duration);
+  $("#flr-date").text(`${formatDay(flrData.beginTime)} - ${formatTime(flrData.endTime)}`);
+  $("#flr-peak").text(formatTime(flrData.peakTime));
+  // $("#flr-end").text(formatTime(flrData.endTime));
+  $("#flr-duration").text(`${flrData.duration} minutes`);
   $("#flr-region").text(flrData.activeRegionNum);
   $("#flr-location").text(flrData.sourceLocation);
   $("#flr-class").text(flrData.classType);
