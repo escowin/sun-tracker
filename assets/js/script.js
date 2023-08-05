@@ -1,5 +1,5 @@
 import "../css/styles.css";
-const { luminosity, pluralization } = require("./helper");
+const { luminosity, pluralization, fluctuate} = require("./helper");
 const {
   formatDateTime,
   formatDay,
@@ -48,23 +48,24 @@ function currentDistance() {
 // sets units by checked radio value
 function displayUnits(unit) {
   const { kelvin } = stats;
+  let temp = fluctuate(kelvin)
   let distance;
 
   switch (unit) {
     case "metric":
       distance = stats.orbit;
       stats.distance = `${distance.toLocaleString("en-US")} km`;
-      stats.temp = `${Math.round(kelvin - 273.15)} \u2103`;
+      stats.temp = `${Math.round(temp - 273.15)} \u2103`;
       break;
     case "imperial":
       distance = stats.orbit / 1.609344;
       stats.distance = `${distance.toLocaleString("en-US")} mi`;
-      stats.temp = `${Math.round(kelvin * (9 / 5) - 459.76)} \u2109`;
+      stats.temp = `${Math.round(temp * (9 / 5) - 459.76)} \u2109`;
       break;
     case "si":
       distance = stats.orbit / 17987547.48;
       stats.distance = `${distance.toLocaleString("en-US")} ly`;
-      stats.temp = `${kelvin} K`;
+      stats.temp = `${fluctuate(temp)} K`;
       break;
     default:
       console.log("default case");
