@@ -1,4 +1,6 @@
-import "../css/styles.css";
+// import "../css/styles.css";
+
+const { mockCME, mockFLR } = require("./mock-data");
 const { luminosity, pluralization, fluctuate } = require("./helper");
 const {
   calculateDuration,
@@ -83,21 +85,21 @@ async function apiCalls() {
     },
   };
 
-  try {
-    // creates an array of promises by mapping endpoints as fetch arguments
-    const promises = api.endpoints.map((endpoint) =>
-      getSunActivity(api.path(endpoint), endpoint)
-    );
-    // awaits to resolve promises. results assigned to corresponding variables
-    const [cmeResult, flrResult] = await Promise.all(promises);
-    cmeData = cmeResult;
-    flrData = flrResult;
+  // try {
+  //   // creates an array of promises by mapping endpoints as fetch arguments
+  //   const promises = api.endpoints.map((endpoint) =>
+  //     getSunActivity(api.path(endpoint), endpoint)
+  //   );
+  //   // awaits to resolve promises. results assigned to corresponding variables
+  //   const [cmeResult, flrResult] = await Promise.all(promises);
+  //   cmeData = cmeResult;
+  //   flrData = flrResult;
 
-    // retrieved data is handled in jquery function for dom manipulation
-    displayData(cmeData, flrData);
-  } catch (err) {
-    console.error(err);
-  }
+  //   // retrieved data is handled in jquery function for dom manipulation
+  //   displayData(cmeData, flrData);
+  // } catch (err) {
+  //   console.error(err);
+  // }
 }
 
 // makes fetch requests to NASA API for specified endpoints
@@ -114,6 +116,7 @@ function getSunActivity(url, endpoint) {
 }
 
 async function getCME(CME) {
+  // console.log(CME);
   // selects last object in CME array to get the most recent data
   const latestCME = CME[CME.length - 1];
   // retrieves relevant variables through object destructuring
@@ -130,6 +133,7 @@ async function getCME(CME) {
     type: type,
   };
 
+  console.log(cmeData);
   return cmeData;
 }
 
@@ -219,4 +223,20 @@ function displayData(CME, FLR) {
 
 // calls
 currentDistance();
-apiCalls();
+
+// PRODUCTION
+// apiCalls();
+
+// DEVELOPMENT
+async function development() {
+  try {
+    const cmeData = await getCME(mockCME)
+    const flrData = await getFLR(mockFLR)
+
+    displayData(cmeData, flrData)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+development();
