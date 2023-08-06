@@ -28,23 +28,22 @@
   </head>
   <body>
     <header>
-        <h1>
-          Sun tracker
-          <span id="api-info">
-            powered by
-            <a href="https://api.nasa.gov/" target="_blank">NASA DONKI</a>
-          </span>
-        </h1>
-        <p id="current-date"></p>
+      <h1>Sun tracker</h1>
+      <p id="api-info">
+        powered by
+        <a href="https://api.nasa.gov/" target="_blank">NASA DONKI</a>
+      </p>
+      <p id="current-date"></p>
     </header>
     <main>
-      <section id="stats">
-        <h2 class="subheader">Stats</h2>
+      <section id="sun-stats">
+        <h2 class="subheader">Statistics</h2>
         <article id="sun">
-          <div class="sun"></div>
+          <div id="sun-graphic"></div>
           <div>
             <p class="temp"></p>
-            <fieldset class="units" id="temp-units">
+            <fieldset id="units">
+              <legend>units</legend>
               <input type="radio" id="kelvin" name="temp-unit" value="si" />
               <label for="kelvin">K</label>
 
@@ -78,43 +77,44 @@
           <p>Distance</p>
           <p>
             <span id="distance"></span><br />
-            <span id="au"></span>
+            <span id="lm"></span>
           </p>
         </article>
       </section>
 
       <section id="forecast">
         <h2 class="subheader">Forecast</h2>
-        <article id="forecast-container"></article>
+        <ul class="list" id="forecast-container"></ul>
       </section>
 
-      <section class="section" id="recent">
+      <section id="activity">
         <h2 class="subheader">Activity</h2>
 
-        <article class="article" id="coronal-mass-ejection">
+        <article class="api-data" id="cme">
           <h3>Coronal mass ejection</h3>
-          <p class="time" id="cme-time"></p>
+          <div>
+            <p class="time" id="cme-time"></p>
+            <p>&sdot; latitude</p>
+            <p><span id="cme-latitude"></span></p>
 
-          <p>&sdot; latitude</p>
-          <p><span id="cme-latitude"></span></p>
+            <p>&sdot; longitude</p>
+            <p><span id="cme-longitude"></span></p>
 
-          <p>&sdot; longitude</p>
-          <p><span id="cme-longitude"></span></p>
+            <p>&sdot; half &angle;</p>
+            <p><span id="cme-angle"></span></p>
 
-          <p>&sdot; half &angle;</p>
-          <p><span id="cme-angle"></span></p>
+            <p>&sdot; speed</p>
+            <p><span id="cme-speed"></span></p>
 
-          <p>&sdot; speed</p>
-          <p><span id="cme-speed"></span></p>
-
-          <p>&sdot; type</p>
-          <p><span id="cme-type"></span></p>
-
-          <br />
-          <p id="cme-note">Note</p>
+            <p>&sdot; type</p>
+            <p><span id="cme-type"></span></p>
+          </div>
+          <div>
+            <p id="cme-note"></p>
+          </div>
         </article>
 
-        <article class="article" id="solar-flare">
+        <article class="api-data" id="flr">
           <h3>Solar flare</h3>
           <p class="time" id="flr-date"></p>
 
@@ -141,9 +141,9 @@
         href="https://github.com/escowin/sun-tracker/"
         target="_blank"
         class="link"
-        >Sun tracker</a
       >
-      &copy; <span id="copyright-year"></span> Edwin m. escobar
+        &copy; <span id="copyright-year"></span> Edwin m. escobar</a
+      >
     </footer>
   </body>
 </html>

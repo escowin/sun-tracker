@@ -41,7 +41,7 @@ function currentDistance() {
   // earth-sun distance equation
   const orbit = (a * (1 - e * e)) / (1 + e * Math.cos(t));
   stats.orbit = orbit;
-  stats.au = orbit / 149597870.7;
+  stats.lm = orbit / 17987547.48;
 }
 
 // sets units by checked radio value
@@ -62,8 +62,8 @@ function displayUnits(unit) {
       stats.temp = `${Math.round(temp * (9 / 5) - 459.76)} \u2109`;
       break;
     case "si":
-      distance = stats.orbit / 17987547.48;
-      stats.distance = `${distance.toLocaleString("en-US")} lm`;
+      distance = stats.orbit / 149597870.7
+      stats.distance = `${distance.toLocaleString("en-US")} au`;
       stats.temp = `${temp} K`;
       break;
     default:
@@ -163,13 +163,13 @@ async function getFLR(FLR) {
 // jquery function manipulates DOM elements
 function displayData(CME, FLR) {
   $(() => {
-    // appends 5 forecast elements to forecast container
+    // appends each generated forecast list element to  parent ul container
     // goal: unqiue temp for each day
     for (let i = 0; i < 5; i++) {
-      $("#forecast-container").append(`<article class="day">
-      <p>${forecast(i)}</p>
+      $("#forecast-container").append(`<li class="day">
+      <p>${forecast(i+1)}</p>
       <p class="temp">${stats.temp}</p>
-    </article>`);
+    </li>`);
     }
 
     // time
@@ -188,12 +188,12 @@ function displayData(CME, FLR) {
     $("#metallicity").text(stats.metallicity);
 
     // use event listener to tie radio
-    $("#temp-units input").on("click", (e) => {
+    $("#units input").on("click", (e) => {
       displayUnits(e.target.value);
       $(".temp").text(stats.temp.toLocaleString("en-US"));
       $("#distance").text(stats.distance.toLocaleString("en-US"));
     });
-    $("#au").text(`${stats.au.toLocaleString("en-US")} au`);
+    $("#lm").text(`${stats.lm.toLocaleString("en-US")} light minutes`);
 
     // recent coronal mass ejection
     if (cmeData) {
