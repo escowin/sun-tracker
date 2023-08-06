@@ -168,7 +168,6 @@ function displayData(CME, FLR) {
     for (let i = 0; i < 5; i++) {
       $("#forecast-container").append(`<article class="day">
       <p>${forecast(i)}</p>
-      <div class="sun"></div>
       <p class="temp">${stats.temp}</p>
     </article>`);
     }

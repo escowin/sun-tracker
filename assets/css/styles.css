@@ -1,4 +1,5 @@
 * {
+    /* outline: 1px dotted white; */
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -22,12 +23,52 @@ body {
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-    padding: 1vw 2vw;
+    /* padding: 1vw 2vw; */
 }
 
-main {
-    width: 100%;
+header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+        "a a"
+        "b c";
+    gap: .25rem 1rem;
 }
+
+#time {
+    grid-area: a;
+    font-size: 100%;
+}
+
+#sun {
+    grid-area: b;
+    margin: .25rem;
+    text-align: center;
+}
+
+#sun .sun {
+    padding: 5vh 0;
+    width: 30vw;
+    height: 30vw;
+}
+
+#sun-text {
+    grid-area: c;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .25rem .5rem;
+    height: fit-content;
+}
+
+#sun-text h1 {
+    grid-column: span 2;
+}
+
+
+
+/* main {
+    width: 100%;
+} */
 
 /* flow */
 body,
@@ -56,7 +97,8 @@ body,
     grid-template-columns: auto 1fr;
 }
 
-#recent, .article {
+#recent,
+.article {
     grid-template-columns: 1fr 1fr;
     column-gap: .25rem;
     margin-bottom: auto;
@@ -116,7 +158,7 @@ main {
 }
 
 .sun {
-    background-color: rgba(255, 214, 29, 0.577 );
+    background-color: rgba(255, 214, 29, 0.577);
     border-radius: 50%;
     box-shadow: 0 0 2vw var(--secondary);
     height: 10vw;
@@ -149,8 +191,8 @@ main {
 header {
     color: var(--primary);
     text-shadow: var(--text-shadow-sm) var(--primary);
-    font-size: .75rem;
-    text-align: end;
+    /* font-size: .75rem; */
+    /* text-align: end; */
 }
 
 header p {
@@ -166,22 +208,16 @@ main p {
     line-height: 1.4;
 }
 
-#title {
+/* #title {
     color: var(--primary);
-    font-size: 2rem;
     text-shadow: var(--text-shadow) var(--tertiary);
-}
+} */
 
 .date,
 #current-temp,
 #temp-units {
     color: var(--yellow);
     text-shadow: var(--text-shadow) var(--accent);
-}
-
-#current-temp,
-#current-date {
-    font-size: 1.25rem;
 }
 
 p {
@@ -200,18 +236,13 @@ a {
 }
 
 h3 {
-    font-size: 1.15rem;
+    /* font-size: 1.15rem; */
     color: var(--yellow);
     text-shadow: var(--text-shadow-sm) var(--tertiary);
 }
 
 .day p {
     text-shadow: var(--text-shadow-sm) var(--secondary);
-}
-
-.article p {
-    font-size: 1rem;
-    padding-left: 2%;
 }
 
 .sub,
@@ -229,7 +260,7 @@ h3 {
 
 #cme-note {
     font-variant: normal;
-    font-size: .75rem;
+    /* font-size: .75rem; */
     padding-bottom: .5rem;
 }
 
@@ -354,7 +385,8 @@ h3 {
         font-size: 3rem;
     }
 
-    #current-temp, h3 {
+    #current-temp,
+    h3 {
         font-size: 1.5rem;
     }
 
@@ -391,7 +423,8 @@ h3 {
         height: 100vh;
     }
 
-    #header .sun, #current-stats .sun {
+    #header .sun,
+    #current-stats .sun {
         display: none;
     }
 
