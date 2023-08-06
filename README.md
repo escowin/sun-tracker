@@ -35,7 +35,7 @@ Initially, this application was an exercise in JavaScript math, array iteration,
 - Lighthouse Audit: 
 ``````
 Original : 54 | 100 | 100 | 91 | -
-Current  : 50 | 100 | 100 | 91 | 1/1, 4/6
+Current  : 39 | 100 | 100 | 91 | 1/1, 4/6
 ``````
 
 ## Credits

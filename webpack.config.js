@@ -25,7 +25,7 @@ module.exports = {
         test: /\.jpg$/i,
         type: "asset/resource", // Use asset/resource to handle images in CSS
         generator: {
-          filename: "[path][name].[ext]",
+          filename: "[path][name][ext]",
         },
         exclude: [/node_modules/, /assets\/css/], // Exclude images from being processed in the CSS folder
       },

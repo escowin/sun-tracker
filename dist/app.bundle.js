@@ -26,7 +26,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*****************************/
 /***/ ((module) => {
 
-eval("const formattedStrings = {\r\n  luminosity: (string) =>\r\n    \"L<span class='sub'>&#8857;</span> = 4&#960;kI<span class='sub'>&#8857;</span>A<span class='sup'>2</span>\",\r\n  pluralization: (num, string) =>\r\n    num !== 1 ? `${num} ${string}s` : `${num} ${string}`,\r\n  fluctuate: (num) => {\r\n    // sets a random high low range sun temp to then randomly return a number from\r\n    const high = num + Math.round(Math.random() * 3000);\r\n    const low = num + Math.round((Math.random() - 0.5) * 1000); \r\n    const result = Math.round(low + Math.random() * (high - low));\r\n    return result;\r\n  },\r\n};\r\n\r\nmodule.exports = formattedStrings;\r\n\n\n//# sourceURL=webpack://sun-tracker/./assets/js/helper.js?");
+eval("const formattedStrings = {\n  luminosity: (string) =>\n    \"L<span class='sub'>&#8857;</span> = 4&#960;kI<span class='sub'>&#8857;</span>A<span class='sup'>2</span>\",\n  pluralization: (num, string) =>\n    num !== 1 ? `${num} ${string}s` : `${num} ${string}`,\n  fluctuate: (num) => {\n    // sets a random high low range sun temp to then randomly return a number from\n    const high = num + Math.round(Math.random() * 3000);\n    const low = num + Math.round((Math.random() - 0.5) * 1000); \n    const result = Math.round(low + Math.random() * (high - low));\n    return result;\n  },\n};\n\nmodule.exports = formattedStrings;\n\n\n//# sourceURL=webpack://sun-tracker/./assets/js/helper.js?");
 
 /***/ }),
 
@@ -208,7 +208,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-eval("module.exports = __webpack_require__.p + \"assets/images/background..jpg\";\n\n//# sourceURL=webpack://sun-tracker/./assets/images/background.jpg?");
+eval("module.exports = __webpack_require__.p + \"assets/images/background.jpg\";\n\n//# sourceURL=webpack://sun-tracker/./assets/images/background.jpg?");
 
 /***/ })
 
