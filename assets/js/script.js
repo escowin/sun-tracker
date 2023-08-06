@@ -73,43 +73,36 @@ function displayUnits(unit) {
 
 // variables used to dynamically create URL for fetch requests
 function apiCalls() {
-  const URL = "https://api.nasa.gov/DONKI";
-  const key = "UJO2NYWIRwCuDl6l431qKvjZviS8TPLUatA1E0xd";
-  const { apiStart, apiEnd } = time;
-  const sunActivity = ["CME", "FLR"];
+  const api = {
+    base: "https://api.nasa.gov/DONKI/",
+    key: "UJO2NYWIRwCuDl6l431qKvjZviS8TPLUatA1E0xd",
+    endpoints: ["CME", "FLR"],
+    start: time.apiStart,
+    end: time.apiEnd,
+    path: function (param) {
+      return `${this.base}${param}?startDate=${this.start}&endDate=${this.end}&api_key=${this.key}`;
+    },
+  };
 
-  // iterates through array to configure appropriate api url
-  const apiPromises = sunActivity.map((activity) =>
-    getSunActivity(
-      `${URL}/${activity}?startDate=${apiStart}&endDate=${apiEnd}&api_key=${key}`
-    )
-  );
-
-  Promise.all(apiPromises)
-    .then((results) => {
-      console.log(results)
-      results.forEach((data, i) => {
-        const activity = sunActivity[i];
-        if (activity === "CME") {
-          console.log(data)
-          displayCoronalMassEjections(data);
-        } else if (activity === "FLR") {
-          console.log(data)
-          displaySolarFlares(data);
-        } else {
-          console.log("failed fetch request");
-        }
-      });
-    })
-    .catch((err) => console.error(err));
+  api.endpoints.map((endpoint) => getSunActivity(api.path(endpoint), endpoint));
 }
 
 // makes fetch requests to NASA API to get data,
-function getSunActivity(apiUrl) {
-  return fetch(apiUrl).then((res) => res.json());
+function getSunActivity(url, endpoint) {
+  switch (endpoint) {
+    case "CME":
+      fetch(url).then((res) => res.json().then((data) => getCME(data)));
+      break;
+    case "FLR":
+      fetch(url).then((res) => res.json().then((data) => getFLR(data)));
+      break;
+    default:
+      "failed fetch request";
+  }
 }
 
-function displayCoronalMassEjections(CME) {
+function getCME(CME) {
+  console.log(CME);
   // selects last object in CME array to get the most recent data
   const latestCME = CME[CME.length - 1];
   // retrieves relevant variables through object destructuring
@@ -127,7 +120,9 @@ function displayCoronalMassEjections(CME) {
   };
 }
 
-function displaySolarFlares(FLR) {
+function getFLR(FLR) {
+  console.log(FLR);
+
   // get latest solar flare data
   const latestFLR = FLR[FLR.length - 1];
 
