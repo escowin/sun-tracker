@@ -28,18 +28,68 @@
   </head>
   <body>
     <header>
-
+        <h1>
+          Sun tracker
+          <span id="api-info">
+            powered by
+            <a href="https://api.nasa.gov/" target="_blank">NASA DONKI</a>
+          </span>
+        </h1>
+        <p id="current-date"></p>
     </header>
     <main>
-      <section id="header"></section>
+      <section id="stats">
+        <h2 class="subheader">Stats</h2>
+        <article id="sun">
+          <div class="sun"></div>
+          <div>
+            <p class="temp"></p>
+            <fieldset class="units" id="temp-units">
+              <input type="radio" id="kelvin" name="temp-unit" value="si" />
+              <label for="kelvin">K</label>
+
+              <input
+                type="radio"
+                id="celsius"
+                name="temp-unit"
+                value="metric"
+              />
+              <label for="celsius">C&deg;</label>
+
+              <input
+                type="radio"
+                id="fahrenheit"
+                name="temp-unit"
+                value="imperial"
+              />
+              <label for="fahrenheit">F&deg;</label>
+            </fieldset>
+          </div>
+        </article>
+
+        <article id="sun-text">
+          <h3>Sun &#8857;</h3>
+          <p>Spectral</p>
+          <p id="spectral"></p>
+          <p>Luminosity</p>
+          <p id="luminosity"></p>
+          <p>Metallicity</p>
+          <p id="metallicity"></p>
+          <p>Distance</p>
+          <p>
+            <span id="distance"></span><br />
+            <span id="au"></span>
+          </p>
+        </article>
+      </section>
 
       <section id="forecast">
-        <h2 class="subheader">5-day forecast</h2>
-        <div id="forecast-container"></div>
+        <h2 class="subheader">Forecast</h2>
+        <article id="forecast-container"></article>
       </section>
 
       <section class="section" id="recent">
-        <h2 class="subheader">Recent activity</h2>
+        <h2 class="subheader">Activity</h2>
 
         <article class="article" id="coronal-mass-ejection">
           <h3>Coronal mass ejection</h3>
@@ -83,12 +133,6 @@
           <p>&sdot; class</p>
           <p><span id="flr-class"></span></p>
         </article>
-      </section>
-      <section id="api-info">
-        <p>
-          Powered by
-          <a href="https://api.nasa.gov/" target="_blank">NASA DONKI</a>
-        </p>
       </section>
     </main>
 
