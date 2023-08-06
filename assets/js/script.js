@@ -38,7 +38,6 @@ function currentDistance() {
 
   // earth-sun distance equation
   const orbit = (a * (1 - e * e)) / (1 + e * Math.cos(t));
-  // console.log(orbit)
   stats.orbit = orbit;
   stats.au = orbit / 149597870.7;
 }
@@ -71,8 +70,9 @@ function displayUnits(unit) {
   }
 }
 
-// variables used to dynamically create URL for fetch requests
-function apiCalls() {
+// returns API data through promises
+async function apiCalls() {
+  // variables used to dynamically create URL for fetch requests
   const api = {
     base: "https://api.nasa.gov/DONKI/",
     key: "UJO2NYWIRwCuDl6l431qKvjZviS8TPLUatA1E0xd",
@@ -84,25 +84,37 @@ function apiCalls() {
     },
   };
 
-  api.endpoints.map((endpoint) => getSunActivity(api.path(endpoint), endpoint));
-}
+  try {
+    // creates an array of promises by mapping endpoints as fetch arguments
+    const promises = api.endpoints.map((endpoint) =>
+      getSunActivity(api.path(endpoint), endpoint)
+    );
+    // awaits to resolve promises. results assigned to corresponding variables
+    const [cmeResult, flrResult] = await Promise.all(promises);
+    cmeData = cmeResult;
+    flrData = flrResult;
 
-// makes fetch requests to NASA API to get data,
-function getSunActivity(url, endpoint) {
-  switch (endpoint) {
-    case "CME":
-      fetch(url).then((res) => res.json().then((data) => getCME(data)));
-      break;
-    case "FLR":
-      fetch(url).then((res) => res.json().then((data) => getFLR(data)));
-      break;
-    default:
-      "failed fetch request";
+    // retrieved data is handled in jquery function for dom manipulation
+    displayData(cmeData, flrData);
+  } catch (err) {
+    console.error(err);
   }
 }
 
-function getCME(CME) {
-  console.log(CME);
+// makes fetch requests to NASA API for specified endpoints
+function getSunActivity(url, endpoint) {
+  // selects appropriate fetch & data handling functions
+  switch (endpoint) {
+    case "CME":
+      return fetch(url).then((res) => res.json().then((data) => getCME(data)));
+    case "FLR":
+      return fetch(url).then((res) => res.json().then((data) => getFLR(data)));
+    default:
+      return Promise.reject("failed fetch request");
+  }
+}
+
+async function getCME(CME) {
   // selects last object in CME array to get the most recent data
   const latestCME = CME[CME.length - 1];
   // retrieves relevant variables through object destructuring
@@ -118,11 +130,11 @@ function getCME(CME) {
     speed: speed,
     type: type,
   };
+
+  return cmeData;
 }
 
-function getFLR(FLR) {
-  console.log(FLR);
-
+async function getFLR(FLR) {
   // get latest solar flare data
   const latestFLR = FLR[FLR.length - 1];
 
@@ -141,69 +153,70 @@ function getFLR(FLR) {
     sourceLocation: latestFLR.sourceLocation,
     classType: latestFLR.classType,
   };
+
+  return flrData;
 }
 
-console.log(cmeData);
-console.log(flrData);
-// bug : sun activity properties are undefined in production
-// jquery functions manipulate DOM elements
+// jquery function manipulates DOM elements
+function displayData(CME, FLR) {
+  $(() => {
+    // appends 5 forecast elements to forecast container
+    // goal: unqiue temp for each day
+    for (let i = 0; i < 5; i++) {
+      $("#forecast-container").append(`<article class="day">
+      <p>${forecast(i)}</p>
+      <div class="sun"></div>
+      <p class="temp">${stats.temp}</p>
+    </article>`);
+    }
 
-$(() => {
-  // appends 5 forecast elements to forecast container
-  for (let i = 0; i < 5; i++) {
-    $("#forecast-container").append(`<article class="day">
-    <p>${forecast(i)}</p>
-    <div class="sun"></div>
-    <p class="temp">${stats.temp}</p>
-  </article>`);
-  }
+    // time
+    $("#copyright-year").text(time.year);
+    $("#current-date").text(time.currentDate);
 
-  // time
-  $("#copyright-year").text(time.year);
-  $("#current-date").text(time.currentDate);
-
-  // DOM loads with SI units selected and displayed
-  $("#kelvin").prop("checked", true);
-  displayUnits($("#kelvin").val());
-  $(".temp").text(stats.temp);
-  $("#distance").text(stats.distance.toLocaleString("en-US"));
-
-  //  sun stats
-  $("#spectral").text(stats.spectral);
-  $("#luminosity").append(luminosity(stats.luminosity));
-  $("#metallicity").text(stats.metallicity);
-
-  // use event listener to tie radio
-  $("#temp-units input").on("click", (e) => {
-    displayUnits(e.target.value);
-    $(".temp").text(stats.temp.toLocaleString("en-US"));
+    // DOM loads with SI units selected and displayed
+    $("#kelvin").prop("checked", true);
+    displayUnits($("#kelvin").val());
+    $(".temp").text(stats.temp);
     $("#distance").text(stats.distance.toLocaleString("en-US"));
+
+    //  sun stats
+    $("#spectral").text(stats.spectral);
+    $("#luminosity").append(luminosity(stats.luminosity));
+    $("#metallicity").text(stats.metallicity);
+
+    // use event listener to tie radio
+    $("#temp-units input").on("click", (e) => {
+      displayUnits(e.target.value);
+      $(".temp").text(stats.temp.toLocaleString("en-US"));
+      $("#distance").text(stats.distance.toLocaleString("en-US"));
+    });
+    $("#au").text(`${stats.au.toLocaleString("en-US")} au`);
+
+    // recent coronal mass ejection
+    if (cmeData) {
+      $("#cme-time").text(formatDay(CME.startTime));
+      $("#cme-latitude").text(`${CME.latitude}\u00B0`);
+      $("#cme-longitude").text(`${CME.longitude}\u00B0`);
+      $("#cme-angle").text(`${CME.halfAngle}\u00B0`);
+      $("#cme-speed").text(CME.speed);
+      $("#cme-type").text(CME.type);
+      $("#cme-note").text(CME.note);
+    }
+
+    // recent solar flare
+    if (flrData) {
+      $("#flr-date").text(
+        `${formatDay(FLR.beginTime)} - ${formatTime(FLR.endTime)}`
+      );
+      $("#flr-peak").text(formatTime(FLR.peakTime));
+      $("#flr-duration").text(pluralization(FLR.duration, "minute"));
+      $("#flr-region").text(FLR.activeRegionNum);
+      $("#flr-location").text(FLR.sourceLocation);
+      $("#flr-class").text(FLR.classType);
+    }
   });
-  $("#au").text(`${stats.au.toLocaleString("en-US")} au`);
-
-  // recent coronal mass ejection
-  if (cmeData) {
-    $("#cme-time").text(formatDay(cmeData?.startTime));
-    $("#cme-latitude").text(`${cmeData?.latitude}\u00B0`);
-    $("#cme-longitude").text(`${cmeData?.longitude}\u00B0`);
-    $("#cme-angle").text(`${cmeData?.halfAngle}\u00B0`);
-    $("#cme-speed").text(cmeData?.speed);
-    $("#cme-type").text(cmeData?.type);
-    $("#cme-note").text(cmeData?.note);
-  }
-
-  // recent solar flare
-  if (flrData) {
-    $("#flr-date").text(
-      `${formatDay(flrData?.beginTime)} - ${formatTime(flrData?.endTime)}`
-    );
-    $("#flr-peak").text(formatTime(flrData?.peakTime));
-    $("#flr-duration").text(pluralization(flrData?.duration, "minute"));
-    $("#flr-region").text(flrData?.activeRegionNum);
-    $("#flr-location").text(flrData?.sourceLocation);
-    $("#flr-class").text(flrData?.classType);
-  }
-});
+}
 
 // calls
 currentDistance();
