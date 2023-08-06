@@ -79,28 +79,34 @@ function apiCalls() {
   const sunActivity = ["CME", "FLR"];
 
   // iterates through array to configure appropriate api url
-  sunActivity.forEach((activity) =>
+  const apiPromises = sunActivity.map((activity) =>
     getSunActivity(
       `${URL}/${activity}?startDate=${apiStart}&endDate=${apiEnd}&api_key=${key}`
     )
   );
+
+  Promise.all(apiPromises)
+    .then((results) => {
+      console.log(results)
+      results.forEach((data, i) => {
+        const activity = sunActivity[i];
+        if (activity === "CME") {
+          console.log(data)
+          displayCoronalMassEjections(data);
+        } else if (activity === "FLR") {
+          console.log(data)
+          displaySolarFlares(data);
+        } else {
+          console.log("failed fetch request");
+        }
+      });
+    })
+    .catch((err) => console.error(err));
 }
 
 // makes fetch requests to NASA API to get data,
 function getSunActivity(apiUrl) {
-  fetch(apiUrl).then((res) => {
-    // formats response as a JSON object
-    res.json().then((data) => {
-      // URL composition determines function call
-      if (apiUrl.includes("CME")) {
-        displayCoronalMassEjections(data);
-      } else if (apiUrl.includes("FLR")) {
-        displaySolarFlares(data);
-      } else {
-        console.log("failed fetch request");
-      }
-    });
-  });
+  return fetch(apiUrl).then((res) => res.json());
 }
 
 function displayCoronalMassEjections(CME) {
@@ -111,13 +117,13 @@ function displayCoronalMassEjections(CME) {
   const { latitude, longitude, halfAngle, speed, type } = cmeAnalyses[0];
   // CME object is
   cmeData = {
-    startTime,
-    note,
-    latitude,
-    longitude,
-    halfAngle,
-    speed,
-    type,
+    startTime: startTime,
+    note: note,
+    latitude: longitude,
+    longitude: latitude,
+    halfAngle: halfAngle,
+    speed: speed,
+    type: type,
   };
 }
 
@@ -142,8 +148,11 @@ function displaySolarFlares(FLR) {
   };
 }
 
+console.log(cmeData);
+console.log(flrData);
 // bug : sun activity properties are undefined in production
 // jquery functions manipulate DOM elements
+
 $(() => {
   // appends 5 forecast elements to forecast container
   for (let i = 0; i < 5; i++) {
@@ -178,23 +187,27 @@ $(() => {
   $("#au").text(`${stats.au.toLocaleString("en-US")} au`);
 
   // recent coronal mass ejection
-  $("#cme-time").text(formatDay(cmeData.startTime));
-  $("#cme-latitude").text(`${cmeData.latitude}\u00B0`);
-  $("#cme-longitude").text(`${cmeData.longitude}\u00B0`);
-  $("#cme-angle").text(`${cmeData.halfAngle}\u00B0`);
-  $("#cme-speed").text(cmeData.speed);
-  $("#cme-type").text(cmeData.type);
-  $("#cme-note").text(cmeData.note);
+  if (cmeData) {
+    $("#cme-time").text(formatDay(cmeData?.startTime));
+    $("#cme-latitude").text(`${cmeData?.latitude}\u00B0`);
+    $("#cme-longitude").text(`${cmeData?.longitude}\u00B0`);
+    $("#cme-angle").text(`${cmeData?.halfAngle}\u00B0`);
+    $("#cme-speed").text(cmeData?.speed);
+    $("#cme-type").text(cmeData?.type);
+    $("#cme-note").text(cmeData?.note);
+  }
 
   // recent solar flare
-  $("#flr-date").text(
-    `${formatDay(flrData.beginTime)} - ${formatTime(flrData.endTime)}`
-  );
-  $("#flr-peak").text(formatTime(flrData.peakTime));
-  $("#flr-duration").text(pluralization(flrData.duration, "minute"));
-  $("#flr-region").text(flrData.activeRegionNum);
-  $("#flr-location").text(flrData.sourceLocation);
-  $("#flr-class").text(flrData.classType);
+  if (flrData) {
+    $("#flr-date").text(
+      `${formatDay(flrData?.beginTime)} - ${formatTime(flrData?.endTime)}`
+    );
+    $("#flr-peak").text(formatTime(flrData?.peakTime));
+    $("#flr-duration").text(pluralization(flrData?.duration, "minute"));
+    $("#flr-region").text(flrData?.activeRegionNum);
+    $("#flr-location").text(flrData?.sourceLocation);
+    $("#flr-class").text(flrData?.classType);
+  }
 });
 
 // calls
