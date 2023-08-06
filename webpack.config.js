@@ -51,7 +51,7 @@ module.exports = {
       name: "Sun tracker",
       short_name: "sun-tracker",
       description:
-        "tracks Sun activity with math formulas & data fetched from NASA's DONKI API",
+        "PWA that tracks Sun activity with math & data fetched from the NASA API",
       start_url: "../index.html",
       background_color: "#860e0e",
       theme_color: "#860e0e", // nee bf9732
@@ -62,6 +62,7 @@ module.exports = {
           src: path.resolve("assets/images/icons/icon-512x512.png"),
           sizes: [96, 128, 192, 256, 384, 512],
           destination: path.join("assets", "icons"),
+          purpose: "any maskable"
         },
       ],
     }),
