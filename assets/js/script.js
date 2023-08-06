@@ -1,9 +1,9 @@
 import "../css/styles.css";
 const { luminosity, pluralization, fluctuate } = require("./helper");
 const {
+  calculateDuration,
   formatDateTime,
   formatDay,
-  calculateDuration,
   formatNow,
   formatTime,
   forecast,
@@ -14,7 +14,7 @@ const {
 let cmeData;
 let flrData;
 let stats = {
-  kelvin: 5772,
+  kelvin: fluctuate(5772),
   spectral: "G2V",
   metallicity: "Z = 0.0122",
   luminosity: "L⊙ = 4πkI⊙A2",
@@ -45,8 +45,7 @@ function currentDistance() {
 // sets units by checked radio value
 function displayUnits(unit) {
   const { kelvin } = stats;
-  // current set up will fluctuate temp each time a unit is selected
-  let temp = fluctuate(kelvin);
+  let temp = kelvin;
   let distance;
 
   switch (unit) {
