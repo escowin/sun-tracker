@@ -1,3 +1,19 @@
+// development call
+// DEVELOPMENT
+async function development() {
+  try {
+    const cmeData = await getCME(mockCME)
+    const flrData = await getFLR(mockFLR)
+
+    displayData(cmeData, flrData)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+development();
+
+// mock data
 const mockFLR = [
   {
     flrID: "2023-07-28T15:39:00-FLR-001",
