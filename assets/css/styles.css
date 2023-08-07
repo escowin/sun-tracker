@@ -118,8 +118,6 @@ section {
 
 .subheader {
     padding: .25rem 1rem;
-    border-top-left-radius: .5rem;
-    border-top-right-radius: .5rem;
 }
 
 .time {
@@ -254,15 +252,25 @@ a:hover {
 
 /* DISPLAY */
 @media screen and (min-width: 768px) {
+    header {
+        display: flex;
+        padding: 1rem;
+    }
+
     main {
         justify-content: inherit;
-        gap: 1rem;
         display: grid;
         grid-template-areas:
             "a b"
             "c c";
         grid-template-rows: max-content;
-        gap: 1rem 0;
+        grid-template-columns: auto 1fr;
+        gap: 1rem .5rem;
+    }
+
+    .day {
+        align-items: flex-start;
+        gap: .25rem;
     }
 
     #sun-stats {
@@ -271,12 +279,36 @@ a:hover {
 
     #forecast {
         grid-area: b;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: .25rem 0;
     }
 
     #activity {
         grid-area: c;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: max-content;
+        height: max-content;
     }
 
+    #activity .subheader {
+        grid-column: span 2;
+    }
+
+    #activity article {
+        height: max-content;
+    }
+
+    #activity #cme {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #cme-note {
+        padding: .5rem 0;
+    }
     #sun-graphic {
         --size: 15vw
     }
