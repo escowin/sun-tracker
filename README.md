@@ -40,7 +40,7 @@ Current  : 80 | 100 | 100 | 100 | 1/1, 6/6
 
 ## Credits
 - Languages: HTML, CSS, JavaScript
-- Libraries: [moment](https://github.com/moment/moment), [jQuery](https://api.jquery.com/), [webpack](https://github.com/webpack/webpack), et al.
+- Libraries: [Day.js](https://day.js.org/), [jQuery](https://api.jquery.com/), [webpack](https://github.com/webpack/webpack), et al.
 - Databases: [DONKI (NASA API)](https://ccmc.gsfc.nasa.gov/tools/DONKI/), Cache Storage
 - Graphics: [Adobe Illustrator](https://www.adobe.com/products/illustrator.html)
 

@@ -1,7 +1,7 @@
 {
   "name": "sun-tracker",
-  "version": "2.1.0",
-  "description": "PWA that tracks Sun activity with math formulas & data fetched from NASA's DONKI API",
+  "version": "2.5.0",
+  "description": "PWA that tracks Sun activity with math & fetched NASA API data",
   "main": "index.js",
   "scripts": {
     "webpack": "webpack --watch",

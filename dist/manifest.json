@@ -42,7 +42,7 @@
   "orientation": "portrait",
   "display": "standalone",
   "start_url": "../index.html",
-  "description": "PWA that tracks Sun activity with math & data fetched from the NASA API",
+  "description": "PWA that tracks Sun activity with math & fetched NASA API data",
   "background_color": "#860e0e",
   "theme_color": "#860e0e"
 }
