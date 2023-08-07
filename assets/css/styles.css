@@ -29,7 +29,8 @@ h3,
 .date,
 .label,
 .temp,
-#units, #api-info,
+#units,
+#api-info,
 #current-date {
     color: var(--yellow);
 }
@@ -149,7 +150,8 @@ section {
     align-items: flex-end;
 }
 
-#cme-note, #current-date {
+#cme-note,
+#current-date {
     grid-column: span 2;
 }
 
@@ -217,7 +219,7 @@ section {
 
 .sub,
 .sup,
-#api-info, 
+#api-info,
 #cme-note {
     font-size: .75rem;
 }
@@ -252,6 +254,10 @@ a:hover {
 
 /* DISPLAY */
 @media screen and (min-width: 768px) {
+    footer {
+        padding-top: .25rem;
+    }
+
     header {
         display: flex;
         padding: 1rem;
@@ -309,9 +315,56 @@ a:hover {
     #cme-note {
         padding: .5rem 0;
     }
+
     #sun-graphic {
         --size: 15vw
     }
 }
 
-@media screen and (min-width: 1024px) {}
+@media screen and (min-width: 1024px) {
+
+    body {
+        justify-content: center;
+    }
+
+    footer,
+    header {
+        flex-grow: 1;
+    }
+
+    header {
+        align-items: flex-end;
+    }
+
+    main {
+        padding: 0 1rem;
+        grid-template-rows: max-content;
+        flex-grow: 0;
+        align-items: stretch;
+        gap: .75rem;
+    }
+
+    #activity {
+        padding: 0 .5rem .5rem .5rem;
+    }
+
+    #forecast {
+        gap: 0;
+    }
+
+    #forecast-container {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+
+    #sun-graphic {
+        --size: 10rem;
+    }
+
+    #sun-stats {
+        padding: 0 4rem .5rem 1rem;
+    }
+
+}
