@@ -21,26 +21,22 @@ module.exports = {
 
     // earth-sun distance equation
     const orbit = (a * (1 - e * e)) / (1 + e * Math.cos(t));
-    // stats.orbit = orbit;
-
-    const mi = orbit / 1.609344;
-    const au = orbit / 149597870.7;
-    const lm = orbit / 17987547.48;
-
+    // const lm = orbit / 17987547.48;
     return orbit;
   },
   convertUnit: (num, unit, type) => {
+    console.log(num, unit, type)
     switch (unit) {
       case "metric":
-        return type == "temp"
+        return type === "temp"
           ? `${Math.round(num - 273.15)} \u2103`
           : `${num.toLocaleString("en-US")} km`;
       case "imperial":
-        return type == "temp"
+        return type === "temp"
           ? `${Math.round(num * (9 / 5) - 459.76)} \u2109`
           : `${(num / 1.609344).toLocaleString("en-US")} mi`;
       case "si":
-        return type == "temp"
+        return type === "temp"
           ? `${num} K`
           : `${(num / 149597870.7).toLocaleString("en-US")} au`;
       default:

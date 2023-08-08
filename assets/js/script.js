@@ -1,5 +1,11 @@
 // import "../css/styles.css";
-const { luminosity, pluralization, fluctuate, currentDistance, convertUnit } = require("./helper");
+const {
+  luminosity,
+  pluralization,
+  fluctuate,
+  currentDistance,
+  convertUnit,
+} = require("./helper");
 const {
   calculateDuration,
   formatDateTime,
@@ -9,22 +15,23 @@ const {
   forecast,
   ...time
 } = require("./time");
-const { mockCME, mockFLR } = require("./mock-data")
+const { mockCME, mockFLR } = require("./mock-data");
 
 // let variables used to maintain seperation of concerns between js & jquery functions
 let cmeData;
 let flrData;
-let stats = {
+
+const stats = {
   temp: fluctuate(5772),
   spectral: "G2V",
   metallicity: "Z = 0.0122",
   luminosity: "L⊙ = 4πkI⊙A2",
-  distance: currentDistance(time.now, time.perihelion)
+  distance: currentDistance(time.now, time.perihelion),
+  lm: () =>
+    `${(stats.distance / 17987547.48).toLocaleString("en-US")} light minutes`,
 };
-console.log(stats.temp)
-const test = convertUnit(stats.distance, "imperial", "dist")
-console.log(test)
 
+console.log(stats.lm());
 // javascript functions handle data before the dom
 console.log(`
    \u00A9 ${time.year} Edwin M. Escobar
@@ -122,14 +129,13 @@ async function getFLR(FLR) {
 function displayData(CME, FLR) {
   // console.log(CME)
   // console.log(FLR)
-  console.log(stats)
   $(() => {
     // appends each generated forecast list element to  parent ul container
     // goal: unqiue temp for each day
     for (let i = 0; i < 5; i++) {
       $("#forecast-container").append(`<li class="day">
-      <p>${forecast(i+1)}</p>
-      <p class="temp">${stats.temp}</p>
+      <p>${forecast(i + 1)}</p>
+      <p class="temp" data-type="temp">${stats.temp}</p>
     </li>`);
     }
 
@@ -150,11 +156,12 @@ function displayData(CME, FLR) {
 
     // use event listener to tie radio
     $("#units input").on("click", (e) => {
-      displayUnits(e.target.value);
-      $(".temp").text(stats.temp.toLocaleString("en-US"));
-      $("#distance").text(stats.distance.toLocaleString("en-US"));
+      const unit = e.target.value;
+      // set & capture data-type
+      $(".temp").text(convertUnit(stats.temp, unit, $(".temp").data("type")));
+      $("#distance").text(stats.distance);
     });
-    $("#lm").text(`${stats.lm} light minutes`);
+    $("#lm").text(stats.lm());
 
     // recent coronal mass ejection
     if (cmeData) {
@@ -187,12 +194,12 @@ function displayData(CME, FLR) {
 // DEVELOPMENT
 async function development() {
   try {
-    const cmeData = await getCME(mockCME)
-    const flrData = await getFLR(mockFLR)
+    const cmeData = await getCME(mockCME);
+    const flrData = await getFLR(mockFLR);
 
-    displayData(cmeData, flrData)
+    displayData(cmeData, flrData);
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
 }
 
