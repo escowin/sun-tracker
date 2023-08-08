@@ -1,6 +1,5 @@
 // import "../css/styles.css";
-const { luminosity, pluralization, fluctuate, currentDistance } = require("./helper");
-
+const { luminosity, pluralization, fluctuate, currentDistance, convertUnit } = require("./helper");
 const {
   calculateDuration,
   formatDateTime,
@@ -10,51 +9,27 @@ const {
   forecast,
   ...time
 } = require("./time");
+const { mockCME, mockFLR } = require("./mock-data")
 
 // let variables used to maintain seperation of concerns between js & jquery functions
 let cmeData;
 let flrData;
 let stats = {
-  kelvin: fluctuate(5772),
+  temp: fluctuate(5772),
   spectral: "G2V",
   metallicity: "Z = 0.0122",
   luminosity: "L⊙ = 4πkI⊙A2",
   distance: currentDistance(time.now, time.perihelion)
 };
+console.log(stats.temp)
+const test = convertUnit(stats.distance, "imperial", "dist")
+console.log(test)
 
-console.log(stats.distance)
 // javascript functions handle data before the dom
-// console.log(`
-//    \u00A9 ${time.year} Edwin M. Escobar
-//    https://github.com/escowin/sun-tracker
-//    `);
-
-// sets units by checked radio value
-function displayUnits(unit) {
-  const { kelvin } = stats;
-  let temp = kelvin;
-  let distance;
-
-  switch (unit) {
-    case "metric":
-      distance = stats.orbit;
-      stats.distance = `${distance.toLocaleString("en-US")} km`;
-      stats.temp = `${Math.round(temp - 273.15)} \u2103`;
-      break;
-    case "imperial":
-      distance = stats.orbit / 1.609344;
-      stats.distance = `${distance.toLocaleString("en-US")} mi`;
-      stats.temp = `${Math.round(temp * (9 / 5) - 459.76)} \u2109`;
-      break;
-    case "si":
-      distance = stats.orbit / 149597870.7
-      stats.distance = `${distance.toLocaleString("en-US")} au`;
-      stats.temp = `${temp} K`;
-      break;
-    default:
-      console.log("default case");
-  }
-}
+console.log(`
+   \u00A9 ${time.year} Edwin M. Escobar
+   https://github.com/escowin/sun-tracker
+   `);
 
 // returns API data through promises
 async function apiCalls() {
@@ -145,6 +120,9 @@ async function getFLR(FLR) {
 
 // jquery function manipulates DOM elements
 function displayData(CME, FLR) {
+  // console.log(CME)
+  // console.log(FLR)
+  console.log(stats)
   $(() => {
     // appends each generated forecast list element to  parent ul container
     // goal: unqiue temp for each day
@@ -163,7 +141,7 @@ function displayData(CME, FLR) {
     $("#kelvin").prop("checked", true);
     displayUnits($("#kelvin").val());
     $(".temp").text(stats.temp);
-    $("#distance").text(stats.distance.toLocaleString("en-US"));
+    $("#distance").text(stats.distance);
 
     //  sun stats
     $("#spectral").text(stats.spectral);
@@ -176,7 +154,7 @@ function displayData(CME, FLR) {
       $(".temp").text(stats.temp.toLocaleString("en-US"));
       $("#distance").text(stats.distance.toLocaleString("en-US"));
     });
-    $("#lm").text(`${stats.lm.toLocaleString("en-US")} light minutes`);
+    $("#lm").text(`${stats.lm} light minutes`);
 
     // recent coronal mass ejection
     if (cmeData) {
@@ -205,3 +183,17 @@ function displayData(CME, FLR) {
 
 // calls
 // apiCalls();
+
+// DEVELOPMENT
+async function development() {
+  try {
+    const cmeData = await getCME(mockCME)
+    const flrData = await getFLR(mockFLR)
+
+    displayData(cmeData, flrData)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+// development();

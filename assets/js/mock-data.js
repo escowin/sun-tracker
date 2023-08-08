@@ -1,17 +1,16 @@
-// development call
 // DEVELOPMENT
-async function development() {
-  try {
-    const cmeData = await getCME(mockCME)
-    const flrData = await getFLR(mockFLR)
+// async function development() {
+//   try {
+//     const cmeData = await getCME(mockCME)
+//     const flrData = await getFLR(mockFLR)
 
-    displayData(cmeData, flrData)
-  } catch (err) {
-    console.error(err)
-  }
-}
+//     displayData(cmeData, flrData)
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
 
-development();
+// development();
 
 // mock data
 const mockFLR = [
