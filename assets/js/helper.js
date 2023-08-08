@@ -21,7 +21,7 @@ module.exports = {
 
     // earth-sun distance equation
     const orbit = (a * (1 - e * e)) / (1 + e * Math.cos(t));
-    // const lm = orbit / 17987547.48;
+    
     return orbit;
   },
   convertUnit: (num, unit, type) => {

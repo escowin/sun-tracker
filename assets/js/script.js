@@ -1,25 +1,8 @@
-// import "../css/styles.css";
-const {
-  luminosity,
-  pluralization,
-  fluctuate,
-  currentDistance,
-  convertUnit,
-} = require("./helper");
-const {
-  calculateDuration,
-  formatDateTime,
-  formatDay,
-  formatNow,
-  formatTime,
-  forecast,
-  ...time
-} = require("./time");
-const { mockCME, mockFLR } = require("./mock-data");
-
-// let variables used to maintain seperation of concerns between js & jquery functions
-let cmeData;
-let flrData;
+import "../css/styles.css";
+const { displayData } = require("./displayData");
+const { fluctuate, currentDistance } = require("./helper");
+const { calculateDuration, ...time } = require("./time");
+const { mockCME, mockFLR } = require("./mockData");
 
 const stats = {
   temp: fluctuate(5772),
@@ -31,7 +14,6 @@ const stats = {
     `${(stats.distance / 17987547.48).toLocaleString("en-US")} light minutes`,
 };
 
-console.log(stats.lm());
 // javascript functions handle data before the dom
 console.log(`
    \u00A9 ${time.year} Edwin M. Escobar
@@ -58,12 +40,10 @@ async function apiCalls() {
       getSunActivity(api.path(endpoint), endpoint)
     );
     // awaits to resolve promises. results assigned to corresponding variables
-    const [cmeResult, flrResult] = await Promise.all(promises);
-    cmeData = cmeResult;
-    flrData = flrResult;
+    const [cmeData, flrData] = await Promise.all(promises);
 
     // retrieved data is handled in jquery function for dom manipulation
-    displayData(cmeData, flrData);
+    displayData(cmeData, flrData, stats);
   } catch (err) {
     console.error(err);
   }
@@ -89,7 +69,7 @@ async function getCME(CME) {
   const { startTime, note, cmeAnalyses } = latestCME;
   const { latitude, longitude, halfAngle, speed, type } = cmeAnalyses[0];
   // CME object is
-  cmeData = {
+  const cmeObj = {
     startTime: startTime,
     note: note,
     latitude: longitude,
@@ -99,7 +79,7 @@ async function getCME(CME) {
     type: type,
   };
 
-  return cmeData;
+  return cmeObj;
 }
 
 async function getFLR(FLR) {
@@ -112,7 +92,7 @@ async function getFLR(FLR) {
     "minute"
   );
 
-  flrData = {
+  const flrObj = {
     beginTime: latestFLR.beginTime,
     peakTime: latestFLR.peakTime,
     endTime: latestFLR.endTime,
@@ -122,70 +102,7 @@ async function getFLR(FLR) {
     classType: latestFLR.classType,
   };
 
-  return flrData;
-}
-
-// jquery function manipulates DOM elements
-function displayData(CME, FLR) {
-  // console.log(CME)
-  // console.log(FLR)
-  $(() => {
-    // appends each generated forecast list element to  parent ul container
-    // goal: unqiue temp for each day
-    for (let i = 0; i < 5; i++) {
-      $("#forecast-container").append(`<li class="day">
-      <p>${forecast(i + 1)}</p>
-      <p class="temp" data-type="temp">${stats.temp}</p>
-    </li>`);
-    }
-
-    // time
-    $("#copyright-year").text(time.year);
-    $("#current-date").text(time.currentDate);
-
-    // DOM loads with SI units selected and displayed
-    $("#kelvin").prop("checked", true);
-    displayUnits($("#kelvin").val());
-    $(".temp").text(stats.temp);
-    $("#distance").text(stats.distance);
-
-    //  sun stats
-    $("#spectral").text(stats.spectral);
-    $("#luminosity").append(luminosity(stats.luminosity));
-    $("#metallicity").text(stats.metallicity);
-
-    // use event listener to tie radio
-    $("#units input").on("click", (e) => {
-      const unit = e.target.value;
-      // set & capture data-type
-      $(".temp").text(convertUnit(stats.temp, unit, $(".temp").data("type")));
-      $("#distance").text(stats.distance);
-    });
-    $("#lm").text(stats.lm());
-
-    // recent coronal mass ejection
-    if (cmeData) {
-      $("#cme-time").text(formatDay(CME.startTime));
-      $("#cme-latitude").text(`${CME.latitude}\u00B0`);
-      $("#cme-longitude").text(`${CME.longitude}\u00B0`);
-      $("#cme-angle").text(`${CME.halfAngle}\u00B0`);
-      $("#cme-speed").text(CME.speed);
-      $("#cme-type").text(CME.type);
-      $("#cme-note").text(CME.note);
-    }
-
-    // recent solar flare
-    if (flrData) {
-      $("#flr-date").text(
-        `${formatDay(FLR.beginTime)} - ${formatTime(FLR.endTime)}`
-      );
-      $("#flr-peak").text(formatTime(FLR.peakTime));
-      $("#flr-duration").text(pluralization(FLR.duration, "minute"));
-      $("#flr-region").text(FLR.activeRegionNum);
-      $("#flr-location").text(FLR.sourceLocation);
-      $("#flr-class").text(FLR.classType);
-    }
-  });
+  return flrObj;
 }
 
 // calls
@@ -197,10 +114,11 @@ async function development() {
     const cmeData = await getCME(mockCME);
     const flrData = await getFLR(mockFLR);
 
-    displayData(cmeData, flrData);
+    console.log(cmeData)
+    displayData(cmeData, flrData, stats);
   } catch (err) {
     console.error(err);
   }
 }
 
-// development();
+development();
