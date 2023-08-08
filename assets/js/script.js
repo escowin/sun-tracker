@@ -1,6 +1,6 @@
-import "../css/styles.css";
+// import "../css/styles.css";
+const { luminosity, pluralization, fluctuate, currentDistance } = require("./helper");
 
-const { luminosity, pluralization, fluctuate } = require("./helper");
 const {
   calculateDuration,
   formatDateTime,
@@ -19,29 +19,15 @@ let stats = {
   spectral: "G2V",
   metallicity: "Z = 0.0122",
   luminosity: "L⊙ = 4πkI⊙A2",
+  distance: currentDistance(time.now, time.perihelion)
 };
 
+console.log(stats.distance)
 // javascript functions handle data before the dom
-console.log(`
-   \u00A9 ${time.year} Edwin M. Escobar
-   https://github.com/escowin/sun-tracker
-   `);
-
-function currentDistance() {
-  const date = new Date();
-  const now = formatNow(date);
-
-  const totalDays = calculateDuration(time.perihelion, now, "day");
-  // time, semi-major axis, eccentricity
-  const t = (totalDays * 365.25) / 360;
-  const a = 149600000;
-  const e = 0.017;
-
-  // earth-sun distance equation
-  const orbit = (a * (1 - e * e)) / (1 + e * Math.cos(t));
-  stats.orbit = orbit;
-  stats.lm = orbit / 17987547.48;
-}
+// console.log(`
+//    \u00A9 ${time.year} Edwin M. Escobar
+//    https://github.com/escowin/sun-tracker
+//    `);
 
 // sets units by checked radio value
 function displayUnits(unit) {
@@ -218,5 +204,4 @@ function displayData(CME, FLR) {
 }
 
 // calls
-currentDistance();
-apiCalls();
+// apiCalls();
