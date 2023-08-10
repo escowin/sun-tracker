@@ -1,5 +1,6 @@
 const { formatDay, formatTime, forecast, now, year } = require("./time");
 const { convertUnit, luminosity, pluralization } = require("./helper");
+const { sun } = require("./sunData")
 
 // jquery methods manipulate dom elements to display parameter data
 function currentTime() {
@@ -8,20 +9,14 @@ function currentTime() {
   }, 1000);
 }
 
-function currentDistance() {
-  setInterval(() => {
-    console.log("current distance")
-  }, 5000)
-}
-
-function displayData(CME, FLR, stats) {
+function displayData(CME, FLR) {
   $(() => {
     // appends each generated forecast list element to  parent ul container
     // goal: unqiue temp for each day
     for (let i = 0; i < 5; i++) {
       $("#forecast-container").append(`<li class="day">
         <p>${forecast(i + 1)}</p>
-        <p class="temp" data-type="temp">${stats.temp}</p>
+        <p class="temp" data-type="temp">${sun.temp}</p>
       </li>`);
     }
 
@@ -32,23 +27,22 @@ function displayData(CME, FLR, stats) {
     // DOM loads with SI units selected and displayed
     $("#kelvin").prop("checked", true);
     // displayUnits($("#kelvin").val());
-    $(".temp").text(stats.temp);
-    $("#distance").text(stats.distance);
-    currentDistance()
 
     //  sun stats
-    $("#spectral").text(stats.spectral);
-    $("#luminosity").append(luminosity(stats.luminosity));
-    $("#metallicity").text(stats.metallicity);
+    $(".temp").text(sun.temp);
+    $("#distance").text(sun.distance);
+    $("#spectral").text(sun.spectral);
+    $("#luminosity").append(luminosity(sun.luminosity));
+    $("#metallicity").text(sun.metallicity);
 
     // use event listener to tie radio
     $("#units input").on("click", (e) => {
       const unit = e.target.value;
       // set & capture data-type
-      $(".temp").text(convertUnit(stats.temp, unit, $(".temp").data("type")));
-      $("#distance").text(stats.distance);
+      $(".temp").text(convertUnit(sun.temp, unit, $(".temp").data("type")));
+      $("#distance").text(sun.distance);
     });
-    $("#lm").text(stats.lm());
+    $("#lm").text(sun.lm());
 
     // recent coronal mass ejection
     if (CME) {

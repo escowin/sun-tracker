@@ -1,18 +1,7 @@
 import "../css/styles.css";
 const { displayData } = require("./displayData");
-const { fluctuate, currentDistance } = require("./helper");
 const { duration, ...time } = require("./time");
 const { mockCME, mockFLR } = require("./mockData");
-
-const stats = {
-  temp: fluctuate(5772),
-  spectral: "G2V",
-  metallicity: "Z = 0.0122",
-  luminosity: "L⊙ = 4πkI⊙A2",
-  distance: currentDistance(time.utcNow, time.perihelion),
-  lm: () =>
-    `${(stats.distance / 17987547.48).toLocaleString("en-US")} light minutes`,
-};
 
 // javascript functions handle data before the dom
 console.log(`
@@ -43,7 +32,7 @@ async function apiCalls() {
     const [cmeData, flrData] = await Promise.all(promises);
 
     // retrieved data is handled in jquery function for dom manipulation
-    displayData(cmeData, flrData, stats);
+    displayData(cmeData, flrData);
   } catch (err) {
     console.error(err);
   }
@@ -111,7 +100,7 @@ async function development() {
     const flrData = await getFLR(mockFLR);
 
     // console.log(cmeData)
-    displayData(cmeData, flrData, stats);
+    displayData(cmeData, flrData);
   } catch (err) {
     console.error(err);
   }
