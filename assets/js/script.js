@@ -1,7 +1,7 @@
 import "../css/styles.css";
 const { displayData } = require("./displayData");
 const { fluctuate, currentDistance } = require("./helper");
-const { calculateDuration, ...time } = require("./time");
+const { duration, ...time } = require("./time");
 const { mockCME, mockFLR } = require("./mockData");
 
 const stats = {
@@ -9,7 +9,7 @@ const stats = {
   spectral: "G2V",
   metallicity: "Z = 0.0122",
   luminosity: "L⊙ = 4πkI⊙A2",
-  distance: currentDistance(time.now, time.perihelion),
+  distance: currentDistance(time.utcNow, time.perihelion),
   lm: () =>
     `${(stats.distance / 17987547.48).toLocaleString("en-US")} light minutes`,
 };
@@ -86,17 +86,13 @@ async function getFLR(FLR) {
   // get latest solar flare data
   const latestFLR = FLR[FLR.length - 1];
 
-  const duration = calculateDuration(
-    latestFLR.beginTime,
-    latestFLR.endTime,
-    "minute"
-  );
+  // const duration = duration(latestFLR.beginTime, latestFLR.endTime, "minute");
 
   const flrObj = {
     beginTime: latestFLR.beginTime,
     peakTime: latestFLR.peakTime,
     endTime: latestFLR.endTime,
-    duration: duration,
+    duration: duration(latestFLR.beginTime, latestFLR.endTime, "minute"),
     activeRegionNum: latestFLR.activeRegionNum,
     sourceLocation: latestFLR.sourceLocation,
     classType: latestFLR.classType,
@@ -114,7 +110,7 @@ async function development() {
     const cmeData = await getCME(mockCME);
     const flrData = await getFLR(mockFLR);
 
-    console.log(cmeData)
+    // console.log(cmeData)
     displayData(cmeData, flrData, stats);
   } catch (err) {
     console.error(err);

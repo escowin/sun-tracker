@@ -5,26 +5,21 @@ dayjs.extend(utc);
 dayjs.extend(advancedFormat);
 
 const time = {
-  // time strings
+  // time variables
   dayjs,
-  now: dayjs().utc().format(),
-  year: dayjs(this.now).format("YYYY"),
-  currentDate: dayjs(this.now).format("MMMM Do, YYYY h:mm:ss a"),
-  apiStart: dayjs(this.now).subtract(7, "days").format("YYYY-MM-DD"),
-  apiEnd: dayjs(this.now).format("YYYY-MM-DD"),
+  year: dayjs().format("YYYY"),
+  nowUtc: dayjs().utc(),
+  apiStart: dayjs().subtract(7, "days").format("YYYY-MM-DD"),
+  apiEnd: dayjs().format("YYYY-MM-DD"),
   perihelion: dayjs("2022-01-04 06:55:00").utc().format(),
-  totalDays: dayjs(this.now),
-
-  // time functions
-  calculateDuration: (start, end, length) =>
-    dayjs(end).diff(dayjs(start), length),
+  // calculates time
+  now: () => dayjs().format("MMMM Do, YYYY h:mm:ss a"),
+  duration: (start, end, length) => dayjs(end).diff(dayjs(start), length),
+  // formats strings
   formatDateTime: (string) => dayjs(string).local().format("MMMM Do, h:mm a"),
-  formatNow: (string) => dayjs(string).utc().format(),
   formatDay: (string) => dayjs(string).local().format("dddd, h:mm a"),
   formatTime: (string) => dayjs(string).local().format("h:mm a"),
-  forecast: function (num) {
-    return dayjs(this.now).add(num, "day").format("dddd");
-  },
+  forecast: (num) => dayjs().add(num, "day").format("dddd"),
 };
 
 module.exports = time;

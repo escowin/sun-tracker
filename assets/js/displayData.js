@@ -1,9 +1,20 @@
-const { formatDay, formatTime, forecast, ...time } = require("./time");
-const { convertUnit, luminosity, pluralization } = require("./helper")
+const { formatDay, formatTime, forecast, now, year } = require("./time");
+const { convertUnit, luminosity, pluralization } = require("./helper");
 
 // jquery methods manipulate dom elements to display parameter data
+function currentTime() {
+  setInterval(() => {
+    $("#current-date").text(now());
+  }, 1000);
+}
+
+function currentDistance() {
+  setInterval(() => {
+    console.log("current distance")
+  }, 5000)
+}
+
 function displayData(CME, FLR, stats) {
-  console.log(stats)
   $(() => {
     // appends each generated forecast list element to  parent ul container
     // goal: unqiue temp for each day
@@ -15,14 +26,15 @@ function displayData(CME, FLR, stats) {
     }
 
     // time
-    $("#copyright-year").text(time.year);
-    $("#current-date").text(time.currentDate);
+    $("#copyright-year").text(year);
+    currentTime();
 
     // DOM loads with SI units selected and displayed
     $("#kelvin").prop("checked", true);
     // displayUnits($("#kelvin").val());
     $(".temp").text(stats.temp);
     $("#distance").text(stats.distance);
+    currentDistance()
 
     //  sun stats
     $("#spectral").text(stats.spectral);

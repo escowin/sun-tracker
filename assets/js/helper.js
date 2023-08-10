@@ -1,4 +1,4 @@
-const { calculateDuration } = require("./time");
+const { duration } = require("./time");
 
 module.exports = {
   luminosity: (string) =>
@@ -13,7 +13,7 @@ module.exports = {
     return result;
   },
   currentDistance: (now, perihelion) => {
-    const totalDays = calculateDuration(perihelion, now, "day");
+    const totalDays = duration(perihelion, now, "day");
     // time, semi-major axis, eccentricity
     const t = (totalDays * 365.25) / 360;
     const a = 149600000;
@@ -25,7 +25,6 @@ module.exports = {
     return orbit;
   },
   convertUnit: (num, unit, type) => {
-    console.log(num, unit, type)
     switch (unit) {
       case "metric":
         return type === "temp"
