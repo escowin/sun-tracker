@@ -9,7 +9,7 @@ class Sun {
     this.temp = this.fluctuate(5772);
   }
 
-  luminosity() { 
+  calculateLuminosity() { 
     const A = this.distance
     // k = solar constant (avg. 1.3608 ± 0.0005  kW/m)
     // I☉ = solar irradiance
