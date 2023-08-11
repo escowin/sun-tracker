@@ -22,8 +22,8 @@ class Sun {
     // sets a random high low range sun temp to then randomly return a number from
     const high = num + Math.round(Math.random() * 3000);
     const low = num + Math.round((Math.random() - 0.5) * 1000);
-    const result = Math.round(low + Math.random() * (high - low));
-    return result;
+    const current = Math.round(low + Math.random() * (high - low));
+    return { current, high, low};
   }
 
   currentDistance(now, perihelion) {
