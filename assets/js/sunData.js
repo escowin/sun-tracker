@@ -3,48 +3,57 @@ const { utcNow, perihelion, duration } = require("./time");
 class Sun {
   constructor() {
     this.distance = this.currentDistance(utcNow, perihelion);
-    this.luminosity = "L☉ = 4πkI☉A²";
+    this.irridiance = this.calculateIrridiance((1.3608));
+    this.luminosity = this.calculateLuminosity();
     this.metallicity = "Z = 0.0122";
     this.spectral = "G2V";
-    this.temp = this.fluctuate(5772);
+    this.temp = this.calculateTemp(5772);
   }
 
-  calculateLuminosity() { 
-    const A = this.distance
-    // k = solar constant (avg. 1.3608 ± 0.0005  kW/m)
-    // I☉ = solar irradiance
+  calculateIrridiance(num) {
+    const min = num - 0.0005;
+    const max = num + 0.0005;
+    return Math.random() * (max - min) + min;
+  }
+  
+  calculateLuminosity() {
+    // constant, solar irridance, au^2 in meters
+    const k = this.distance;
+    const Io = this.irridiance;
+    const A = 149597870700 ** 2;
 
     // luminosity formula L☉ = 4πkI☉A²
-    const result = (4 * Math.PI() * k);
+    const result = 4 * Math.PI * k * Io * A;
+    return result;
   }
 
-  fluctuate(num) {
-    // sets a random high low range sun temp to then randomly return a number from
+  calculateTemp(num) {
+    // sets a random high low range sun temp to then randomly return a number within that range
     const high = num + Math.round(Math.random() * 3000);
     const low = num + Math.round((Math.random() - 0.5) * 1000);
     const current = Math.round(low + Math.random() * (high - low));
-    return { current, high, low};
+    return { current, high, low };
   }
 
   currentDistance(now, perihelion) {
-    const totalDays = duration(perihelion, now, "day");
-    // time, semi-major axis, eccentricity
-    const t = (totalDays * 365.25) / 360;
-    const a = 149600000;
-    const e = 0.017;
-    // earth-sun distance equation
-    const orbit = (a * (1 - e * e)) / (1 + e * Math.cos(t));
+    const day = duration(perihelion, now, "day") + 1;
+    // au, semi-major axis length, eccentricity
+    const au = 1;
+    const t = 360/365.256363; // deg full rotation, mean solar days
+    const e = 0.01671022;
+    // distance between earth and sun
+    const orbit = au - e * Math.cos(t * (day - 4))
 
     return orbit;
   }
 
   duration(start, end, unit) {
-    return duration(start, end, unit)
-  };
+    return duration(start, end, unit);
+  }
 
   lightMinutes() {
     const lightMinutes = (this.distance / 17987547.48).toLocaleString("en-US");
-    return `${lightMinutes} light minutes`
+    return `${lightMinutes} light minutes`;
   }
 }
 

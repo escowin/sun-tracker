@@ -6,7 +6,7 @@ test("create a Sun object", () => {
   const sun = new Sun();
 
   expect(sun.distance).toEqual(expect.any(Number));
-  expect(sun.luminosity).toBe("L☉ = 4πkI☉A²");
+  expect(sun.luminosity).toEqual(expect.any(Number));
   expect(sun.metallicity).toBe("Z = 0.0122");
   expect(sun.spectral).toBe("G2V");
   expect(sun.temp).toStrictEqual(expect.any(Object));
@@ -25,7 +25,7 @@ test("calculate duration between time", () => {
 
 test("fluctuate returns object with 3 key-values", () => {
   const sun = new Sun();
-  expect(sun.fluctuate(5000)).toStrictEqual(
+  expect(sun.calculateTemp(5000)).toStrictEqual(
     expect.objectContaining({
       current: expect.any(Number),
       high: expect.any(Number),
@@ -38,3 +38,17 @@ test("return light minutes as string", () => {
   const sun = new Sun();
   expect(sun.lightMinutes()).toEqual(expect.stringContaining("light minutes"));
 });
+
+// tests math formulas for solar variables used in luminosity
+test("returns random number within the set range", () => {
+  const sun = new Sun();
+  const num = 5
+  expect(sun.calculateIrridiance(num)).toBeGreaterThanOrEqual(num - 0.0005, num + 0.0005)
+})
+
+test("returns luminosity value", () => {
+  const sun = new Sun()
+  const avg = 3.828 * (10**26);
+
+  expect(sun.calculateLuminosity()).toBeCloseTo(avg)
+})

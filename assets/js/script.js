@@ -1,11 +1,11 @@
 import "../css/styles.css";
 const { displayData } = require("./displayData");
-const { duration, ...time } = require("./time");
+const { duration, apiStart, apiEnd, year } = require("./time");
 const { mockCME, mockFLR } = require("./mockData");
 
 // javascript functions handle data before the dom
 console.log(`
-   \u00A9 ${time.year} Edwin M. Escobar
+   \u00A9 ${year} Edwin M. Escobar
    https://github.com/escowin/sun-tracker
    `);
 
@@ -16,8 +16,8 @@ async function apiCalls() {
     base: "https://api.nasa.gov/DONKI/",
     key: "UJO2NYWIRwCuDl6l431qKvjZviS8TPLUatA1E0xd",
     endpoints: ["CME", "FLR"],
-    start: time.apiStart,
-    end: time.apiEnd,
+    start: apiStart,
+    end: apiEnd,
     path: function (param) {
       return `${this.base}${param}?startDate=${this.start}&endDate=${this.end}&api_key=${this.key}`;
     },
