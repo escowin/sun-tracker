@@ -1,5 +1,4 @@
-const Sun = require("../assets/js/sunData");
-const { utcNow, perihelion } = require("../assets/js/time");
+const Sun = require("../assets/js/Sun");
 
 // Sun properties
 test("create a Sun object", () => {
@@ -30,9 +29,9 @@ test("fluctuate returns object with 3 key-values", () => {
   );
 });
 
-test("return light minutes as string", () => {
+test("returns value near 8 light minutes", () => {
   const sun = new Sun();
-  expect(sun.lightMinutes()).toEqual(expect.stringContaining("light minutes"));
+  expect(sun.calculateLightMinutes()).toBeCloseTo(8, .25);
 });
 
 // tests math formulas for solar variables used in luminosity

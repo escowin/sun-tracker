@@ -1,10 +1,8 @@
 const { formatDay, formatTime, forecast, now, year } = require("./time");
 const { convertUnit, pluralization } = require("./helper");
-const Sun = require("./sunData")
+const Sun = require("./Sun")
 
 const sun = new Sun();
-console.log(sun.distance)
-console.log(sun.lightMinutes)
 
 // jquery methods manipulate dom elements to display parameter data
 function currentTime() {
