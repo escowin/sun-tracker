@@ -3,32 +3,33 @@ const { utcNow, perihelion, duration } = require("./time");
 class Sun {
   constructor() {
     this.distance = this.currentDistance(utcNow, perihelion);
-    this.irridiance = this.calculateIrridiance((1.3608));
+    this.irradiance  = this.calculateIrradiance ((1.3608));
     this.luminosity = this.calculateLuminosity();
     this.metallicity = "Z = 0.0122";
     this.spectral = "G2V";
     this.temp = this.calculateTemp(5772);
   }
 
-  calculateIrridiance(num) {
+  calculateIrradiance (num) {
     const min = num - 0.0005;
     const max = num + 0.0005;
     const result = Math.random() * (max - min) + min
-    // converts kW/m^2 to W/m^2
+    
+    // converts kilowatts to watts
     return result * 1000;
   }
   
   calculateLuminosity() {
     // constant, solar irridance, au^2 in meters
     const k = this.distance;
-    const Io = this.irridiance;
+    const Io = this.irradiance ;
     const A = 149597870700 ** 2;
 
     // luminosity formula L☉ = 4πkI☉A²
     const result = 4 * Math.PI * k * Io * A;
-    // yottawatts converter
     const yw = 1e-24
 
+    // converts watts to rounded yottawatts
     return Math.round(((result * (yw)) * 10)) / 10;
   }
 
@@ -50,10 +51,6 @@ class Sun {
     const orbit = au - e * Math.cos(t * (day - 4))
 
     return orbit;
-  }
-
-  duration(start, end, unit) {
-    return duration(start, end, unit);
   }
 
   lightMinutes() {
