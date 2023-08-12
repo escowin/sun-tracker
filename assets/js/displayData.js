@@ -1,6 +1,10 @@
 const { formatDay, formatTime, forecast, now, year } = require("./time");
-const { convertUnit, luminosity, pluralization } = require("./helper");
-const { sun } = require("./sunData")
+const { convertUnit, pluralization } = require("./helper");
+const Sun = require("./sunData")
+
+const sun = new Sun();
+console.log(sun.distance)
+console.log(sun.lightMinutes)
 
 // jquery methods manipulate dom elements to display parameter data
 function currentTime() {
@@ -16,7 +20,7 @@ function displayData(CME, FLR) {
     for (let i = 0; i < 5; i++) {
       $("#forecast-container").append(`<li class="day">
         <p>${forecast(i + 1)}</p>
-        <p class="temp" data-type="temp">${sun.temp}</p>
+        <p class="temp" data-type="temp">${sun.temp.current}</p>
       </li>`);
     }
 
@@ -29,20 +33,20 @@ function displayData(CME, FLR) {
     // displayUnits($("#kelvin").val());
 
     //  sun stats
-    $(".temp").text(sun.temp);
-    $("#distance").text(sun.distance);
+    $(".temp").text(sun.temp.current);
+    $("#distance").text(`${sun.distance.toLocaleString("en-US")} au`);
     $("#spectral").text(sun.spectral);
-    $("#luminosity").append(luminosity(sun.luminosity));
+    $("#luminosity").append(`${sun.luminosity} YW`);
     $("#metallicity").text(sun.metallicity);
 
     // use event listener to tie radio
     $("#units input").on("click", (e) => {
       const unit = e.target.value;
       // set & capture data-type
-      $(".temp").text(convertUnit(sun.temp, unit, $(".temp").data("type")));
-      $("#distance").text(sun.distance);
+      $(".temp").text(convertUnit(sun.temp.current, unit, $(".temp").data("type")));
+      $("#distance").text(convertUnit(sun.distance, unit, $("#distance").data("type")));
     });
-    $("#lm").text(sun.lm());
+    $("#lm").text(`${sun.lightMinutes.toLocaleString("en-US")} light minutes`);
 
     // recent coronal mass ejection
     if (CME) {
