@@ -13,7 +13,9 @@ class Sun {
   calculateIrridiance(num) {
     const min = num - 0.0005;
     const max = num + 0.0005;
-    return Math.random() * (max - min) + min;
+    const result = Math.random() * (max - min) + min
+    // converts kW/m^2 to W/m^2
+    return result * 1000;
   }
   
   calculateLuminosity() {
@@ -24,7 +26,10 @@ class Sun {
 
     // luminosity formula L☉ = 4πkI☉A²
     const result = 4 * Math.PI * k * Io * A;
-    return result;
+    // yottawatts converter
+    const yw = 1e-24
+
+    return Math.round(((result * (yw)) * 10)) / 10;
   }
 
   calculateTemp(num) {

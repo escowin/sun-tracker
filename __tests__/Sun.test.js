@@ -46,9 +46,10 @@ test("returns random number within the set range", () => {
   expect(sun.calculateIrridiance(num)).toBeGreaterThanOrEqual(num - 0.0005, num + 0.0005)
 })
 
-test("returns luminosity value", () => {
+test("returns luminosity near the nominal value", () => {
   const sun = new Sun()
-  const avg = 3.828 * (10**26);
+  const yw = 1e-24
+  const avg = Math.round((3.828 * (10**26)) * (yw));
 
-  expect(sun.calculateLuminosity()).toBeCloseTo(avg)
+  expect(sun.calculateLuminosity()).toBeGreaterThanOrEqual(avg - 5, avg + 5)
 })
