@@ -16,7 +16,6 @@ const time = {
   now: () => dayjs().format("MMMM Do, YYYY h:mm:ss a"),
   duration: (start, end, length) => dayjs(end).diff(dayjs(start), length),
   // formats strings
-  formatDateTime: (string) => dayjs(string).local().format("MMMM Do, h:mm a"),
   formatDay: (string) => dayjs(string).local().format("dddd, h:mm a"),
   formatTime: (string) => dayjs(string).local().format("h:mm a"),
   forecast: (num) => dayjs().add(num, "day").format("dddd"),

@@ -1,7 +1,6 @@
 import "../css/styles.css";
 const { displayData } = require("./displayData");
 const { duration, apiStart, apiEnd, year } = require("./time");
-const { mockCME, mockFLR } = require("./mockData");
 
 // javascript functions handle data before the dom
 console.log(`
@@ -61,8 +60,8 @@ async function getCME(CME) {
   const cmeObj = {
     startTime: startTime,
     note: note,
-    latitude: longitude,
-    longitude: latitude,
+    latitude: latitude,
+    longitude: longitude,
     halfAngle: halfAngle,
     speed: speed,
     type: type,
@@ -74,8 +73,6 @@ async function getCME(CME) {
 async function getFLR(FLR) {
   // get latest solar flare data
   const latestFLR = FLR[FLR.length - 1];
-
-  // const duration = duration(latestFLR.beginTime, latestFLR.endTime, "minute");
 
   const flrObj = {
     beginTime: latestFLR.beginTime,
@@ -91,19 +88,4 @@ async function getFLR(FLR) {
 }
 
 // calls
-// apiCalls();
-
-// DEVELOPMENT
-async function development() {
-  try {
-    const cmeData = await getCME(mockCME);
-    const flrData = await getFLR(mockFLR);
-
-    // console.log(cmeData)
-    displayData(cmeData, flrData);
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-development();
+apiCalls();
