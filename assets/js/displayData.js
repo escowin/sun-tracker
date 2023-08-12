@@ -17,7 +17,7 @@ function displayData(CME, FLR) {
     // goal: unqiue temp for each day
     for (let i = 0; i < 5; i++) {
       const forecastTemp = sun.calculateTemp(sun.temp.current)
-      console.log(forecastTemp)
+
       $("#forecast-container").append(`<li class="day" id="day-${i}">
         <p>${forecast(i + 1)}</p>
         <p class="temp" data-type="temp">${forecastTemp.current} K</p>
