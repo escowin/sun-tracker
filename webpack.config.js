@@ -7,6 +7,7 @@ module.exports = {
   // PWA configuraton settings
   entry: {
     app: "./assets/js/script.js",
+    // dom: "./assets/js/displayData.js"
   },
   output: {
     // saves bundle file to `dist/`

@@ -18,7 +18,7 @@ function displayData(CME, FLR) {
     for (let i = 0; i < 5; i++) {
       $("#forecast-container").append(`<li class="day">
         <p>${forecast(i + 1)}</p>
-        <p class="temp" data-type="temp">${sun.temp.current}</p>
+        <p class="temp" data-type="temp">${sun.temp.current} K</p>
       </li>`);
     }
 
@@ -30,18 +30,24 @@ function displayData(CME, FLR) {
     $("#kelvin").prop("checked", true);
     // displayUnits($("#kelvin").val());
 
-    //  sun stats
-    $(".temp").text(sun.temp.current);
-    $("#distance").text(`${sun.distance.toLocaleString("en-US")} au`);
+    // temp
+    $(".temp").text(`${sun.temp.current} K`);
+    $("#temp-high").text(`H: ${sun.temp.high} K`);
+    $("#temp-low").text(`L: ${sun.temp.low} K`)
+
+    // stats
     $("#spectral").text(sun.spectral);
     $("#luminosity").append(`${sun.luminosity} YW`);
     $("#metallicity").text(sun.metallicity);
+    $("#distance").text(`${sun.distance.toLocaleString("en-US")} au`);
 
     // use event listener to tie radio
     $("#units input").on("click", (e) => {
       const unit = e.target.value;
       // set & capture data-type
       $(".temp").text(convertUnit(sun.temp.current, unit, $(".temp").data("type")));
+      $("#temp-high").text(convertUnit(sun.temp.high, unit, $(".temp").data("type")))
+      $("#temp-low").text(convertUnit(sun.temp.low, unit, $(".temp").data("type")))
       $("#distance").text(convertUnit(sun.distance, unit, $("#distance").data("type")));
     });
     $("#lm").text(`${sun.lightMinutes.toLocaleString("en-US")} light minutes`);

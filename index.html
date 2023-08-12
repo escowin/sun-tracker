@@ -10,6 +10,7 @@
       content="PWA that tracks Sun activity with math & fetched NASA API data"
     />
     <link rel="manifest" href="./dist/manifest.json" />
+    <link rel="stylesheet" href="./assets/css/styles.css"/>
     <script defer src="./dist/app.bundle.js"></script>
     <script defer>
       (function () {
@@ -35,35 +36,39 @@
       <p id="current-date"></p>
     </header>
     <main>
-      <section id="sun-stats">
-        <h2 class="subheader">Sun &#8857;</h2>
+      <section id="sun-section">
         <article id="sun">
+          <h2 class="subheader">Sun &#8857;</h2>
           <div id="sun-graphic"></div>
-          <div>
-            <p class="temp" data-type="temp"></p>
-            <fieldset id="units">
-              <legend>units</legend>
-              <input type="radio" id="kelvin" name="temp-unit" value="si" />
-              <label for="kelvin">K</label>
-
-              <input
-                type="radio"
-                id="celsius"
-                name="temp-unit"
-                value="metric"
-              />
-              <label for="celsius">C&deg;</label>
-
-              <input
-                type="radio"
-                id="fahrenheit"
-                name="temp-unit"
-                value="imperial"
-              />
-              <label for="fahrenheit">F&deg;</label>
-            </fieldset>
-          </div>
         </article>
+
+        <article id="sun-temp">
+          <h3 class="temp" data-type="temp"></h3>
+          <p id="temp-high" data-type="temp"></p>
+          <p id="temp-low" data-type="temp"></p>
+        </article>
+
+        <fieldset id="units">
+          <legend>units</legend>
+          <input type="radio" id="kelvin" name="temp-unit" value="si" />
+          <label for="kelvin">K</label>
+
+          <input
+            type="radio"
+            id="celsius"
+            name="temp-unit"
+            value="metric"
+          />
+          <label for="celsius">C&deg;</label>
+
+          <input
+            type="radio"
+            id="fahrenheit"
+            name="temp-unit"
+            value="imperial"
+          />
+          <label for="fahrenheit">F&deg;</label>
+        </fieldset>
 
         <article id="sun-text">
           <p class="label">Spectral</p>
@@ -78,12 +83,14 @@
             <span id="lm"></span>
           </p>
         </article>
+
+        <article id="forecast">
+          <h3 class="">Forecast</h3>
+          <ul class="list" id="forecast-container"></ul>
+        </article>
       </section>
 
-      <section id="forecast">
-        <h2 class="subheader">Forecast</h2>
-        <ul class="list" id="forecast-container"></ul>
-      </section>
+
 
       <section id="activity">
         <h2 class="subheader">Activity</h2>
