@@ -16,9 +16,11 @@ function displayData(CME, FLR) {
     // appends each generated forecast list element to  parent ul container
     // goal: unqiue temp for each day
     for (let i = 0; i < 5; i++) {
-      $("#forecast-container").append(`<li class="day">
+      const forecastTemp = sun.calculateTemp(sun.temp.current)
+      console.log(forecastTemp)
+      $("#forecast-container").append(`<li class="day" id="day-${i}">
         <p>${forecast(i + 1)}</p>
-        <p class="temp" data-type="temp">${sun.temp.current} K</p>
+        <p class="temp" data-type="temp">${forecastTemp.current} K</p>
       </li>`);
     }
 
@@ -28,12 +30,11 @@ function displayData(CME, FLR) {
 
     // DOM loads with SI units selected and displayed
     $("#kelvin").prop("checked", true);
-    // displayUnits($("#kelvin").val());
 
     // temp
-    $(".temp").text(`${sun.temp.current} K`);
-    $("#temp-high").text(`H: ${sun.temp.high} K`);
-    $("#temp-low").text(`L: ${sun.temp.low} K`)
+    $("#temp-now").text(`${sun.temp.current} K`);
+    $("#temp-high").text(`${sun.temp.high} K`);
+    $("#temp-low").text(`${sun.temp.low} K`)
 
     // stats
     $("#spectral").text(sun.spectral);
