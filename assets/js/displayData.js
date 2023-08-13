@@ -38,7 +38,7 @@ function displayData(CME, FLR) {
 
     // stats
     $("#spectral").text(sun.spectral);
-    $("#luminosity").append(`${sun.luminosity} YW`);
+    $("#luminosity").append(`${sun.luminosity} yw`);
     $("#metallicity").text(sun.metallicity);
     $("#distance").text(`${sun.distance.toLocaleString("en-US")} au`);
 

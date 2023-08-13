@@ -5,7 +5,7 @@ class Sun {
     this.distance = this.currentDistance(utcNow, perihelion);
     this.irradiance = this.calculateIrradiance(1.3608);
     this.luminosity = this.calculateLuminosity();
-    this.metallicity = "Z = 0.0122";
+    this.metallicity = "1.22%";
     this.spectral = "G2V";
     this.temp = this.calculateTemp(5772);
     this.lightMinutes = this.calculateLightMinutes();

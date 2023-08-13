@@ -13,7 +13,7 @@ const time = {
   apiEnd: dayjs().format("YYYY-MM-DD"),
   perihelion: dayjs("2022-01-04 06:55:00").utc().format(),
   // calculates time
-  now: () => dayjs().format("MMMM Do, YYYY h:mm:ss a"),
+  now: () => dayjs().format("MMMM Do, h:mm:ss a"),
   duration: (start, end, length) => dayjs(end).diff(dayjs(start), length),
   // formats strings
   formatDay: (string) => dayjs(string).local().format("dddd, h:mm a"),

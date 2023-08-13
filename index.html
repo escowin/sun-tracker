@@ -10,6 +10,7 @@
       content="PWA that tracks Sun activity with math & fetched NASA API data"
     />
     <link rel="manifest" href="./dist/manifest.json" />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
     <script defer src="./dist/app.bundle.js"></script>
     <script defer>
       (function () {
@@ -28,11 +29,24 @@
   <body>
     <header>
       <h1>Sun tracker</h1>
-      <p id="api-info">
-        powered by
-        <a href="https://api.nasa.gov/" target="_blank">NASA DONKI</a>
-      </p>
-      <p id="current-date"></p>
+      <fieldset id="units">
+        <legend>units</legend>
+        <label for="kelvin">
+          K
+          <input type="radio" id="kelvin" name="temp-unit" value="si" />
+        </label>
+
+        <label for="celsius">
+          C&deg;
+          <input type="radio" id="celsius" name="temp-unit" value="metric" />
+        </label>
+
+        <label for="fahrenheit">
+          F&deg;
+          <input type="radio" id="fahrenheit" name="temp-unit" value="imperial"
+          />
+        </label>
+      </fieldset>
     </header>
     <main>
       <section id="sun-section">
@@ -40,47 +54,28 @@
           <h2 class="subheader">Sun &#8857;</h2>
           <div id="sun-graphic"></div>
         </article>
-
+        <article id="current-date"></article>
         <article id="sun-temp">
           <h3 id="temp-now" data-type="temp"></h3>
-          <p>H:
+          <p>
+            H:
             <span id="temp-high" data-type="temp"></span>
           </p>
-          <p>L:
+          <p>
+            L:
             <span id="temp-low" data-type="temp"></span>
           </p>
         </article>
 
-        <fieldset id="units">
-          <legend>units</legend>
-          <input type="radio" id="kelvin" name="temp-unit" value="si" />
-          <label for="kelvin">K</label>
-
-          <input
-            type="radio"
-            id="celsius"
-            name="temp-unit"
-            value="metric"
-          />
-          <label for="celsius">C&deg;</label>
-
-          <input
-            type="radio"
-            id="fahrenheit"
-            name="temp-unit"
-            value="imperial"
-          />
-          <label for="fahrenheit">F&deg;</label>
-        </fieldset>
-
         <article id="sun-text">
-          <p class="label">Spectral</p>
+
+          <p class="label">spectral</p>
           <p id="spectral"></p>
-          <p class="label">Luminosity</p>
+          <p class="label">luminosity</p>
           <p id="luminosity"></p>
-          <p class="label">Metallicity</p>
+          <p class="label">metallicity</p>
           <p id="metallicity"></p>
-          <p class="label">Distance</p>
+          <p class="label">distance</p>
           <p>
             <span id="distance" data-type="dist"></span><br />
             <span id="lm"></span>
@@ -92,8 +87,6 @@
           <ul class="list" id="forecast-container"></ul>
         </article>
       </section>
-
-
 
       <section id="activity">
         <h2 class="subheader">Coronal mass ejections</h2>

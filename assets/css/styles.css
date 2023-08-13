@@ -1,5 +1,5 @@
 :root {
-    --dark: rgba(28, 23, 23, .35);
+    --dark: rgba(28, 23, 23, .45);
     --light: rgba(245, 220, 220, 0.9);
     --red: rgba(134, 14, 14, 0.9);
     --orange: rgb(156, 84, 62);
@@ -16,6 +16,10 @@
     /* outline: 1px dotted white; */
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 /* COLOR */
 footer,
 header,
@@ -30,9 +34,7 @@ h3,
 .date,
 .label,
 .temp,
-#units,
-#api-info,
-#current-date {
+#units {
     color: var(--yellow);
 }
 
@@ -40,30 +42,34 @@ h3,
     color: var(--orange);
 }
 
-p {
-    color: var(--light);
-}
-
 footer {
     text-shadow: var(--txt-shadow) var(--dark);
 }
 
+header,
+footer,
 #current-date {
-    text-shadow: var(--txt-shadow) var(--red);
+    text-shadow: 0 0 1rem var(--yellow);
 }
 
+p,
+#current-date {
+    color: var(--light);
+}
 
 /* DISPLAY */
 body,
 footer,
+header,
 main,
 .day,
 #activity,
-#cme div:nth-child(3) {
+#cme div:nth-child(3),
+#units {
     display: flex;
 }
 
-header,
+
 #sun-section,
 #sun-text,
 #activity article,
@@ -91,20 +97,20 @@ footer {
 }
 
 header {
-    grid-template-columns: auto 1fr;
     align-items: baseline;
-    padding: 0 .25rem;
+    justify-content: space-around;
+    padding: .25rem;
     width: inherit;
-    gap: 0 1rem;
 }
 
 h3 {
     grid-column: span 2;
 }
 
+
 main {
     flex-direction: column;
-    padding: 2rem .5rem .5rem .5rem;
+    padding: 1rem;
     gap: 1.5rem;
     width: inherit;
 }
@@ -150,13 +156,17 @@ section {
     align-items: flex-end;
 }
 
-#cme-note,
-#current-date {
+#cme-note {
     grid-column: span 2;
 }
 
 #cme h3 {
     grid-column: span 3;
+}
+
+#current-date {
+    grid-area: c;
+    align-self: center;
 }
 
 #flr {
@@ -193,12 +203,12 @@ section {
 #sun-section {
     grid-template-columns: auto 1fr;
     grid-template-rows: max-content max-content;
-    grid-template-areas: 
-    "a c" 
-    "a d"
-    "b e";
+    grid-template-areas:
+        "a c"
+        "a d"
+        "b e";
     gap: 0 .5rem;
-    padding: .25rem 0;
+    padding: .5rem 0;
     align-items: start;
 }
 
@@ -212,26 +222,23 @@ section {
     grid-area: d;
     grid-template-columns: auto 1fr;
     gap: .25rem .5rem;
-    height: fit-content;
+    align-self: end;
 }
 
 #units {
-    grid-area: c;
     border: none;
     text-align: right;
-    margin-right: .5rem;
-    gap: 1rem;
-    justify-self: end;
+    gap: .5rem;
+}
+
+#units legend {
+    float: left;
+    font-size: 80%;
 }
 
 /* TEXT */
-#api-info,
 #cme-note {
     font-size: .75rem;
-}
-
-#api-info {
-    font-weight: lighter;
 }
 
 #cme-note {
@@ -242,12 +249,13 @@ a {
     color: inherit;
     text-decoration: none;
     transition: 1s;
+    height: max-content;
 }
 
 /* PSEUDO-CLASS */
 a:hover {
-    color: var(--red);
-    text-shadow: var(--txt-shadow) var(--light);
+    color: var(--orange);
+    text-shadow: var(--txt-shadow) var(--dark);
 }
 
 /* ANIMATION */
@@ -260,70 +268,9 @@ a:hover {
 
 /* DISPLAY */
 @media screen and (min-width: 768px) {
-    footer {
-        padding-top: .25rem;
-    }
-
-    header {
-        display: flex;
-        padding: 1rem;
-    }
-
-    main {
-        justify-content: inherit;
-        display: grid;
-        grid-template-areas:
-            "a b"
-            "c c";
-        grid-template-rows: max-content;
-        grid-template-columns: auto 1fr;
-        gap: 1rem .5rem;
-    }
-
-    .day {
-        align-items: flex-start;
-        gap: .25rem;
-    }
-
-    #sun-section {
-        grid-area: a;
-    }
-
-    #forecast {
-        grid-area: b;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        padding: .25rem 0;
-    }
-
-    #activity {
-        grid-area: c;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: max-content;
-        height: max-content;
-    }
-
-    #activity .subheader {
-        grid-column: span 2;
-    }
-
-    #activity article {
-        height: max-content;
-    }
-
-    #activity #cme {
-        display: flex;
-        flex-direction: column;
-    }
-
-    #cme-note {
-        padding: .5rem 0;
-    }
 
     #sun-graphic {
-        --size: 15vw
+        --size: 15vw;
     }
 }
 
