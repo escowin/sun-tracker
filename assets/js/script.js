@@ -1,4 +1,4 @@
-// import "../css/styles.css";
+import "../css/styles.css";
 const { displayData } = require("./displayData");
 const { duration, apiStart, apiEnd, year } = require("./time");
 
