@@ -43,7 +43,7 @@ module.exports = {
     }),
     new BundleAnalyzerPlugin({
       // "static" generates `report.html`. "disable" stops report generation
-      analyzerMode: "disable",
+      analyzerMode: "static",
     }),
     new WebpackPwaManifest({
       // `manifest.json` object key-values
@@ -53,7 +53,7 @@ module.exports = {
       description:
         "PWA that tracks Sun activity with math & fetched NASA API data",
       start_url: "../index.html",
-      background_color: "#860e0e",
+      background_color: "#440f0f",
       theme_color: "#860e0e", // nee bf9732
       fingerprints: false,
       inject: false,
