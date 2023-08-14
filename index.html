@@ -10,6 +10,7 @@
       content="PWA that tracks Sun activity with math & fetched NASA API data"
     />
     <link rel="manifest" href="./dist/manifest.json" />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
     <script defer src="./dist/app.bundle.js"></script>
     <script defer>
       (function () {
@@ -42,7 +43,11 @@
 
         <label for="fahrenheit">
           F&deg;
-          <input type="radio" id="fahrenheit" name="temp-unit" value="imperial"
+          <input
+            type="radio"
+            id="fahrenheit"
+            name="temp-unit"
+            value="imperial"
           />
         </label>
       </fieldset>
@@ -88,15 +93,10 @@
 
       <section id="activity">
         <h2 class="subheader">Coronal mass ejections</h2>
-
-        <article class="api-data" id="cme">
-          <ul class="list" id="cme-list"></ul>
-        </article>
+        <ul class="list api-data" id="cme-list"></ul>
 
         <h2 class="subheader">Solar flares</h2>
-        <article class="api-data" id="flr">
-          <ul class="list" id="flr-list"></ul>
-        </article>
+        <ul class="list api-data" id="flr-list"></ul>
       </section>
     </main>
 

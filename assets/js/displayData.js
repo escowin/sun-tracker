@@ -74,7 +74,7 @@ function displayData(CME, FLR) {
 
 function displayCME(array) {
   array.forEach((cme) => {
-    $("cme-list").append(`<li class="item">
+    $("#cme-list").append(`<li class="item cme">
       <h3>${formatDay(cme.startTime)}</h3>
       <div>
         <p class="label">latitude</p>
@@ -94,7 +94,7 @@ function displayCME(array) {
       </div>
         
       <div>
-        <p>${cme.note}</p>
+        <p class="cme-note">${cme.note}</p>
       </div>
     </li>`);
   });
@@ -102,7 +102,7 @@ function displayCME(array) {
 
 function displayFLR(array) {
   array.forEach((flr) => {
-    $("#flr-list").append(`<li class="item">
+    $("#flr-list").append(`<li class="item flr">
       <h3>${formatDay(flr.beginTime)} - ${formatTime(flr.endTime)}</h3>
       <p class="label">peak</p>
       <p>${formatTime(flr.peakTime)}</p>
@@ -121,4 +121,5 @@ function displayFLR(array) {
     </li>`);
   });
 }
+
 module.exports = { displayData };
