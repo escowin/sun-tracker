@@ -12,8 +12,6 @@ function currentTime() {
 }
 
 function displayData(CME, FLR) {
-  console.log(CME);
-  console.log(FLR);
   $(() => {
     // appends each generated forecast list element to  parent ul container
     // goal: unqiue temp for each day
@@ -63,29 +61,64 @@ function displayData(CME, FLR) {
     });
     $("#lm").text(`${sun.lightMinutes.toLocaleString("en-US")} light minutes`);
 
-    // recent coronal mass ejection
+    // api data
     if (CME) {
-      $("#cme-time").text(formatDay(CME.startTime));
-      $("#cme-latitude").text(`${CME.latitude}\u00B0`);
-      $("#cme-longitude").text(`${CME.longitude}\u00B0`);
-      $("#cme-angle").text(`${CME.halfAngle}\u00B0`);
-      $("#cme-speed").text(CME.speed);
-      $("#cme-type").text(CME.type);
-      $("#cme-note").text(CME.note);
+      displayCME(CME);
     }
 
-    // recent solar flare
     if (FLR) {
-      $("#flr-date").text(
-        `${formatDay(FLR.beginTime)} - ${formatTime(FLR.endTime)}`
-      );
-      $("#flr-peak").text(formatTime(FLR.peakTime));
-      $("#flr-duration").text(pluralization(FLR.duration, "minute"));
-      $("#flr-region").text(FLR.activeRegionNum);
-      $("#flr-location").text(FLR.sourceLocation);
-      $("#flr-class").text(FLR.classType);
+      displayFLR(FLR);
     }
   });
 }
 
+function displayCME(array) {
+  array.forEach((cme) => {
+    $("cme-list").append(`<li class="item">
+      <h3>${formatDay(cme.startTime)}</h3>
+      <div>
+        <p class="label">latitude</p>
+        <p>${cme.latitude}\u00B0</p>
+
+        <p class="label">longitude</p>
+        <p>${cme.longitude}\u00B0</p>
+
+        <p class="label">half &angle;</p>
+        <p>${cme.halfAngle}\u00B0</p>
+
+        <p class="label">speed</p>
+        <p>${cme.speed}</p>
+
+        <p class="label">type</p>
+        <p>${cme.type}</p>
+      </div>
+        
+      <div>
+        <p>${cme.note}</p>
+      </div>
+    </li>`);
+  });
+}
+
+function displayFLR(array) {
+  array.forEach((flr) => {
+    $("#flr-list").append(`<li class="item">
+      <h3>${formatDay(flr.beginTime)} - ${formatTime(flr.endTime)}</h3>
+      <p class="label">peak</p>
+      <p>${formatTime(flr.peakTime)}</p>
+
+      <p class="label">duration</p>
+      <p>${pluralization(flr.duration, "minute")}</p>
+
+      <p class="label">active region</p>
+      <p>${flr.activeRegionNum}</p>
+
+      <p class="label">location</p>
+      <p>${flr.sourceLocation}</p>
+
+      <p class="label">class</p>
+      <p>${flr.classType}</p>
+    </li>`);
+  });
+}
 module.exports = { displayData };
