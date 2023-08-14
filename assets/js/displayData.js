@@ -19,7 +19,7 @@ function displayData(CME, FLR) {
       const forecastTemp = sun.calculateTemp(sun.temp.current);
 
       $("#forecast-container").append(`<li class="day" id="day-${i}">
-        <p>${forecast(i + 1)}</p>
+        <p class="label">${forecast(i + 1)}</p>
         <p class="temp" data-type="temp">${forecastTemp.current} K</p>
       </li>`);
     }
@@ -45,19 +45,12 @@ function displayData(CME, FLR) {
     // use event listener to tie radio
     $("#units input").on("click", (e) => {
       const unit = e.target.value;
+
       // set & capture data-type
-      $(".temp").text(
-        convertUnit(sun.temp.current, unit, $(".temp").data("type"))
-      );
-      $("#temp-high").text(
-        convertUnit(sun.temp.high, unit, $(".temp").data("type"))
-      );
-      $("#temp-low").text(
-        convertUnit(sun.temp.low, unit, $(".temp").data("type"))
-      );
-      $("#distance").text(
-        convertUnit(sun.distance, unit, $("#distance").data("type"))
-      );
+      $(".temp").text(convertUnit(sun.temp.current, unit, tempData));
+      $("#temp-high").text(convertUnit(sun.temp.high, unit, tempData));
+      $("#temp-low").text(convertUnit(sun.temp.low, unit, tempData));
+      $("#distance").text(convertUnit(sun.distance, unit, distData));
     });
     $("#lm").text(`${sun.lightMinutes.toLocaleString("en-US")} light minutes`);
 
@@ -75,7 +68,7 @@ function displayData(CME, FLR) {
 function displayCME(array) {
   array.forEach((cme) => {
     $("#cme-list").append(`<li class="item cme">
-      <h3>${formatDay(cme.startTime)}</h3>
+      <h3 class="label">${formatDay(cme.startTime)}</h3>
       <div>
         <p class="label">latitude</p>
         <p>${cme.latitude}\u00B0</p>
@@ -93,9 +86,10 @@ function displayCME(array) {
         <p>${cme.type}</p>
       </div>
         
-      <div>
-        <p class="cme-note">${cme.note}</p>
-      </div>
+      <details class="cme-note">
+        <summary class="label">cme note</summary>
+        <p>${cme.note}</p>
+      </details>
     </li>`);
   });
 }
@@ -103,7 +97,9 @@ function displayCME(array) {
 function displayFLR(array) {
   array.forEach((flr) => {
     $("#flr-list").append(`<li class="item flr">
-      <h3>${formatDay(flr.beginTime)} - ${formatTime(flr.endTime)}</h3>
+      <h3 class="label">${formatDay(flr.beginTime)} - ${formatTime(
+      flr.endTime
+    )}</h3>
       <p class="label">peak</p>
       <p>${formatTime(flr.peakTime)}</p>
 
