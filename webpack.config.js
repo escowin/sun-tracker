@@ -43,13 +43,13 @@ module.exports = {
     }),
     new BundleAnalyzerPlugin({
       // "static" generates `report.html`. "disable" stops report generation
-      analyzerMode: "static",
+      analyzerMode: "disable",
     }),
     new WebpackPwaManifest({
       // `manifest.json` object key-values
       publicPath: "./",
       name: "Sun tracker",
-      short_name: "sun-tracker",
+      short_name: "Sun",
       description:
         "PWA that tracks Sun activity with math & fetched NASA API data",
       start_url: "../index.html",

@@ -38,7 +38,7 @@
     }
   ],
   "name": "Sun tracker",
-  "short_name": "sun-tracker",
+  "short_name": "Sun",
   "orientation": "portrait",
   "display": "standalone",
   "start_url": "../index.html",

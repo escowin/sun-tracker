@@ -1,6 +1,7 @@
 import "../css/styles.css";
 const { displayData } = require("./displayData");
 const { duration, apiStart, apiEnd, year } = require("./time");
+const { mockFLR, mockCME } = require("./mockData");
 
 // javascript functions handle data before the dom
 console.log(`
@@ -51,41 +52,57 @@ function getSunActivity(url, endpoint) {
 }
 
 async function getCME(CME) {
-  // selects last object in CME array to get the most recent data
-  const latestCME = CME[CME.length - 1];
-  // retrieves relevant variables through object destructuring
-  const { startTime, note, cmeAnalyses } = latestCME;
-  const { latitude, longitude, halfAngle, speed, type } = cmeAnalyses[0];
-  // CME object is
-  const cmeObj = {
-    startTime: startTime,
-    note: note,
-    latitude: latitude,
-    longitude: longitude,
-    halfAngle: halfAngle,
-    speed: speed,
-    type: type,
-  };
+  const newArray = [];
+  const reverse = CME.reverse();
+  reverse.forEach((cme) => {
+    const cmeObj = {
+      startTime: cme.startTime,
+      note: cme.note,
+      latitude: cme.cmeAnalyses[0].latitude,
+      longitude: cme.cmeAnalyses[0].longitude,
+      halfAngle: cme.cmeAnalyses[0].halfAngle,
+      speed: cme.cmeAnalyses[0].speed,
+      type: cme.cmeAnalyses[0].type,
+    };
 
-  return cmeObj;
+    newArray.push(cmeObj);
+  });
+
+  return newArray;
 }
 
 async function getFLR(FLR) {
-  // get latest solar flare data
-  const latestFLR = FLR[FLR.length - 1];
+  const newArray = [];
+  const reverse = FLR.reverse();
+  reverse.forEach((flare) => {
+    const flrObj = {
+      beginTime: flare.beginTime,
+      peakTime: flare.peakTime,
+      endTime: flare.endTime,
+      duration: duration(flare.beginTime, flare.endTime, "minute"),
+      activeRegionNum: flare.activeRegionNum,
+      sourceLocation: flare.sourceLocation,
+      classType: flare.classType,
+    };
 
-  const flrObj = {
-    beginTime: latestFLR.beginTime,
-    peakTime: latestFLR.peakTime,
-    endTime: latestFLR.endTime,
-    duration: duration(latestFLR.beginTime, latestFLR.endTime, "minute"),
-    activeRegionNum: latestFLR.activeRegionNum,
-    sourceLocation: latestFLR.sourceLocation,
-    classType: latestFLR.classType,
-  };
+    newArray.push(flrObj);
+  });
 
-  return flrObj;
+  return newArray;
 }
 
 // calls
-apiCalls();
+// apiCalls();
+
+async function development() {
+  try {
+    const cmeData = await getCME(mockCME);
+    const flrData = await getFLR(mockFLR);
+
+    displayData(cmeData, flrData);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+development();

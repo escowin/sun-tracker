@@ -1,6 +1,6 @@
 const { formatDay, formatTime, forecast, now, year } = require("./time");
 const { convertUnit, pluralization } = require("./helper");
-const Sun = require("./Sun")
+const Sun = require("./Sun");
 
 const sun = new Sun();
 
@@ -12,11 +12,13 @@ function currentTime() {
 }
 
 function displayData(CME, FLR) {
+  console.log(CME);
+  console.log(FLR);
   $(() => {
     // appends each generated forecast list element to  parent ul container
     // goal: unqiue temp for each day
     for (let i = 0; i < 5; i++) {
-      const forecastTemp = sun.calculateTemp(sun.temp.current)
+      const forecastTemp = sun.calculateTemp(sun.temp.current);
 
       $("#forecast-container").append(`<li class="day" id="day-${i}">
         <p>${forecast(i + 1)}</p>
@@ -34,7 +36,7 @@ function displayData(CME, FLR) {
     // temp
     $("#temp-now").text(`${sun.temp.current} K`);
     $("#temp-high").text(`${sun.temp.high} K`);
-    $("#temp-low").text(`${sun.temp.low} K`)
+    $("#temp-low").text(`${sun.temp.low} K`);
 
     // stats
     $("#spectral").text(sun.spectral);
@@ -46,10 +48,18 @@ function displayData(CME, FLR) {
     $("#units input").on("click", (e) => {
       const unit = e.target.value;
       // set & capture data-type
-      $(".temp").text(convertUnit(sun.temp.current, unit, $(".temp").data("type")));
-      $("#temp-high").text(convertUnit(sun.temp.high, unit, $(".temp").data("type")))
-      $("#temp-low").text(convertUnit(sun.temp.low, unit, $(".temp").data("type")))
-      $("#distance").text(convertUnit(sun.distance, unit, $("#distance").data("type")));
+      $(".temp").text(
+        convertUnit(sun.temp.current, unit, $(".temp").data("type"))
+      );
+      $("#temp-high").text(
+        convertUnit(sun.temp.high, unit, $(".temp").data("type"))
+      );
+      $("#temp-low").text(
+        convertUnit(sun.temp.low, unit, $(".temp").data("type"))
+      );
+      $("#distance").text(
+        convertUnit(sun.distance, unit, $("#distance").data("type"))
+      );
     });
     $("#lm").text(`${sun.lightMinutes.toLocaleString("en-US")} light minutes`);
 
