@@ -45,12 +45,14 @@ function displayData(CME, FLR) {
     // use event listener to tie radio
     $("#units input").on("click", (e) => {
       const unit = e.target.value;
+      const temp = $(".temp").data("type");
+      const distance = $("#distance").data("type");
 
       // set & capture data-type
-      $(".temp").text(convertUnit(sun.temp.current, unit, tempData));
-      $("#temp-high").text(convertUnit(sun.temp.high, unit, tempData));
-      $("#temp-low").text(convertUnit(sun.temp.low, unit, tempData));
-      $("#distance").text(convertUnit(sun.distance, unit, distData));
+      $(".temp").text(convertUnit(sun.temp.current, unit, temp));
+      $("#temp-high").text(convertUnit(sun.temp.high, unit, temp));
+      $("#temp-low").text(convertUnit(sun.temp.low, unit, temp));
+      $("#distance").text(convertUnit(sun.distance, unit, distance));
     });
     $("#lm").text(`${sun.lightMinutes.toLocaleString("en-US")} light minutes`);
 
@@ -69,23 +71,21 @@ function displayCME(array) {
   array.forEach((cme) => {
     $("#cme-list").append(`<li class="item cme">
       <h3 class="label">${formatDay(cme.startTime)}</h3>
-      <div>
-        <p class="label">latitude</p>
-        <p>${cme.latitude}\u00B0</p>
+      <p class="label">latitude</p>
+      <p>${cme.latitude}\u00B0</p>
 
-        <p class="label">longitude</p>
-        <p>${cme.longitude}\u00B0</p>
+      <p class="label">longitude</p>
+      <p>${cme.longitude}\u00B0</p>
 
-        <p class="label">half &angle;</p>
-        <p>${cme.halfAngle}\u00B0</p>
+      <p class="label">half &angle;</p>
+      <p>${cme.halfAngle}\u03B8</p>
 
-        <p class="label">speed</p>
-        <p>${cme.speed}</p>
+      <p class="label">speed</p>
+      <p class="speed">${cme.speed} km/s</p>
 
-        <p class="label">type</p>
-        <p>${cme.type}</p>
-      </div>
-        
+      <p class="label">type</p>
+      <p>${cme.type}</p>
+
       <details class="cme-note">
         <summary class="label">cme note</summary>
         <p>${cme.note}</p>

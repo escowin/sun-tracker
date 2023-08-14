@@ -12,8 +12,7 @@
     margin: 0;
     padding: 0;
     font-variant: small-caps;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    /* outline: 1px dotted white; */
+    font-family: 'Roboto', sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -49,22 +48,26 @@ p {
     font-weight: lighter;
 }
 
+
+.cme-note p {
+    font-variant: normal;
+}
 /* DISPLAY */
 body,
 footer,
 header,
 main,
 .day,
-#activity,
 .list,
+#api-section,
 #units {
     display: flex;
 }
 
 #sun-section,
+#sun-temp,
 #sun-text,
-.cme div:nth-child(2),
-.flr,
+.item,
 #forecast-container {
     display: grid;
 }
@@ -116,46 +119,31 @@ section {
     flex-direction: column;
 }
 
-.subheader {
-    padding: .25rem 1rem;
-}
-
-#activity {
-    flex-direction: column;
-}
-
-#activity article {
-    padding: .25rem 1.25rem;
-    gap: 0 1rem;
-}
-
-.cme {
-    grid-template-columns: auto auto;
-}
-
-.cme div:nth-child(2),
-.flr {
-    grid-template-columns: 7rem auto;
-}
-
 .cme-note {
     max-height: 8rem;
-    overflow-y: scroll;
+    overflow: scroll;
 }
 
-.flr {
+.item {
+    grid-template-columns: 6.5rem auto;
     height: fit-content;
 }
 
+.item .label,
+.speed {
+    width: max-content;
+}
+
 .list {
-    gap: 1rem;
-    overflow-x: scroll;
-    padding: .25rem 1rem;
+    gap: 2rem;
+    overflow: scroll;
     list-style: none;
 }
 
-.item h3 {
-    width: 65vw;
+#api-section {
+    flex-direction: column-reverse;
+    padding: .5rem 1.25rem;
+    gap: 1rem;
 }
 
 #current-date {
@@ -197,7 +185,7 @@ section {
         "a c"
         "a d"
         "b e";
-    gap: 0 .5rem;
+    gap: 0 .25rem;
     padding: .5rem 0;
     align-items: start;
 }
@@ -205,6 +193,8 @@ section {
 #sun-temp {
     text-align: center;
     justify-self: center;
+    grid-template-columns: auto 1fr;
+    gap: 0 .5rem;
 }
 
 #sun-text {
@@ -240,27 +230,21 @@ section {
         padding: 0.25rem 2rem;
     }
 
-    #activity {
-        padding: .5rem 0;
-    }
-
-    #current-date {
-        align-self: end;
-    }
-
     #sun-graphic {
-        --size: 20vw;
+        --size: 15vw;
         margin: .25rem 1.5rem;
     }
 
-    .cme {
-        grid-template-columns: 12rem auto;
+    #api-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    #api-section .list {
+        flex-direction: column;
+        height: 55vh;
     }
 
-    .cme div:nth-child(2),
-    .flr {
-        grid-template-columns: 6rem auto;
-    }
 }
 
 @media screen and (min-width: 1024px) {
@@ -276,9 +260,13 @@ section {
         grid-template-columns: 1fr 1.25fr;
     }
 
+    .cme-note {
+        max-height: inherit;
+    }
 
-    #current-date {
-        color: var(--yellow);
+    #api-section .list {
+        flex-direction: column;
+        height: 40vh;
     }
 
     #sun-graphic {

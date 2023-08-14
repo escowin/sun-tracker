@@ -10,7 +10,9 @@
       content="PWA that tracks Sun activity with math & fetched NASA API data"
     />
     <link rel="manifest" href="./dist/manifest.json" />
-    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+    </style>
     <script defer src="./dist/app.bundle.js"></script>
     <script defer>
       (function () {
@@ -61,17 +63,13 @@
         </article>
 
         <article class="label" id="current-date"></article>
-        
+
         <article id="sun-temp">
           <h3 class="label" id="temp-now" data-type="temp"></h3>
-          <p>
-            H:
-            <span id="temp-high" data-type="temp"></span>
-          </p>
-          <p>
-            L:
-            <span id="temp-low" data-type="temp"></span>
-          </p>
+          <p class="label">H</p>
+          <p id="temp-high" data-type="temp"></p>
+          <p class="label">L</p>
+          <p id="temp-low" data-type="temp"></p>
         </article>
 
         <article id="sun-text">
@@ -94,12 +92,15 @@
         </article>
       </section>
 
-      <section class="bg" id="activity">
-        <h2 class="subheader">Coronal mass ejections</h2>
-        <ul class="list api-data" id="cme-list"></ul>
-
-        <h2 class="subheader">Solar flares</h2>
-        <ul class="list api-data" id="flr-list"></ul>
+      <section class="bg" id="api-section">
+        <article>
+          <h2 class="subheader">Coronal mass ejections</h2>
+          <ul class="list" id="cme-list"></ul>
+        </article>
+        <article>
+          <h2 class="subheader">Solar flares</h2>
+          <ul class="list" id="flr-list"></ul>
+        </article>
       </section>
     </main>
 
