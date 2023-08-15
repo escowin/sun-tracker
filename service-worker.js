@@ -1,14 +1,14 @@
 // service worker enables offline functionality
 // development note: clear storage in devTools whenever changes are made to service worker
 const APP_PREFIX = "SunTracker-";
-const VERSION = "2.6.0";
+const VERSION = "2.6.1";
 const CACHE_NAME = APP_PREFIX + VERSION;
 
 // cache of essential files
 const FILES_TO_CACHE = [
   "./index.html",
   "./dist/app.bundle.js",
-  "./dist/assets/images/background.jpg",
+  "./dist/assets/img/background.jpg",
 ];
 
 // installs service worker

@@ -6,7 +6,7 @@ const WebpackPwaManifest = require("webpack-pwa-manifest");
 module.exports = {
   // PWA configuraton settings
   entry: {
-    app: "./assets/js/script.js",
+    app: "./src/js/script.js",
   },
   output: {
     // saves bundle file to `dist/`
@@ -25,7 +25,7 @@ module.exports = {
         test: /\.jpg$/i,
         type: "asset/resource", // Use asset/resource to handle images in CSS
         generator: {
-          filename: "[path][name][ext]",
+          filename: "assets/img/[name][ext]",
         },
         exclude: [/node_modules/, /assets\/css/], // Exclude images from being processed in the CSS folder
       },
@@ -43,7 +43,7 @@ module.exports = {
     }),
     new BundleAnalyzerPlugin({
       // "static" generates `report.html`. "disable" stops report generation
-      analyzerMode: "static",
+      analyzerMode: "disable",
     }),
     new WebpackPwaManifest({
       // `manifest.json` object key-values
@@ -59,7 +59,7 @@ module.exports = {
       inject: false,
       icons: [
         {
-          src: path.resolve("assets/img/icons/icon-512x512.png"),
+          src: path.resolve("src/img/icons/icon-512x512.png"),
           sizes: [96, 128, 192, 256, 384, 512],
           destination: path.join("assets", "icons"),
           purpose: "any maskable"

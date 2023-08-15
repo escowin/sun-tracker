@@ -74,7 +74,7 @@ main,
 
 /* BOX */
 body {
-    background: linear-gradient(var(--dark), var(--dark)), url(../../assets/img/background.jpg);
+    background: linear-gradient(var(--dark), var(--dark)), url(../../src/img/background.jpg);
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
