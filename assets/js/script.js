@@ -1,6 +1,6 @@
 import "../css/styles.css";
-const { displayData } = require("./displayData");
-const { duration, apiStart, apiEnd, year } = require("./time");
+const { displayData } = require("./utils/displayData");
+const { duration, apiStart, apiEnd, year } = require("./utils/time");
 
 // javascript functions handle data before the dom
 console.log(`

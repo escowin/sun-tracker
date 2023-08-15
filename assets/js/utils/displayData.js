@@ -1,6 +1,6 @@
 const { formatDay, formatTime, forecast, now, year } = require("./time");
 const { convertUnit, pluralization } = require("./helper");
-const Sun = require("./Sun");
+const Sun = require("../lib/Sun");
 
 const sun = new Sun();
 

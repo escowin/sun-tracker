@@ -1,4 +1,4 @@
-const { utcNow, perihelion, duration } = require("./time");
+const { utcNow, perihelion, duration } = require("../utils/time");
 
 class Sun {
   constructor() {
