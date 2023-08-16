@@ -1,5 +1,3 @@
-const { mockCME, mockFLR } = require("./data")
-
 // DEVELOPMENT CALL
 async function development() {
   try {

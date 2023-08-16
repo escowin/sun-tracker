@@ -13,6 +13,7 @@
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
     </style>
+    <link rel="stylesheet" href="./src/css/styles.css" />
     <script defer src="./dist/app.bundle.js"></script>
     <script defer>
       (function () {
@@ -28,10 +29,10 @@
     </script>
     <title>Sun tracker</title>
   </head>
-  <body>
-    <header class="bg label">
+  <body class="flex">
+    <header class="bg label flex">
       <h1>Sun tracker</h1>
-      <fieldset id="units">
+      <fieldset class="flex" id="units">
         <legend>units</legend>
         <label for="kelvin">
           K
@@ -55,8 +56,8 @@
       </fieldset>
     </header>
 
-    <main class="bg">
-      <section class="bg" id="sun-section">
+    <main class="bg flex">
+      <section class="bg grid" id="sun-section">
         <article id="sun">
           <h2 class="subheader">Sun &#8857;</h2>
           <div id="sun-graphic"></div>
@@ -64,7 +65,7 @@
 
         <article class="label" id="current-date"></article>
 
-        <article id="sun-temp">
+        <article class="grid" id="sun-temp">
           <h3 class="label" id="temp-now" data-type="temp"></h3>
           <p class="label">H</p>
           <p id="temp-high" data-type="temp"></p>
@@ -72,7 +73,7 @@
           <p id="temp-low" data-type="temp"></p>
         </article>
 
-        <article id="sun-text">
+        <article class="grid" id="sun-text">
           <p class="label">spectral</p>
           <p id="spectral"></p>
           <p class="label">luminosity</p>
@@ -88,23 +89,23 @@
 
         <article id="forecast">
           <h3 class="label">Forecast</h3>
-          <ul class="list" id="forecast-container"></ul>
+          <ul class="list grid" id="forecast-container"></ul>
         </article>
       </section>
 
-      <section class="bg" id="api-section">
+      <section class="bg flex" id="api-section">
         <article>
           <h2 class="subheader">Coronal mass ejections</h2>
-          <ul class="list" id="cme-list"></ul>
+          <ul class="list flex" id="cme-list"></ul>
         </article>
         <article>
           <h2 class="subheader">Solar flares</h2>
-          <ul class="list" id="flr-list"></ul>
+          <ul class="list flex" id="flr-list"></ul>
         </article>
       </section>
     </main>
 
-    <footer class="bg label">
+    <footer class="bg label flex">
       <a
         href="https://github.com/escowin/sun-tracker/"
         target="_blank"

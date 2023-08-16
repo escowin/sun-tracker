@@ -18,7 +18,7 @@ function displayData(CME, FLR) {
     for (let i = 0; i < 5; i++) {
       const forecastTemp = sun.calculateTemp(sun.temp.current);
 
-      $("#forecast-container").append(`<li class="day" id="day-${i}">
+      $("#forecast-container").append(`<li class="day flex" id="day-${i}">
         <p class="label">${forecast(i + 1)}</p>
         <p class="temp" data-type="temp">${forecastTemp.current} K</p>
       </li>`);
@@ -69,7 +69,7 @@ function displayData(CME, FLR) {
 
 function displayCME(array) {
   array.forEach((cme) => {
-    $("#cme-list").append(`<li class="item cme">
+    $("#cme-list").append(`<li class="item cme grid">
       <h3 class="label">${formatDay(cme.startTime)}</h3>
       <p class="label">latitude</p>
       <p>${cme.latitude}\u00B0</p>
@@ -96,7 +96,7 @@ function displayCME(array) {
 
 function displayFLR(array) {
   array.forEach((flr) => {
-    $("#flr-list").append(`<li class="item flr">
+    $("#flr-list").append(`<li class="item grid flr">
       <h3 class="label">${formatDay(flr.beginTime)} - ${formatTime(
       flr.endTime
     )}</h3>

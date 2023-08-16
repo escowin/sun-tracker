@@ -20,7 +20,6 @@
 }
 
 /* COLOR & TEXT*/
-
 .bg {
     background-color: var(--dark);
 }
@@ -48,28 +47,18 @@ p {
     font-weight: lighter;
 }
 
-
 .cme-note p {
     font-variant: normal;
 }
+
 /* DISPLAY */
-body,
-footer,
-header,
-main,
-.day,
-.list,
-#api-section,
-#units {
+.flex {
     display: flex;
 }
 
-#sun-section,
-#sun-temp,
-#sun-text,
-.item,
-#forecast-container {
+.grid {
     display: grid;
+    grid-template-rows: max-content;
 }
 
 /* BOX */
@@ -85,34 +74,34 @@ body {
 }
 
 footer {
+    flex-grow: 1;
     width: inherit;
     justify-content: center;
-    flex-grow: 1;
 }
 
 header {
     align-items: baseline;
-    justify-content: space-around;
-    padding: .25rem;
+    justify-content: space-between;
+    padding: 0.25rem 2rem;
     width: inherit;
 }
 
 h3,
-.time,
 .cme-note {
     grid-column: span 2;
 }
 
 main {
     flex-direction: column;
-    padding: 1rem;
     gap: 1.5rem;
+    padding: 1rem;
     width: inherit;
 }
 
 section {
     border-radius: .5rem;
     box-shadow: 0 0 1rem var(--yellow);
+    backdrop-filter: blur(.5rem)
 }
 
 .day {
@@ -125,7 +114,8 @@ section {
 }
 
 .item {
-    grid-template-columns: 6.5rem auto;
+    grid-template-columns: 8rem 6rem;
+    gap: 0 1rem;
     height: fit-content;
 }
 
@@ -142,8 +132,13 @@ section {
 
 #api-section {
     flex-direction: column-reverse;
-    padding: .5rem 1.25rem;
+    flex-grow: 1;
     gap: 1rem;
+    padding: .5rem 1.25rem;
+}
+
+#api-section article {
+    flex-grow: 1;
 }
 
 #current-date {
@@ -152,19 +147,18 @@ section {
 }
 
 #forecast {
-    overflow-x: hidden;
     grid-area: e;
+    overflow: scroll;
 }
 
 #forecast-container {
-    grid-template-columns: repeat(5, 4rem);
+    grid-template-columns: repeat(5, max-content);
     gap: 1rem;
-    overflow-x: scroll;
 }
 
 #sun {
-    text-align: center;
     grid-area: a;
+    text-align: center;
 }
 
 #sun-graphic {
@@ -180,21 +174,20 @@ section {
 
 #sun-section {
     grid-template-columns: auto 1fr;
-    grid-template-rows: max-content max-content;
     grid-template-areas:
         "a c"
         "a d"
         "b e";
     gap: 0 .25rem;
-    padding: .5rem 0;
+    padding: .5rem .25rem;
     align-items: start;
 }
 
 #sun-temp {
+    grid-template-columns: repeat(2, max-content);
+    gap: 0 .5rem;
     text-align: center;
     justify-self: center;
-    grid-template-columns: auto 1fr;
-    gap: 0 .5rem;
 }
 
 #sun-text {
@@ -206,7 +199,6 @@ section {
 
 #units {
     border: none;
-    text-align: right;
     gap: .5rem;
 }
 
@@ -225,26 +217,19 @@ section {
 
 /* DISPLAY */
 @media screen and (min-width: 768px) {
-    header {
-        justify-content: space-between;
-        padding: 0.25rem 2rem;
-    }
-
     #sun-graphic {
         --size: 15vw;
         margin: .25rem 1.5rem;
     }
 
     #api-section {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        flex-direction: row;
     }
-    
+
     #api-section .list {
         flex-direction: column;
         height: 55vh;
     }
-
 }
 
 @media screen and (min-width: 1024px) {
@@ -256,8 +241,7 @@ section {
     }
 
     main {
-        display: grid;
-        grid-template-columns: 1fr 1.25fr;
+        flex-direction: row;
     }
 
     .cme-note {
@@ -265,20 +249,12 @@ section {
     }
 
     #api-section .list {
-        flex-direction: column;
         height: 40vh;
     }
 
     #sun-graphic {
         --size: 12.5vw;
         margin: .5rem 1.5rem 1.5rem 1.5rem;
-    }
-
-    #sun-section {
-        grid-template-areas:
-            "a c"
-            "a d"
-            "b e";
     }
 
     #sun-text {
