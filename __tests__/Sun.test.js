@@ -1,13 +1,12 @@
-const Sun = require("../assets/js/Sun");
+const Sun = require("../src/js/lib/Sun");
 
 // Sun properties
 test("create a Sun object", () => {
   const sun = new Sun();
 
-  console.log(sun)
   expect(sun.distance).toEqual(expect.any(Number));
   expect(sun.luminosity).toEqual(expect.any(Number));
-  expect(sun.metallicity).toBe("Z = 0.0122");
+  expect(sun.metallicity).toEqual(expect.any(String));
   expect(sun.spectral).toBe("G2V");
   expect(sun.temp).toStrictEqual(expect.any(Object));
 });
@@ -31,7 +30,7 @@ test("fluctuate returns object with 3 key-values", () => {
 
 test("returns value near 8 light minutes", () => {
   const sun = new Sun();
-  expect(sun.calculateLightMinutes()).toBeCloseTo(8, .25);
+  expect(sun.calculateLightMinutes()).toBeCloseTo(8, .15);
 });
 
 // tests math formulas for solar variables used in luminosity

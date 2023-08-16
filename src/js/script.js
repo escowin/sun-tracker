@@ -1,5 +1,4 @@
-// import "../css/styles.css";
-const { mockCME, mockFLR } = require("./mock/data")
+import "../css/styles.css";
 const { displayData } = require("./utils/displayData");
 const { duration, apiStart, apiEnd, year } = require("./utils/time");
 
@@ -92,16 +91,4 @@ async function getFLR(FLR) {
 }
 
 // calls
-// apiCalls();
-async function development() {
-  try {
-    const cmeData = await getCME(mockCME)
-    const flrData = await getFLR(mockFLR)
-
-    displayData(cmeData, flrData)
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-development()
+apiCalls();

@@ -30,20 +30,22 @@ $ npm run test
 
 ## Usage
 
-![mobile](./assets/images/screenshots/sun-tracker-sm.jpg)
+![mobile](./assets/img/display-sm.jpg)
 
-![tablet](./assets/images/screenshots/sun-tracker-md.jpg)
+![tablet](./assets/img/display-md.jpg)
 
-![desktop](./assets/images/screenshots/sun-tracker-lg.jpg)
+![desktop](./assets/img/display-lg.jpg)
 
 ## Features
-- PWA installation (see: [Installation](#installation))
-- Lighthouse Audit: 
-``````
-Original : 54 | 100 | 100 | 91 | -
-Current  : 75 | 100 | 100 | 100 | 1/1, 6/6
-``````
+- Unit conversion (SI, Metric, Imperial)
+- PWA Installation (see: [Installation](#installation))
+- PWA Optimization
 
+![lighthouse-audit](./assets/img/audit.jpg)
+``````
+Original : 54 | 100 | 100 | 91  | -
+Current  : 80 | 100 | 100 | 100 | 1/1, 6/6
+``````
 ## Credits
 - Languages: HTML, CSS, JavaScript
 - Libraries: [Day.js](https://day.js.org/), [jQuery](https://api.jquery.com/), [Jest](https://jestjs.io/), [webpack](https://github.com/webpack/webpack), et al.
