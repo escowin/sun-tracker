@@ -1,3 +1,9 @@
+// to-do
+// - modularized API calls to Memory class or into API class that Memory extends from
+// - reconfigure displayData into Display class. Display extends from Memory
+// - simplify script.js with Display instantiation
+// - use promises to handle indexedDB & API methods
+
 class Memory {
   constructor() {
     this.dbName = "sun_tracker_db";
@@ -22,3 +28,5 @@ class Memory {
     console.log(promise)
   }
 }
+
+module.exports = Memory

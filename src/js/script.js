@@ -1,6 +1,12 @@
 import "../css/styles.css";
 const { displayData } = require("./utils/displayData");
 const { duration, apiStart, apiEnd, year } = require("./utils/time");
+const { mockFLR, mockCME } = require("./mock/data");
+const Memory = require("./lib/Memory")
+const memory = new Memory();
+
+memory.openDatabase();
+console.log(memory)
 
 // javascript functions handle data before the dom
 console.log(`
@@ -91,4 +97,18 @@ async function getFLR(FLR) {
 }
 
 // calls
-apiCalls();
+// apiCalls();
+
+// DEVELOPMENT CALL
+async function development() {
+  try {
+    const cmeData = await getCME(mockCME)
+    const flrData = await getFLR(mockFLR)
+
+    displayData(cmeData, flrData)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+development()
