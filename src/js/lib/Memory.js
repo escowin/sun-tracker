@@ -4,7 +4,7 @@
 // - simplify script.js with Display instantiation
 // - use promises to handle indexedDB & API methods
 
-class Memory {
+class Memory extends API {
   constructor() {
     this.dbName = "sun_tracker_db";
     this.storeNames = ["cme", "flr"];
