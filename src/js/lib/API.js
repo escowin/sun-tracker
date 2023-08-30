@@ -1,5 +1,4 @@
 const { duration, apiStart, apiEnd } = require("../utils/time");
-const { mockFLR, mockCME } = require("../mock/data")
 
 class API {
   constructor() {
@@ -21,9 +20,11 @@ class API {
     };
 
     try {
-      const promise = await this.getSunActivity(api.path(), endpoint)
+      const promise = await new Promise((resolve, reject) => {
+        resolve(this.getSunActivity(api.path(), endpoint))
+        reject("promise failed")
+      })
       return promise
-      // console.log(promise)
     } catch (err) {
       console.error(err);
     }
@@ -34,15 +35,13 @@ class API {
     // selects appropriate fetch & data handling functions
     switch (endpoint) {
       case "CME":
-        return this.getCME(mockCME)
-        // return fetch(url).then((res) =>
-        //   res.json().then((data) => getCME(data))
-        // );
+        return fetch(url).then((res) =>
+          res.json().then((data) => this.getCME(data))
+        );
       case "FLR":
-        return this.getFLR(mockFLR)
-        // return fetch(url).then((res) =>
-        //   res.json().then((data) => getFLR(data))
-        // );
+        return fetch(url).then((res) =>
+          res.json().then((data) => this.getFLR(data))
+        );
       default:
         return Promise.reject("failed fetch request");
     }
