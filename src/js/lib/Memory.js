@@ -17,21 +17,16 @@ class Memory extends API {
     // resolves api promise objects as arrays
     const promises = [this.CME, this.FLR];
     const [cmeData, flrData] = await Promise.all(promises);
-    console.log(cmeData);
-    console.log(flrData);
 
     const db = e.target.result;
     this.storeNames.forEach((name) => {
       const store = db.createObjectStore(name, { autoIncrement: true });
       store.transaction.oncomplete = (e) => {
-        const objectStore = db.transaction(name, "readwrite").objectStore(name);
-        console.log(e);
-        console.log(objectStore);
-
-        // bug | adds flr data but cme store never goes through
-        objectStore.name === "cme"
-          ? cmeData.forEach((cme) => objectStore.add(cme))
-          : flrData.forEach((flr) => objectStore.add(flr));
+        // temp solution: hardcoded `name` values since only "flr" logs within .oncomplete
+        const cmeStore = db.transaction("cme", "readwrite").objectStore("cme");
+        const flrStore = db.transaction("flr", "readwrite").objectStore("flr");
+        cmeData.forEach((cme) => cmeStore.add(cme));
+        flrData.forEach((flr) => flrStore.add(flr));
       };
     });
   }
