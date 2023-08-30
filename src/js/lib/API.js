@@ -1,4 +1,5 @@
 const { duration, apiStart, apiEnd } = require("../utils/time");
+const { mockFLR, mockCME } = require("../mock/data")
 
 class API {
   constructor() {
@@ -19,21 +20,13 @@ class API {
       },
     };
 
-    console.log(api.path())
-    // const promise = await this.getSunActivity(api.path, endpoint)
-    // try {
-    //   // creates an array of promises by mapping endpoints as fetch arguments
-    //   const promises = api.endpoints.map((endpoint) =>
-    //     getSunActivity(api.path(endpoint), endpoint)
-    //   );
-    //   // awaits to resolve promises. results assigned to corresponding variables
-    //   const [cmeData, flrData] = await Promise.all(promises);
-
-    //   // retrieved data is handled in jquery function for dom manipulation
-    //   displayData(cmeData, flrData);
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    try {
+      const promise = await this.getSunActivity(api.path(), endpoint)
+      return promise
+      // console.log(promise)
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   // makes fetch requests to NASA API for specified endpoints
@@ -41,13 +34,15 @@ class API {
     // selects appropriate fetch & data handling functions
     switch (endpoint) {
       case "CME":
-        return fetch(url).then((res) =>
-          res.json().then((data) => getCME(data))
-        );
+        return this.getCME(mockCME)
+        // return fetch(url).then((res) =>
+        //   res.json().then((data) => getCME(data))
+        // );
       case "FLR":
-        return fetch(url).then((res) =>
-          res.json().then((data) => getFLR(data))
-        );
+        return this.getFLR(mockFLR)
+        // return fetch(url).then((res) =>
+        //   res.json().then((data) => getFLR(data))
+        // );
       default:
         return Promise.reject("failed fetch request");
     }
