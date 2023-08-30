@@ -10,13 +10,25 @@ class Memory extends API {
     super();
     this.dbName = "sun_tracker_db";
     this.storeNames = ["cme", "flr"];
+    this.openDatabase();
   }
 
   initDatabase(e) {
     const db = e.target.result;
-    this.storeNames.forEach((store) =>
-      db.createObjectStore(store, { autoIncrement: true })
-    );
+    this.storeNames.forEach((name) => {
+      const store = db.createObjectStore(name, { autoIncrement: true });
+      store.transaction.oncomplete = (e) => {
+        const tx = db.transaction(name, "readwrite").objectStore(name)
+        if (tx.name === "flr") {
+          console.log("this is the flr store transaction")
+          console.log(this.FLR)
+        } else  {
+          console.log("this is something else")
+        }
+        console.log(e)
+        console.log(tx)
+      }
+    });
   }
 
   async openDatabase() {

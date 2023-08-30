@@ -3,8 +3,8 @@ const { mockFLR, mockCME } = require("../mock/data");
 
 class API {
   constructor() {
-    this.FLR = this.apiCall("FLR");
     this.CME = this.apiCall("CME");
+    this.FLR = this.apiCall("FLR");
   }
 
   // returns API data through promises
