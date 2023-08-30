@@ -6,6 +6,7 @@
 
 class Memory extends API {
   constructor() {
+    super();
     this.dbName = "sun_tracker_db";
     this.storeNames = ["cme", "flr"];
   }
@@ -25,8 +26,8 @@ class Memory extends API {
       request.onsuccess = (e) => resolve(e.target.request);
     });
 
-    console.log(promise)
+    console.log(promise);
   }
 }
 
-module.exports = Memory
+module.exports = Memory;
