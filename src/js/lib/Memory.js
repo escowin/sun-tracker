@@ -1,3 +1,4 @@
+const API = require("./API");
 // to-do
 // - modularized API calls to Memory class or into API class that Memory extends from
 // - reconfigure displayData into Display class. Display extends from Memory
