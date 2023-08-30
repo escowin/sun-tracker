@@ -1,9 +1,9 @@
 const API = require("./API");
-// to-do
-// - modularized API calls to Memory class or into API class that Memory extends from
-// - reconfigure displayData into Display class. Display extends from Memory
-// - simplify script.js with Display instantiation
+// to-do:
 // - use promises to handle indexedDB & API methods
+// - post latest api data to indexedDB stores
+// -- delete existing objects from store that are 7 days older than most recent object.
+// -- retain existing objects if latest object cannot be retrieved (offline, fetch data not avaiable, etc)
 
 class Memory extends API {
   constructor() {

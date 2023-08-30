@@ -1,7 +1,7 @@
 const { formatDay, formatTime, forecast, now, year } = require("../utils/time");
 const { convertUnit, pluralization } = require("../utils/helper");
+const Memory = require("./Memory")
 const Sun = require("./Sun");
-
 const sun = new Sun();
 
 class Display extends Memory {
