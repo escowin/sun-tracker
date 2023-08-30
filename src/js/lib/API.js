@@ -31,9 +31,7 @@ class API {
     }
   }
 
-  // makes fetch requests to NASA API for specified endpoints
   getSunActivity(url, endpoint) {
-    // selects appropriate fetch & data handling functions
     switch (endpoint) {
       case "CME":
         return this.getCME(mockCME)

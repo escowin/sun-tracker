@@ -13,21 +13,26 @@ class Memory extends API {
     this.openDatabase();
   }
 
-  initDatabase(e) {
+  async initDatabase(e) {
+    // resolves api promise objects as arrays
+    const promises = [this.CME, this.FLR];
+    const [cmeData, flrData] = await Promise.all(promises);
+    console.log(cmeData);
+    console.log(flrData);
+
     const db = e.target.result;
     this.storeNames.forEach((name) => {
       const store = db.createObjectStore(name, { autoIncrement: true });
       store.transaction.oncomplete = (e) => {
-        const tx = db.transaction(name, "readwrite").objectStore(name)
-        if (tx.name === "flr") {
-          console.log("this is the flr store transaction")
-          console.log(this.FLR)
-        } else  {
-          console.log("this is something else")
-        }
-        console.log(e)
-        console.log(tx)
-      }
+        const objectStore = db.transaction(name, "readwrite").objectStore(name);
+        console.log(e);
+        console.log(objectStore);
+
+        // bug | adds flr data but cme store never goes through
+        objectStore.name === "cme"
+          ? cmeData.forEach((cme) => objectStore.add(cme))
+          : flrData.forEach((flr) => objectStore.add(flr));
+      };
     });
   }
 
