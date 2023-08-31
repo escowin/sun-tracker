@@ -44,7 +44,7 @@ class Sun {
 
   currentDistance(now) {
     // uses seconds to get a more accurate day length for realtime distance calculations
-    const seconds = duration(perihelion, now, "seconds") + 1;
+    const seconds = duration(perihelion, now, "seconds");
     const day = (seconds / (60 * 60 * 24)) + 1
     // au, semi-major axis length, eccentricity
     const au = 1;
@@ -53,8 +53,6 @@ class Sun {
 
     // distance between earth and sun in AU
     const orbit = au - e * Math.cos(t * (day - 4));
-    console.log(day)
-    console.log(orbit)
     return orbit;
   }
 

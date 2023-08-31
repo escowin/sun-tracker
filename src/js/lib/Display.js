@@ -1,4 +1,4 @@
-const { formatDay, formatTime, forecast, now, year, utcNow, formatUTC } = require("../utils/time");
+const { formatDay, formatTime, forecast, now, year, formatUTC } = require("../utils/time");
 const { convertUnit, pluralization } = require("../utils/helper");
 const Memory = require("./Memory");
 const Sun = require("./Sun");
@@ -8,19 +8,6 @@ const sun = new Sun();
 class Display extends Memory {
   constructor() {
     super();
-  }
-
-  updateDistance() {
-    setInterval(() => {
-      const time = formatUTC(new Date())
-      sun.currentDistance(time)
-    }, 5000)
-  }
-
-  currentTime() {
-    setInterval(() => {
-      $("#current-date").text(now());
-    }, 1000);
   }
 
   displayData() {
@@ -38,7 +25,7 @@ class Display extends Memory {
 
       // time
       $("#copyright-year").text(year);
-      this.currentTime();
+      this.displayTime();
 
       // DOM loads with SI units selected and displayed
       $("#kelvin").prop("checked", true);
@@ -75,6 +62,22 @@ class Display extends Memory {
       this.displayCME();
       this.displayFLR();
     });
+  }
+
+  updateDistance() {
+    setInterval(() => {
+      const time = formatUTC(new Date())
+      const dist = sun.currentDistance(time)
+      $("#lm").text(
+        `${sun.calculateLightMinutes(dist).toLocaleString("en-US")} light minutes`
+      );
+    }, 10000)
+  }
+
+  displayTime() {
+    setInterval(() => {
+      $("#current-date").text(now());
+    }, 1000);
   }
 
   displayCME() {
