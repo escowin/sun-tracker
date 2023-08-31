@@ -8,7 +8,4 @@ console.log(`
    https://github.com/escowin/sun-tracker
 `);
 
-// display.openDatabase();
-// display.displayData();
-// console.log(display)
-// display.apiCall()
+display.displayData();
