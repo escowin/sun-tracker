@@ -1,4 +1,4 @@
-const { formatDay, formatTime, forecast, now, year } = require("../utils/time");
+const { formatDay, formatTime, forecast, now, year, utcNow, formatUTC } = require("../utils/time");
 const { convertUnit, pluralization } = require("../utils/helper");
 const Memory = require("./Memory");
 const Sun = require("./Sun");
@@ -8,6 +8,13 @@ const sun = new Sun();
 class Display extends Memory {
   constructor() {
     super();
+  }
+
+  updateDistance() {
+    setInterval(() => {
+      const time = formatUTC(new Date())
+      sun.currentDistance(time)
+    }, 5000)
   }
 
   currentTime() {
@@ -62,6 +69,7 @@ class Display extends Memory {
       $("#lm").text(
         `${sun.lightMinutes.toLocaleString("en-US")} light minutes`
       );
+      this.updateDistance()
 
       // api data
       this.displayCME();

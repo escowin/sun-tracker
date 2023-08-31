@@ -2,7 +2,7 @@ const { utcNow, perihelion, duration } = require("../utils/time");
 
 class Sun {
   constructor() {
-    this.distance = this.currentDistance(utcNow, perihelion);
+    this.distance = this.currentDistance(utcNow);
     this.irradiance = this.calculateIrradiance(1.3608);
     this.luminosity = this.calculateLuminosity();
     this.metallicity = "1.22%";
@@ -42,8 +42,10 @@ class Sun {
     return { current, high, low };
   }
 
-  currentDistance(now, perihelion) {
-    const day = duration(perihelion, now, "day") + 1;
+  currentDistance(now) {
+    // uses seconds to get a more accurate day length for realtime distance calculations
+    const seconds = duration(perihelion, now, "seconds") + 1;
+    const day = (seconds / (60 * 60 * 24)) + 1
     // au, semi-major axis length, eccentricity
     const au = 1;
     const t = 360 / 365.256363;
@@ -51,6 +53,8 @@ class Sun {
 
     // distance between earth and sun in AU
     const orbit = au - e * Math.cos(t * (day - 4));
+    console.log(day)
+    console.log(orbit)
     return orbit;
   }
 
