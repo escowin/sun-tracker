@@ -8,6 +8,7 @@ const sun = new Sun();
 class Display extends Memory {
   constructor() {
     super();
+    this.displayData()
   }
 
   displayData() {

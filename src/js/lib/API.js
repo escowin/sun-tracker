@@ -20,11 +20,10 @@ class API {
     };
 
     try {
-      const promise = await new Promise((resolve, reject) => {
+      return await new Promise((resolve, reject) => {
         resolve(this.getSunActivity(api.path(), endpoint));
         reject("promise failed");
       });
-      return promise;
     } catch (err) {
       console.error(err);
     }

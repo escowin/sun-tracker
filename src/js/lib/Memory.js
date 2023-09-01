@@ -22,7 +22,6 @@ class Memory extends API {
     this.storeNames.forEach((name) => {
       const store = db.createObjectStore(name, { autoIncrement: true });
       store.transaction.oncomplete = (e) => {
-        // temp solution: hardcoded `name` values since only "flr" logs within .oncomplete
         const cmeStore = db.transaction("cme", "readwrite").objectStore("cme");
         const flrStore = db.transaction("flr", "readwrite").objectStore("flr");
         cmeData.forEach((cme) => cmeStore.add(cme));
@@ -32,14 +31,29 @@ class Memory extends API {
   }
 
   async openDatabase() {
-    const promise = new Promise((resolve, reject) => {
+    // flag to check whether or not to post new objects to stores
+    let upgraded = false;
+
+    return await new Promise((resolve, reject) => {
       const request = window.indexedDB.open(this.dbName, 1);
       request.onerror = (e) => reject(e.target.errorCode);
-      request.onupgradeneeded = (e) => this.initDatabase(e);
-      request.onsuccess = (e) => resolve(e.target.request);
+      request.onupgradeneeded = (e) => {
+        this.initDatabase(e);
+        upgraded = true;
+      };
+      request.onsuccess = (e) => {
+        if (!upgraded) {
+          this.updateStores(e);
+        }
+        resolve(e.target.request);
+      };
     });
+  }
 
-    console.log(promise);
+  async updateStores(e) {
+    const db = e.target.result
+    console.log("update stores");
+    console.log(db);
   }
 }
 
