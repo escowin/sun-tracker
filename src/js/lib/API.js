@@ -1,5 +1,5 @@
 const { duration, apiStart, apiEnd } = require("../utils/time");
-const { mockFLR, mockCME } = require("../mock/data")
+const { mockFLR, mockCME, emptyArr } = require("../mock/data")
 
 class API {
   constructor() {
@@ -38,7 +38,7 @@ class API {
         //   res.json().then((data) => this.getCME(data))
         // );
       case "FLR":
-        return this.getFLR(mockFLR)
+        return this.getFLR(emptyArr)
         // return fetch(url).then((res) =>
         //   res.json().then((data) => this.getFLR(data))
         // );
@@ -49,9 +49,14 @@ class API {
 
   async getCME(CME) {
     const newArray = [];
+    if (!CME) {
+      return newArray
+    }
+
     const reverse = CME.reverse();
     reverse.forEach((cme) => {
       const cmeObj = {
+        id: cme.activityID, 
         startTime: cme.startTime,
         note: cme.note,
         latitude: cme.cmeAnalyses[0].latitude,
@@ -69,9 +74,14 @@ class API {
 
   async getFLR(FLR) {
     const newArray = [];
+    if (!FLR) {
+      return newArray;
+    }
+
     const reverse = FLR.reverse();
     reverse.forEach((flare) => {
       const flrObj = {
+        id: flare.flrID,
         beginTime: flare.beginTime,
         peakTime: flare.peakTime,
         endTime: flare.endTime,

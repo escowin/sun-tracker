@@ -35,7 +35,7 @@ class Memory extends API {
 
     const db = e.target.result;
     this.storeNames.forEach((name) => {
-      const store = db.createObjectStore(name, { autoIncrement: true });
+      const store = db.createObjectStore(name, { keyPath: "id" });
       store.transaction.oncomplete = (e) => {
         const cmeStore = db.transaction("cme", "readwrite").objectStore("cme");
         const flrStore = db.transaction("flr", "readwrite").objectStore("flr");
@@ -48,19 +48,46 @@ class Memory extends API {
   async updateStores(e) {
     const promises = [this.CME, this.FLR];
     const [cmeData, flrData] = await Promise.all(promises);
-
+    console.log(cmeData)
+    console.log(flrData)
     const db = e.target.result
 
     // modularize if code gets too long
     this.storeNames.forEach(name => {
-      const tx = db.transaction([name], "readonly")
+      const tx = db.transaction(name, "readwrite")
       const store = tx.objectStore(name)
-      const result = store.getAll()
-      console.log(result)
+      // removes current store objects en masse
+      if (name === "cme" && cmeData.length > 0) {
+        store.clear()
+        store.transaction.oncomplete = (e) => {
+          const cmeStore = db.transaction(name, "readwrite").objectStore(name);
+          cmeData.forEach((cme) => cmeStore.add(cme));
+          console.log(name + " store rewritten")
+        }
+      } else if (name === "flr" && flrData.length > 0) {
+        store.clear()
+        store.transaction.oncomplete = (e) => {
+          const flrStore = db.transaction(name, "readwrite").objectStore(name);
+          flrData.forEach((flr) => flrStore.add(flr));
+          console.log(name + " store rewritten")
+        }
+      } else {
+        console.log("did not clear " + name + " store because fetched data is empty")
+      }
+
+      // const result = store.getAll()
+      // result.onerror = e => console.error(e.target.error)
+      // result.onsuccess = e => {
+      //   const storeArr = e.target.result
+      //   console.log(storeArr)
+      //   name === "cme"
+      //   ? console.log("cme iteration")
+      //   : console.log("flr iteration")
+      // }
 
       // compare the fetched arrays w/ existing store objects
       // - retain idb store objects that match fetched array objects 
-      // - if store has different (older than 7 days) objects, remove/delete objects from store
+      // - if store has different objects, remove/delete objects from store
       // - if fetched array has different (newer) objects, add/write objects to store
       // - if fetched array are empty/null/undefined (bc fetch could not be made), dont modify store
     })

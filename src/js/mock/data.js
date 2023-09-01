@@ -1,4 +1,5 @@
 // mock data
+const emptyArr = []
 const mockFLR = [
   {
     flrID: "2023-07-28T15:39:00-FLR-001",
@@ -367,7 +368,6 @@ const mockFLR = [
     link: "https://webtools.ccmc.gsfc.nasa.gov/DONKI/view/FLR/26313/-1",
   },
 ];
-
 const mockCME = [
   {
     activityID: "2023-07-28T15:53:00-CME-001",
@@ -1319,4 +1319,4 @@ const mockCME = [
 ];
 
 
-module.exports = { mockCME, mockFLR };
+module.exports = { mockCME, mockFLR, emptyArr };
