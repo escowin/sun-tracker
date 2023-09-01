@@ -1,5 +1,4 @@
 const { duration, apiStart, apiEnd } = require("../utils/time");
-const { mockFLR, mockCME, emptyArr } = require("../mock/data")
 
 class API {
   constructor() {
@@ -31,17 +30,16 @@ class API {
   }
 
   getSunActivity(url, endpoint) {
+    // passes fetched data into corresponding function. failed request returns an empty array
     switch (endpoint) {
       case "CME":
-        return this.getCME(mockCME)
-        // return fetch(url).then((res) =>
-        //   res.json().then((data) => this.getCME(data))
-        // );
+        return fetch(url)
+          .then((res) => res.json().then((data) => this.getCME(data)))
+          .catch(() => []);
       case "FLR":
-        return this.getFLR(emptyArr)
-        // return fetch(url).then((res) =>
-        //   res.json().then((data) => this.getFLR(data))
-        // );
+        return fetch(url)
+          .then((res) => res.json().then((data) => this.getFLR(data)))
+          .catch(() => []);
       default:
         return Promise.reject("failed fetch request");
     }
@@ -50,13 +48,13 @@ class API {
   async getCME(CME) {
     const newArray = [];
     if (!CME) {
-      return newArray
+      return newArray;
     }
 
     const reverse = CME.reverse();
     reverse.forEach((cme) => {
       const cmeObj = {
-        id: cme.activityID, 
+        id: cme.activityID,
         startTime: cme.startTime,
         note: cme.note,
         latitude: cme.cmeAnalyses[0].latitude,
