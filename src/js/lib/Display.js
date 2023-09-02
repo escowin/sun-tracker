@@ -86,7 +86,15 @@ class Display extends Memory {
           .calculateLightMinutes(dist)
           .toLocaleString("en-US")} light minutes`
       );
-    }, 10000);
+
+      if ($("#celsius").is(":checked")) {
+        console.log(convertUnit(dist, "metric", "dist"))
+      } else if ($("#fahrenheit").is(":checked")) {
+        console.log(convertUnit(dist, "imperial", "dist"))
+      } else {
+        console.log(convertUnit(dist, "si", "dist"))
+      }
+    }, 5000);
   }
 
   displayTime() {
