@@ -20,14 +20,14 @@ class Display extends Memory {
 
   displayData() {
     $(() => {
-      // appends each generated forecast list element to  parent ul container
-      // goal: unqiue temp for each day
+      // appends each generated forecast list element to parent ul container
       for (let i = 0; i < 5; i++) {
         const forecastTemp = sun.calculateTemp(sun.temp.current);
-
         $("#forecast-container").append(`<li class="day flex" id="day-${i}">
           <p class="label">${forecast(i + 1)}</p>
-          <p class="temp" data-type="temp">${forecastTemp.current} K</p>
+          <p class="temp forecast" data-type="temp" data-forecast=${
+            forecastTemp.current
+          }>${forecastTemp.current} K</p>
         </li>`);
       }
 
@@ -56,13 +56,20 @@ class Display extends Memory {
         const distance = $("#distance").data("type");
 
         // set & capture data-type
-        $(".temp").text(convertUnit(sun.temp.current, unit, temp));
+        $("#distance").text(convertUnit(sun.distance, unit, distance));
+        $("#temp-now").text(convertUnit(sun.temp.current, unit, temp));
         $("#temp-high").text(convertUnit(sun.temp.high, unit, temp));
         $("#temp-low").text(convertUnit(sun.temp.low, unit, temp));
-        $("#distance").text(convertUnit(sun.distance, unit, distance));
+        // uses the unique data-forecast value of each forecast element 
+        $(".forecast").each(function() {
+          const forecastValue = $(this).data("forecast");
+          $(this).text(convertUnit(forecastValue, unit, temp));
+        });
       });
-      $("#lm").text(`${sun.lightMinutes.toLocaleString("en-US")} light minutes`);
-      this.updateDistance()
+      $("#lm").text(
+        `${sun.lightMinutes.toLocaleString("en-US")} light minutes`
+      );
+      this.updateDistance();
 
       // api data
       this.displayCME();
@@ -74,7 +81,11 @@ class Display extends Memory {
     setInterval(() => {
       const time = formatUTC(new Date());
       const dist = sun.currentDistance(time);
-      $("#lm").text(`${sun.calculateLightMinutes(dist).toLocaleString("en-US")} light minutes`);
+      $("#lm").text(
+        `${sun
+          .calculateLightMinutes(dist)
+          .toLocaleString("en-US")} light minutes`
+      );
     }, 10000);
   }
 
@@ -102,7 +113,7 @@ class Display extends Memory {
         <p>${cme.longitude}\u00B0</p>
 
         <p class="label">half angle</p>
-        <p>${cme.halfAngle}\u03B8</p>
+        <p>${cme.halfAngle}θ</p>
 
         <p class="label">speed</p>
         <p class="speed">${cme.speed} km/s</p>
@@ -127,7 +138,9 @@ class Display extends Memory {
 
     array.forEach((flr) => {
       $("#flr-list").append(`<li class="item grid flr">
-        <h3 class="label">${formatDay(flr.beginTime)} - ${formatTime(flr.endTime)}</h3>
+        <h3 class="label">${formatDay(flr.beginTime)} - ${formatTime(
+        flr.endTime
+      )}</h3>
         <p class="label">peak</p>
         <p>${formatTime(flr.peakTime)}</p>
   
