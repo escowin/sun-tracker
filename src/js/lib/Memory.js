@@ -48,37 +48,44 @@ class Memory extends API {
   async updateStores(e) {
     const promises = [this.CME, this.FLR];
     const [cmeData, flrData] = await Promise.all(promises);
-    console.log(cmeData, flrData)
-    const db = e.target.result
+    console.log(cmeData, flrData);
+    const db = e.target.result;
 
     // modularize if code gets too long
-    this.storeNames.forEach(name => {
-      const tx = db.transaction(name, "readwrite")
-      const store = tx.objectStore(name)
+    this.storeNames.forEach((name) => {
+      const tx = db.transaction(name, "readwrite");
+      const store = tx.objectStore(name);
       // removes current store objects en masse if fetched data array contains objects
       if (name === "cme" && cmeData.length > 0) {
-        store.clear()
+        store.clear();
         store.transaction.oncomplete = (e) => {
           // fetched arrays objects are written to store
           const cmeStore = db.transaction(name, "readwrite").objectStore(name);
           cmeData.forEach((cme) => cmeStore.add(cme));
-          console.log(name + " store rewritten")
-        }
+          console.log(name + " store rewritten");
+        };
       } else if (name === "flr" && flrData.length > 0) {
-        store.clear()
+        store.clear();
         store.transaction.oncomplete = (e) => {
           const flrStore = db.transaction(name, "readwrite").objectStore(name);
           flrData.forEach((flr) => flrStore.add(flr));
-          console.log(name + " store rewritten")
-        }
+          console.log(name + " store rewritten");
+        };
       } else {
-        console.log("did not clear " + name + " store because fetched data is empty")
+        console.log(
+          "did not clear " + name + " store because fetched data is empty"
+        );
+        this.getStore(store, name);
       }
-    })
+    });
   }
 
-  async getStores() {
-    // use indexeddb store data if fetched arrays are empty 
+  async getStore(store, name) {
+    console.log(store, name)
+
+    // use indexeddb store data if fetched arrays are empty
+    const result = store.getAll();
+    result.onsuccess = (e) => console.log(e.target.result);
   }
 }
 

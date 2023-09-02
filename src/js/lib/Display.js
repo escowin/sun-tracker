@@ -26,7 +26,7 @@ class Display extends Memory {
 
       // time
       $("#copyright-year").text(year);
-      this.displayTime();
+      // this.displayTime();
 
       // DOM loads with SI units selected and displayed
       $("#kelvin").prop("checked", true);
@@ -57,7 +57,7 @@ class Display extends Memory {
       $("#lm").text(
         `${sun.lightMinutes.toLocaleString("en-US")} light minutes`
       );
-      this.updateDistance()
+      // this.updateDistance()
 
       // api data
       this.displayCME();
