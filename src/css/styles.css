@@ -222,6 +222,10 @@ section {
         margin: .25rem 1.5rem;
     }
 
+    #sun-section {
+        grid-template-columns: auto 25vw;
+    }
+
     #api-section {
         flex-direction: row;
     }
