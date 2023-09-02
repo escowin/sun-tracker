@@ -2,16 +2,16 @@ const { utcNow, perihelion, duration } = require("../utils/time");
 
 class Sun {
   constructor() {
-    this.distance = this.currentDistance(utcNow);
-    this.irradiance = this.calculateIrradiance(1.3608);
-    this.luminosity = this.calculateLuminosity();
+    this.distance = this.calcDistance(utcNow);
+    this.irradiance = this.calcIrradiance(1.3608);
+    this.luminosity = this.calcLuminosity();
     this.metallicity = "1.22%";
     this.spectral = "G2V";
-    this.temp = this.calculateTemp(5772);
-    this.lightMinutes = this.calculateLightMinutes();
+    this.temp = this.calcTemp(5772);
+    this.lightMinutes = this.calcLightMinutes();
   }
 
-  calculateIrradiance(num) {
+  calcIrradiance(num) {
     const min = num - 0.0005;
     const max = num + 0.0005;
     const result = Math.random() * (max - min) + min;
@@ -20,7 +20,7 @@ class Sun {
     return result * 1000;
   }
 
-  calculateLuminosity() {
+  calcLuminosity() {
     // constant, solar irridance, au^2 in meters
     const k = this.distance;
     const Io = this.irradiance;
@@ -34,7 +34,7 @@ class Sun {
     return Math.round(result * yw * 100) / 100;
   }
 
-  calculateTemp(num) {
+  calcTemp(num) {
     // sets a random high low range sun temp to then randomly return a number within that range
     const high = num + Math.round(Math.random() * 3000);
     const low = num + Math.round((Math.random() - 0.5) * 1000);
@@ -42,7 +42,7 @@ class Sun {
     return { current, high, low };
   }
 
-  currentDistance(now) {
+  calcDistance(now) {
     // uses seconds to get a more accurate day length for realtime distance calculations
     const seconds = duration(perihelion, now, "seconds");
     const day = (seconds / (60 * 60 * 24)) + 1
@@ -56,7 +56,7 @@ class Sun {
     return orbit;
   }
 
-  calculateLightMinutes() {
+  calcLightMinutes() {
     const meters = this.distance * 149597870.7 * 1000;
     const result = meters / 299792458 / 60;
     return result;

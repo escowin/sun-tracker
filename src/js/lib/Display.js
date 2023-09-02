@@ -1,6 +1,6 @@
 const {
   formatDay,
-  formatTime,
+  formatHr,
   forecast,
   now,
   year,
@@ -22,7 +22,7 @@ class Display extends Memory {
     $(() => {
       // appends each generated forecast list element to parent ul container
       for (let i = 0; i < 5; i++) {
-        const forecastTemp = sun.calculateTemp(sun.temp.current);
+        const forecastTemp = sun.calcTemp(sun.temp.current);
         $("#forecast-container").append(`<li class="day flex" id="day-${i}">
           <p class="label">${forecast(i + 1)}</p>
           <p class="temp forecast" data-type="temp" data-forecast=${
@@ -30,10 +30,6 @@ class Display extends Memory {
           }>${forecastTemp.current} K</p>
         </li>`);
       }
-
-      // time
-      $("#copyright-year").text(year);
-      this.displayTime();
 
       // DOM loads with SI units selected and displayed
       $("#kelvin").prop("checked", true);
@@ -69,35 +65,35 @@ class Display extends Memory {
       $("#lm").text(
         `${sun.lightMinutes.toLocaleString("en-US")} light minutes`
       );
-      this.updateDistance();
 
-      // api data
+      // time
+      $("#copyright-year").text(year);
+
+      // method calls
+      this.updateDistance();
+      this.displayTime();
       this.displayCME();
       this.displayFLR();
     });
   }
 
-  updateDistance() {
+  async updateDistance() {
     setInterval(() => {
       const time = formatUTC(new Date());
-      const dist = sun.currentDistance(time);
-      $("#lm").text(
-        `${sun
-          .calculateLightMinutes(dist)
-          .toLocaleString("en-US")} light minutes`
-      );
+      const dist = sun.calcDistance(time);
+      $("#lm").text(`${sun.calcLightMinutes(dist).toLocaleString("en-US")} light minutes`);
 
       if ($("#celsius").is(":checked")) {
-        console.log(convertUnit(dist, "metric", "dist"))
+        $("#distance").text(convertUnit(dist, "metric", "dist"))
       } else if ($("#fahrenheit").is(":checked")) {
-        console.log(convertUnit(dist, "imperial", "dist"))
+        $("#distance").text(convertUnit(dist, "imperial", "dist"))
       } else {
-        console.log(convertUnit(dist, "si", "dist"))
+        $("#distance").text(convertUnit(dist, "si", "dist"))
       }
     }, 5000);
   }
 
-  displayTime() {
+  async displayTime() {
     setInterval(() => {
       $("#current-date").text(now());
     }, 1000);
@@ -146,11 +142,9 @@ class Display extends Memory {
 
     array.forEach((flr) => {
       $("#flr-list").append(`<li class="item grid flr">
-        <h3 class="label">${formatDay(flr.beginTime)} - ${formatTime(
-        flr.endTime
-      )}</h3>
+        <h3 class="label">${formatDay(flr.beginTime)} - ${formatHr(flr.endTime)}</h3>
         <p class="label">peak</p>
-        <p>${formatTime(flr.peakTime)}</p>
+        <p>${formatHr(flr.peakTime)}</p>
   
         <p class="label">duration</p>
         <p>${pluralization(flr.duration, "minute")}</p>

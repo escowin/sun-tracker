@@ -17,7 +17,7 @@ const time = {
   duration: (start, end, length) => dayjs(end).diff(dayjs(start), length),
   // formats strings
   formatDay: (string) => dayjs(string).local().format("dddd, h:mm a"),
-  formatTime: (string) => dayjs(string).local().format("h:mm a"),
+  formatHr: (string) => dayjs(string).local().format("h:mm a"),
   forecast: (num) => dayjs().add(num, "day").format("ddd"),
   formatUTC: (string) => dayjs(string).utc().format()
 };
