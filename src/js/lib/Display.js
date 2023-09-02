@@ -1,4 +1,11 @@
-const { formatDay, formatTime, forecast, now, year, formatUTC } = require("../utils/time");
+const {
+  formatDay,
+  formatTime,
+  forecast,
+  now,
+  year,
+  formatUTC,
+} = require("../utils/time");
 const { convertUnit, pluralization } = require("../utils/helper");
 const Memory = require("./Memory");
 const Sun = require("./Sun");
@@ -8,7 +15,7 @@ const sun = new Sun();
 class Display extends Memory {
   constructor() {
     super();
-    this.displayData()
+    this.displayData();
   }
 
   displayData() {
@@ -67,12 +74,14 @@ class Display extends Memory {
 
   updateDistance() {
     setInterval(() => {
-      const time = formatUTC(new Date())
-      const dist = sun.currentDistance(time)
+      const time = formatUTC(new Date());
+      const dist = sun.currentDistance(time);
       $("#lm").text(
-        `${sun.calculateLightMinutes(dist).toLocaleString("en-US")} light minutes`
+        `${sun
+          .calculateLightMinutes(dist)
+          .toLocaleString("en-US")} light minutes`
       );
-    }, 10000)
+    }, 10000);
   }
 
   displayTime() {
@@ -107,34 +116,35 @@ class Display extends Memory {
           </details>
         </li>`);
       });
-    }).catch(err => console.error(err));
+    }).catch((err) => console.error(err));
   }
 
   async displayFLR() {
-    this.FLR.then((array) => {
-      if (array.length === 0) {
-        console.log(this.getStore("flr"))
-      }
-      array.forEach((flr) => {
-        $("#flr-list").append(`<li class="item grid flr">
-          <h3 class="label">${formatDay(flr.beginTime)} - ${formatTime(flr.endTime)}</h3>
-          <p class="label">peak</p>
-          <p>${formatTime(flr.peakTime)}</p>
-    
-          <p class="label">duration</p>
-          <p>${pluralization(flr.duration, "minute")}</p>
-    
-          <p class="label">active region</p>
-          <p>${flr.activeRegionNum}</p>
-    
-          <p class="label">location</p>
-          <p>${flr.sourceLocation}</p>
-    
-          <p class="label">class</p>
-          <p>${flr.classType}</p>
-        </li>`);
-      });
-    }).catch(err => console.error(err));
+    let array;
+    await (async () => {
+      const arr = await this.FLR;
+      arr.length === 0 ? (array = await this.getStore("flr")) : (array = arr);
+    })();
+    console.log(array);
+    array.forEach((flr) => {
+      $("#flr-list").append(`<li class="item grid flr">
+        <h3 class="label">${formatDay(flr.beginTime)} - ${formatTime(flr.endTime)}</h3>
+        <p class="label">peak</p>
+        <p>${formatTime(flr.peakTime)}</p>
+  
+        <p class="label">duration</p>
+        <p>${pluralization(flr.duration, "minute")}</p>
+  
+        <p class="label">active region</p>
+        <p>${flr.activeRegionNum}</p>
+  
+        <p class="label">location</p>
+        <p>${flr.sourceLocation}</p>
+  
+        <p class="label">class</p>
+        <p>${flr.classType}</p>
+      </li>`);
+    });
   }
 }
 
