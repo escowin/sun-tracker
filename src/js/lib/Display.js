@@ -15,10 +15,9 @@ const sun = new Sun();
 class Display extends Memory {
   constructor() {
     super();
-    this.displayData();
   }
 
-  displayData() {
+  async displayData() {
     $(() => {
       // appends each generated forecast list element to parent ul container
       for (let i = 0; i < 5; i++) {
@@ -90,7 +89,7 @@ class Display extends Memory {
       } else {
         $("#distance").text(convertUnit(dist, "si", "dist"))
       }
-    }, 5000);
+    }, 2000);
   }
 
   async displayTime() {
