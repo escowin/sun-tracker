@@ -5,6 +5,8 @@ class Memory extends API {
     super();
     this.dbName = "sun_tracker_db";
     this.storeNames = ["cme", "flr"];
+    this.cmeStore;
+    this.flrStore;
     this.openDatabase();
   }
 
@@ -48,7 +50,6 @@ class Memory extends API {
   async updateStores(e) {
     const promises = [this.CME, this.FLR];
     const [cmeData, flrData] = await Promise.all(promises);
-    console.log(cmeData, flrData);
     const db = e.target.result;
 
     // modularize if code gets too long
@@ -62,30 +63,34 @@ class Memory extends API {
           // fetched arrays objects are written to store
           const cmeStore = db.transaction(name, "readwrite").objectStore(name);
           cmeData.forEach((cme) => cmeStore.add(cme));
-          console.log(name + " store rewritten");
         };
       } else if (name === "flr" && flrData.length > 0) {
         store.clear();
         store.transaction.oncomplete = (e) => {
           const flrStore = db.transaction(name, "readwrite").objectStore(name);
           flrData.forEach((flr) => flrStore.add(flr));
-          console.log(name + " store rewritten");
         };
       } else {
         console.log(
           "did not clear " + name + " store because fetched data is empty"
         );
-        this.getStore(store, name);
       }
     });
   }
 
-  async getStore(store, name) {
-    console.log(store, name)
-
+  async getStore(name) {
     // use indexeddb store data if fetched arrays are empty
-    const result = store.getAll();
-    result.onsuccess = (e) => console.log(e.target.result);
+    return await new Promise((resolve, reject) => {
+      const request = window.indexedDB.open(this.dbName, 1);
+      request.onerror = (e) => reject(e.target.errorCode);
+      request.onsuccess = (e) => {
+        const db = e.target.result;
+        const tx = db.transaction(name);
+        const store = tx.objectStore(name);
+        const result = store.getAll();
+        result.onsuccess = (e) => resolve(e.target.result);
+      };
+    });
   }
 }
 

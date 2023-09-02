@@ -81,7 +81,7 @@ class Display extends Memory {
     }, 1000);
   }
 
-  displayCME() {
+  async displayCME() {
     this.CME.then((array) => {
       array.forEach((cme) => {
         $("#cme-list").append(`<li class="item cme grid">
@@ -110,8 +110,11 @@ class Display extends Memory {
     }).catch(err => console.error(err));
   }
 
-  displayFLR() {
+  async displayFLR() {
     this.FLR.then((array) => {
+      if (array.length === 0) {
+        console.log(this.getStore("flr"))
+      }
       array.forEach((flr) => {
         $("#flr-list").append(`<li class="item grid flr">
           <h3 class="label">${formatDay(flr.beginTime)} - ${formatTime(flr.endTime)}</h3>
