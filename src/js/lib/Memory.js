@@ -5,8 +5,6 @@ class Memory extends API {
     super();
     this.dbName = "sun_tracker_db";
     this.storeNames = ["cme", "flr"];
-    this.cmeStore;
-    this.flrStore;
     this.openDatabase();
   }
 
@@ -71,9 +69,7 @@ class Memory extends API {
           flrData.forEach((flr) => flrStore.add(flr));
         };
       } else {
-        console.log(
-          "did not clear " + name + " store because fetched data is empty"
-        );
+        return;
       }
     });
   }

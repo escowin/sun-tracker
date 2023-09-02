@@ -33,7 +33,7 @@ class Display extends Memory {
 
       // time
       $("#copyright-year").text(year);
-      // this.displayTime();
+      this.displayTime();
 
       // DOM loads with SI units selected and displayed
       $("#kelvin").prop("checked", true);
@@ -61,10 +61,8 @@ class Display extends Memory {
         $("#temp-low").text(convertUnit(sun.temp.low, unit, temp));
         $("#distance").text(convertUnit(sun.distance, unit, distance));
       });
-      $("#lm").text(
-        `${sun.lightMinutes.toLocaleString("en-US")} light minutes`
-      );
-      // this.updateDistance()
+      $("#lm").text(`${sun.lightMinutes.toLocaleString("en-US")} light minutes`);
+      this.updateDistance()
 
       // api data
       this.displayCME();
@@ -76,11 +74,7 @@ class Display extends Memory {
     setInterval(() => {
       const time = formatUTC(new Date());
       const dist = sun.currentDistance(time);
-      $("#lm").text(
-        `${sun
-          .calculateLightMinutes(dist)
-          .toLocaleString("en-US")} light minutes`
-      );
+      $("#lm").text(`${sun.calculateLightMinutes(dist).toLocaleString("en-US")} light minutes`);
     }, 10000);
   }
 
@@ -91,32 +85,37 @@ class Display extends Memory {
   }
 
   async displayCME() {
-    this.CME.then((array) => {
-      array.forEach((cme) => {
-        $("#cme-list").append(`<li class="item cme grid">
-          <h3 class="label">${formatDay(cme.startTime)}</h3>
-          <p class="label">latitude</p>
-          <p>${cme.latitude}\u00B0</p>
+    // empty fetch array triggers idb store retrieval, ensuring offline display
+    let array;
+    await (async () => {
+      const arr = await this.CME;
+      arr.length === 0 ? (array = await this.getStore("cme")) : (array = arr);
+    })();
 
-          <p class="label">longitude</p>
-          <p>${cme.longitude}\u00B0</p>
+    array.forEach((cme) => {
+      $("#cme-list").append(`<li class="item cme grid">
+        <h3 class="label">${formatDay(cme.startTime)}</h3>
+        <p class="label">latitude</p>
+        <p>${cme.latitude}\u00B0</p>
 
-          <p class="label">half angle</p>
-          <p>${cme.halfAngle}\u03B8</p>
+        <p class="label">longitude</p>
+        <p>${cme.longitude}\u00B0</p>
 
-          <p class="label">speed</p>
-          <p class="speed">${cme.speed} km/s</p>
+        <p class="label">half angle</p>
+        <p>${cme.halfAngle}\u03B8</p>
 
-          <p class="label">type</p>
-          <p>${cme.type}</p>
+        <p class="label">speed</p>
+        <p class="speed">${cme.speed} km/s</p>
 
-          <details class="cme-note">
-            <summary class="label">cme note</summary>
-            <p>${cme.note}</p>
-          </details>
-        </li>`);
-      });
-    }).catch((err) => console.error(err));
+        <p class="label">type</p>
+        <p>${cme.type}</p>
+
+        <details class="cme-note">
+          <summary class="label">cme note</summary>
+          <p>${cme.note}</p>
+        </details>
+      </li>`);
+    });
   }
 
   async displayFLR() {
@@ -125,7 +124,7 @@ class Display extends Memory {
       const arr = await this.FLR;
       arr.length === 0 ? (array = await this.getStore("flr")) : (array = arr);
     })();
-    console.log(array);
+
     array.forEach((flr) => {
       $("#flr-list").append(`<li class="item grid flr">
         <h3 class="label">${formatDay(flr.beginTime)} - ${formatTime(flr.endTime)}</h3>
