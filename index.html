@@ -30,58 +30,76 @@
     <title>Sun tracker</title>
   </head>
   <body>
-    <header class="bg label flex">
-      <h1 class="subheader">Sun &#8857;</h1>
+    <!-- 
+      Header: Sun, Time
+      Main: Weather, Recent Activity, Profile
+      Footer: Distance, Copyright
+        -->
+    <header class="bg" id="sun-section">
+      <h1 class="subheader">&#8857;</h1>
 
-      <section id="sun" aria-label="Stylized sun element"></section>
+      <section id="sun-graphic" aria-label="Stylized sun element"></section>
 
-      <fieldset class="flex label" id="units">
-        <legend>units</legend>
-        <label for="kelvin">
-          K
-          <input type="radio" id="kelvin" name="temp-unit" value="si" />
-        </label>
+      <section id="temp-txt">
+        <p class="label" id="current-date"></p>
+        <p class="label" id="temp-now" data-type="temp"></p>
+        <p class="subheader">Sunny</p>
+        <p class="label">H <span id="temp-high" data-type="temp"></span></p>
+        <p class="label">L <span id="temp-low" data-type="temp"></span></p>
+      </section>
 
-        <label for="celsius">
-          C&deg;
-          <input type="radio" id="celsius" name="temp-unit" value="metric" />
-        </label>
+      <section id="units">
+        <fieldset class="label" id="units-controller">
+          <legend>units</legend>
+          <label for="kelvin">
+            K
+            <input type="radio" id="kelvin" name="temp-unit" value="si" />
+          </label>
 
-        <label for="fahrenheit">
-          F&deg;
-          <input
-            type="radio"
-            id="fahrenheit"
-            name="temp-unit"
-            value="imperial"
-          />
-        </label>
-      </fieldset>
+          <label for="celsius">
+            C&deg;
+            <input type="radio" id="celsius" name="temp-unit" value="metric" />
+          </label>
+
+          <label for="fahrenheit">
+            F&deg;
+            <input
+              type="radio"
+              id="fahrenheit"
+              name="temp-unit"
+              value="imperial"
+            />
+          </label>
+        </fieldset>
+      </section>
     </header>
 
-    <aside class="bg" id="sun-section">
-      <section class="label" id="current-date"></section>
+    <main class="bg">
+      <h2 class="subheader">Forecast</h2>
+      <section class="grid" id="forecast">
+        <ul class="list grid" id="forecast-container"></ul>
+      </section>
 
-      <section class="grid" id="sun-text">
-        <p id="spectral">
-          <span class="label">spectral</span>
-          <span id="spectral"></span>
+      <h2 class="subheader">Recent Activity</h2>
+      <section id="activity">
+        <nav class="flex" id="api-selection">
+          <button class="subheader" id="cme-btn" data-target="#cme-list">
+            Coronal mass ejections
+          </button>
+          <button class="subheader" id="flr-btn" data-target="#flr-list">
+            Solar flares
+          </button>
+        </nav>
 
-          <span class="label"></span>
-          <span id="luminosity"></span>
+        <ul class="list" id="cme-list"></ul>
+        <ul class="list" id="flr-list"></ul>
+      </section>
 
-          <span class="label"></span>
-          <span></span>
-
-          <span class="label"></span>
-          <span id="metallicity"></span>
-
-          <span class="label"></span>
-          <span id="distance"></span>
-        </p>
-
-        <p class="label"></p>
+      <h2 class="subheader">Profile</h2>
+      <section class="grid" id="sun-stats">
+        <p id="label">spectral</p>
         <p id="spectral"></p>
+
         <p class="label">luminosity</p>
         <p id="luminosity"></p>
         <p class="label">metallicity</p>
@@ -92,37 +110,9 @@
           <span id="lm"></span>
         </p>
       </section>
-
-      <section id="forecast">
-        <h3 class="label">Forecast</h3>
-        <ul class="list grid" id="forecast-container"></ul>
-      </section>
-
-      <section class="grid" id="sun-temp">
-        <h3 class="label" id="temp-now" data-type="temp"></h3>
-        <p class="label">H</p>
-        <p id="temp-high" data-type="temp"></p>
-        <p class="label">L</p>
-        <p id="temp-low" data-type="temp"></p>
-      </section>
-
-    </aside>
-
-    <main class="bg">
-      <section class="flex" id="api-section">
-          <h2 class="subheader">Coronal mass ejections</h2>
-        <article>
-          <ul class="list flex" id="cme-list"></ul>
-        </article>
-        <article>
-          <h2 class="subheader">Solar flares</h2>
-          <ul class="list flex" id="flr-list"></ul>
-        </article>
-      </section>
     </main>
 
     <footer class="bg">
-
       <a
         href="https://github.com/escowin/sun-tracker/"
         target="_blank"

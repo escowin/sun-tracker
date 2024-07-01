@@ -46,24 +46,6 @@ class Display extends Memory {
       $("#luminosity").append(`${sun.luminosity} yw`);
       $("#metallicity").text(sun.metallicity);
       $("#distance").text(`${sun.distance.toLocaleString("en-US")} au`);
-
-      // use event listener to tie radio
-      $("#units input").on("click", (e) => {
-        const unit = e.target.value;
-        const temp = $(".temp").data("type");
-        const distance = $("#distance").data("type");
-
-        // set & capture data-type
-        $("#distance").text(convertUnit(sun.distance, unit, distance));
-        $("#temp-now").text(convertUnit(sun.temp.current, unit, temp));
-        $("#temp-high").text(convertUnit(sun.temp.high, unit, temp));
-        $("#temp-low").text(convertUnit(sun.temp.low, unit, temp));
-        // uses the unique data-forecast value of each forecast element
-        $(".forecast").each(function () {
-          const forecastValue = $(this).data("forecast");
-          $(this).text(convertUnit(forecastValue, unit, temp));
-        });
-      });
       $("#lm").text(
         `${sun.lightMinutes.toLocaleString("en-US")} light minutes`
       );
@@ -76,6 +58,49 @@ class Display extends Memory {
       this.displayTime();
       this.displayCME();
       this.displayFLR();
+      this.displaySelected();
+
+      // event listeners
+      $("#api-selection button").on("click", (e) => this.handleClick(e));
+      $("#units input").on("click", (e) => this.handleUnits(e));
+    });
+  }
+
+  async handleClick(e) {
+    const targetList = $(e.target).data("target");
+    this.displaySelected(targetList);
+  }
+
+  async displaySelected(targetList) {
+    let selected;
+
+    if (targetList) {
+      selected = targetList;
+    } else {
+      // randomly determine which activity list is displayed;
+      const lists = $("#activity ul");
+      selected = lists[Math.floor(Math.random() * lists.length)];
+    }
+
+    // Show the target list and hide the other one
+    $(selected).css("display", "flex");
+    $("#activity ul").not(selected).css("display", "none");
+  }
+
+  async handleUnits(e) {
+    const unit = e.target.value;
+    const temp = $(".temp").data("type");
+    const distance = $("#distance").data("type");
+
+    // set & capture data-type
+    $("#distance").text(convertUnit(sun.distance, unit, distance));
+    $("#temp-now").text(convertUnit(sun.temp.current, unit, temp));
+    $("#temp-high").text(convertUnit(sun.temp.high, unit, temp));
+    $("#temp-low").text(convertUnit(sun.temp.low, unit, temp));
+    // uses the unique data-forecast value of each forecast element
+    $(".forecast").each(function () {
+      const forecastValue = $(this).data("forecast");
+      $(this).text(convertUnit(forecastValue, unit, temp));
     });
   }
 

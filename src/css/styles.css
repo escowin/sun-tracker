@@ -71,48 +71,98 @@ body {
     height: 100vh;
     width: 100vw;
     backdrop-filter: blur(.25rem);
+    display: flex;
+    flex-direction: column;
+    & footer {
+        grid-column: 1 / -1;
+        display: flex;
+        height: min-content;
+    }
+}
+
+header {
     display: grid;
-    grid-template-columns: 40vw auto;
-    grid-template-rows: auto 1fr min-content;
+    padding: 1rem;
+    align-items: flex-start;
+    justify-items: center;
+    gap: .5rem 0;
+    grid-template-columns: 1fr min-content;
+    grid-template-areas:
+        "sun c"
+        "h1 c"
+        "txt c";
 
-    & header {
-        align-items: center;
-        justify-content: space-between;
+    & h1 {
+        grid-area: h1;
+    }
+
+    & #sun-graphic {
+        --size: 35vw;
+        grid-area: sun;
+        border-radius: 50%;
+        height: var(--size);
+        width: var(--size);
+        margin: 1rem;
+        animation: glowing 4s infinite alternate;
+    }
+
+    #temp-txt {
+        grid-area: txt;
+    }
+
+    & #units {
+        grid-area: c;
+        border: none;
+        display: flex;
+        justify-content: flex-end;
+
+        & #units-controller {
+            padding: .25rem;
+            display: flex;
+            flex-direction: column;
+            border-radius: 1rem;
+            width: max-content;
+            align-items: flex-end;
+            gap: 1rem;
+        }
+    }
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+
+    & section {
+        margin-bottom: 1rem;
+    }
+
+    & #forecast {
+        overflow: scroll;
+        display: flex;
         flex-direction: column;
-        padding: 0.25rem;
-        & h1 {
-            order: 2;
-          }
-          
-        & #sun {
-            order: 1;
-          }
+        padding: .5rem;
 
-        & #units {
-            order: 3;
+        & #forecast-container {
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+
+            & li {
+                width: 20vw;
+            }
+
         }
     }
 
-    & #sun-section {
-        display: flex;
-        flex-direction: column;
-        gap: 0 .25rem;
-        padding: .5rem .25rem;
-        /* align-items: start; */
-        /* width: inherit; */
-    }
-
-
-    & main {
-        flex-direction: column;
-        width: inherit;
+    & #activity {
+        flex-grow: 1;
     }
     
-    & main,
-    footer {
-        grid-column: 1 / -1;
+    & #sun-stats {
+        grid-template-columns: auto 1fr;
+        gap: .25rem .5rem;
     }
 }
+
 
 h3,
 .cme-note {
@@ -124,12 +174,12 @@ h3,
 }
 
 .cme-note {
-    max-height: 8rem;
+    max-height: 12rem;
     overflow: scroll;
 }
 
 .item {
-    grid-template-columns: 8rem 6rem;
+    grid-template-columns: 8rem 12rem;
     gap: 0 1rem;
     height: fit-content;
 }
@@ -140,6 +190,7 @@ h3,
 }
 
 .list {
+    display: flex;
     gap: 2rem;
     overflow: scroll;
     list-style: none;
@@ -150,67 +201,21 @@ h3,
     flex-grow: 1;
     gap: 1rem;
     padding: .5rem 1.25rem;
+
 }
-
-#api-section article {
-    flex-grow: 1;
-}
-
-#current-date {
-    grid-area: c;
-}
-
-#forecast {
-    grid-area: e;
-    overflow: scroll;
-}
-
-#forecast-container {
-    grid-template-columns: repeat(5, max-content);
-    gap: 1rem;
-}
-
-#sun {
-    grid-area: a;
-    text-align: center;
-    --size: 30vw;
-    background-color: rgba(255, 214, 29, 0.75);
-    border-radius: 50%;
-    box-shadow: 0 0 2rem var(--light);
-    height: var(--size);
-    width: var(--size);
-    margin: .25rem .75rem;
-    animation: glowing 4s infinite alternate;
-}
-
-#sun-temp {
-    grid-template-columns: repeat(2, max-content);
-    gap: 0 .5rem;
-    text-align: center;
-    justify-self: center;
-}
-
-#sun-text {
-    grid-area: d;
-    grid-template-columns: auto 1fr;
-    gap: .25rem .5rem;
-}
-
-#units {
-    border: none;
-    gap: .5rem;
-    flex: 1;
-
-    & legend {
-        /* float: left; */
-        font-size: 80%;
-    }
-}
-
-
 
 /* ANIMATION */
 @keyframes glowing {
+    0% {
+        background-color: rgba(255, 214, 29, 0.75);
+        box-shadow: 0 0 1rem var(--light);
+    }
+
+    50% {
+        background-color: rgba(255, 207, 86, 0.85);
+        box-shadow: 0 0 4rem var(--light);
+    }
+
     100% {
         background-color: rgba(247, 216, 145, 0.8);
         box-shadow: 0 0 3rem rgb(255, 176, 29);
@@ -275,7 +280,7 @@ h3,
         grid-template-columns: auto 25vw;
     }
 
-    #sun-text {
+    #sun-stats {
         align-self: flex-start;
     }
 }
