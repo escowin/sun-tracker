@@ -36,16 +36,20 @@
       Footer: Distance, Copyright
         -->
     <header class="bg" id="sun-section">
-      <h1 class="subheader">&#8857;</h1>
+      <h1 class="subheader" aria-label="The Sun">&#8857;</h1>
 
       <section id="sun-graphic" aria-label="Stylized sun element"></section>
 
       <section id="temp-txt">
-        <p class="label" id="current-date"></p>
-        <p class="label" id="temp-now" data-type="temp"></p>
-        <p class="subheader">Sunny</p>
-        <p class="label">H <span id="temp-high" data-type="temp"></span></p>
-        <p class="label">L <span id="temp-low" data-type="temp"></span></p>
+        <article>
+          <p class="label" id="current-date"></p>
+          <p class="label" id="temp-now" data-type="temp"></p>
+          <p>Sunny</p>
+        </article>
+        <article id="high-low">
+          <p class="label">H <span id="temp-high" data-type="temp"></span></p>
+          <p class="label">L <span id="temp-low" data-type="temp"></span></p>
+        </article>
       </section>
 
       <section id="units">
@@ -79,6 +83,32 @@
       <section class="grid" id="forecast">
         <ul class="list grid" id="forecast-container"></ul>
       </section>
+      
+      <h2 class="subheader">Profile</h2>
+      <section class="grid" id="sun-stats">
+        <article>
+          <p class="label">spectral</p>
+          <p id="spectral"></p>
+        </article>
+
+        <article>
+          <p class="label">luminosity</p>
+          <p id="luminosity"></p>
+        </article>
+
+        <article>
+          <p class="label">metallicity</p>
+          <p id="metallicity"></p>
+        </article>
+
+        <article>
+          <p class="label">distance</p>
+          <p>
+            <span id="distance" data-type="dist"></span><br />
+            <span id="lm"></span>
+          </p>
+        </article>
+      </section>
 
       <h2 class="subheader">Recent Activity</h2>
       <section id="activity">
@@ -91,24 +121,8 @@
           </button>
         </nav>
 
-        <ul class="list" id="cme-list"></ul>
-        <ul class="list" id="flr-list"></ul>
-      </section>
-
-      <h2 class="subheader">Profile</h2>
-      <section class="grid" id="sun-stats">
-        <p id="label">spectral</p>
-        <p id="spectral"></p>
-
-        <p class="label">luminosity</p>
-        <p id="luminosity"></p>
-        <p class="label">metallicity</p>
-        <p id="metallicity"></p>
-        <p class="label">distance</p>
-        <p>
-          <span id="distance" data-type="dist"></span><br />
-          <span id="lm"></span>
-        </p>
+        <ul class="list" id="cme-list" aria-label="Coronal mass ejections list"></ul>
+        <ul class="list" id="flr-list" aria-label="Solar flares list"></ul>
       </section>
     </main>
 

@@ -68,7 +68,8 @@ class Display extends Memory {
 
   async handleClick(e) {
     const targetList = $(e.target).data("target");
-    this.displaySelected(targetList);
+    const activeBtn = $(e.target)
+    this.displaySelected(targetList, activeBtn);
   }
 
   async displaySelected(targetList) {
@@ -142,7 +143,7 @@ class Display extends Memory {
 
     array.forEach((cme) => {
       $("#cme-list").append(`<li class="item cme grid">
-        <h3 class="label">${formatDay(cme.startTime)}</h3>
+        <h3 class="subheader">${formatDay(cme.startTime)}</h3>
         <p class="label">latitude</p>
         <p>${cme.latitude}\u00B0</p>
 
@@ -179,7 +180,7 @@ class Display extends Memory {
 
     array.forEach((flr) => {
       $("#flr-list").append(`<li class="item grid flr">
-        <h3 class="label">${formatDay(flr.beginTime)} - ${formatHr(
+        <h3 class="subheader">${formatDay(flr.beginTime)} - ${formatHr(
         flr.endTime
       )}</h3>
         <p class="label">peak</p>
