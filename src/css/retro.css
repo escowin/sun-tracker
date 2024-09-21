@@ -1,0 +1,162 @@
+/* foundational */
+:root {
+    --dark: rgb(0, 0, 0);
+    --light: rgb(255, 204, 100);
+    --accent: rgb(255, 176, 0);
+    --appleII: rgb(51, 255, 1);
+    --glow: 0 0 1rem var(--light);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    /* dev only */
+    /* outline: 1px dotted var(--accent); */
+}
+
+/* dev only */
+/* #activity li {
+    display: none;
+} */
+
+a {
+    text-decoration: none;
+    color: var(--accent);
+    text-shadow: var(--glow);
+}
+
+body {
+    color: var(--light);
+    background-color: var(--dark);
+    display: grid;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-variant: small-caps;
+    gap: 1rem;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto max-content;
+    height: 100vh;
+    padding: .75rem;
+    text-shadow: var(--glow);
+
+
+    & #sun-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        /* padding: 1rem; */
+        font-size: 1.25rem;
+    }
+
+    & footer {
+        grid-column: 1 / -1;
+    }
+
+    & .subheader,
+    .label {
+        color: var(--accent);
+    }
+
+    & main {
+        display: grid;
+        grid-template-rows: repeat(2, max-content auto);
+        gap: 1rem;
+    }
+}
+
+button {
+    background-color: transparent;
+    outline: 2px dashed var(--accent);
+    box-shadow: var(--glow);
+    color: var(--accent);
+    padding: .5rem;
+    border-radius: .5rem;
+    font-variant: small-caps;
+}
+
+ul {
+    list-style: none;
+}
+
+/* body>#sun-section */
+
+#sun-graphic {
+    --size: 10rem;
+    height: var(--size);
+    width: var(--size);
+    border-radius: 50%;
+    outline: dashed var(--accent);
+    box-shadow: var(--glow);
+}
+
+#temp-txt {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+#units #units-controller {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: dashed;
+    gap: 2rem;
+
+    & legend {
+        padding: .25rem;
+    }
+
+    & label {
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+}
+
+/* body>main>section: #sun-section */
+#forecast-container,
+#sun-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem .5rem;
+
+    & :has(#distance) {
+        grid-column: 1 / -1;
+
+        & :has(span) {
+            display: flex;
+            flex-direction: column;
+            gap: .25rem;
+        }
+    }
+}
+
+/* body>main>section: #activity */
+#activity {
+    overflow: hidden;
+  & #api-selection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+  & .list {
+    overflow-x: scroll;
+    gap: 1rem;
+    font-size: .75rem;
+    flex-direction: row-reverse;
+
+    & .item {
+        /* width: 10rem; */
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: .5rem;
+
+        & .subheader {
+            grid-column: 1 / -1;
+        }
+    }
+  }
+
+}

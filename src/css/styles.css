@@ -2,7 +2,7 @@
     --dark: rgba(28, 23, 23, .45);
     --light: rgba(245, 220, 220, 0.9);
     --red: rgba(134, 14, 14, 0.9);
-    --orange: rgb(156, 84, 62);
+    --orange: rgb(193, 102, 74);
     --yellow: rgba(255, 243, 191, 0.75);
     --txt-shadow: 0 0 .25vw;
 }
@@ -142,8 +142,6 @@ main {
 
     & #forecast {
         overflow: scroll;
-        display: flex;
-        flex-direction: column;
 
         & #forecast-container {
             display: grid;
@@ -265,80 +263,237 @@ p {
 /* ANIMATION */
 @keyframes glowing {
     0% {
-        background-color: rgba(255, 214, 29, 0.75);
-        box-shadow: 0 0 1rem var(--light);
+        background-color: rgba(255, 219, 60, 0.75);
+        box-shadow: 0 0 2rem var(--light);
     }
 
     50% {
         background-color: rgba(255, 207, 86, 0.85);
-        box-shadow: 0 0 4rem var(--light);
+        box-shadow: 0 0 1rem var(--yellow);
     }
 
     100% {
-        background-color: rgba(247, 216, 145, 0.8);
-        box-shadow: 0 0 3rem rgb(255, 176, 29);
+        background-color: rgba(255, 221, 141, 0.8);
+        box-shadow: 0 0 3rem var(--orange);
     }
 }
 
 /* DISPLAY */
 @media screen and (min-width: 768px) {
-    /* section {
-        box-shadow: 0 0 1rem var(--yellow);
-        background-color: inherit;
-        border-radius: .5rem;
-    }
-
-    #sun-graphic {
-        --size: 15vw;
-        margin: .25rem 1.5rem;
-    }
-
-    #api-selection {
-        flex-direction: row;
-    }
-
-    #api-selection .list {
-        flex-direction: column;
-        height: 55vh;
-    }
-
-    #units {
-        & legend {
-            float: left;
-        }
-    } */
-}
-
-@media screen and (min-width: 1024px) {
     header {
-        flex-grow: 1;
-        align-items: flex-end;
-        justify-content: flex-start;
-        gap: 2rem;
+        grid-template-columns: min-content auto 1fr;
+        grid-template-rows: .5fr 1fr;
+        grid-template-areas:
+            "sun h1 txt"
+            "sun c txt";
+        gap: 0 1rem;
+        align-items: center;
+
+        & h1 {
+            align-self: flex-end;
+        }
+
+        & #units {
+            align-self: baseline;
+        }
+
+        & #sun-graphic {
+            --size: 30vw;
+            margin: 2rem 2rem 3rem 2rem;
+        }
+
+        & #temp-txt {
+            & #temp-now {
+                font-size: 3rem;
+            }
+        }
     }
 
     main {
-        flex-direction: row;
+        display: grid;
+        gap: 1rem;
+        align-items: flex-start;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto auto 1fr;
+        grid-template-areas:
+            "h2-1 h2-2"
+            "se-1 se-2"
+            "h2-3 h2-3"
+            "se-3 se-3";
+
+
+        &>h2:nth-of-type(1) {
+            grid-area: h2-1;
+        }
+
+        &>h2:nth-of-type(2) {
+            grid-area: h2-2;
+        }
+
+        &>h2:nth-of-type(3) {
+            grid-area: h2-3;
+        }
+
+        & #forecast {
+            grid-area: se-1;
+            overflow: visible;
+            display: flex;
+            height: 90%;
+
+            & #forecast-container {
+                grid-template-columns: repeat(3, 1fr);
+                outline: 1px solid var(--yellow);
+                border-radius: 1rem;
+
+                & .day {
+                    outline: none;
+                    width: 12vw;
+                }
+            }
+        }
+
+        & #sun-stats {
+            grid-area: se-2;
+            grid-template-columns: repeat(2, 1fr);
+            border-radius: 1rem;
+            outline: 1px solid var(--yellow);
+
+            & article {
+                outline: none;
+            }
+        }
+
+        & #activity {
+            grid-area: se-3;
+            height: 100%;
+        }
+    }
+}
+
+
+@media screen and (min-width: 1024px) {
+
+    :root {
+        --corner: 0;
     }
 
-    .cme-note {
-        max-height: inherit;
+    body {
+        display: grid;
+        grid-template-columns: min-content 1fr;
+        grid-template-rows: 1fr auto;
+        grid-template-areas:
+            "head main"
+            "foot main";
     }
 
-    #api-selection .list {
-        height: 40vh;
+    header {
+        grid-area: head;
+        align-items: flex-start;
+        gap: 1rem;
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: auto auto 1fr;
+        grid-template-areas:
+            "sun sun"
+            "h1 c"
+            "txt txt";
+
+        & #sun-graphic {
+            --size: 20vw;
+        }
+
+        & h1 {
+            justify-self: flex-end;
+        }
+
+        & #units {
+            justify-self: flex-start;
+
+            & #units-controller {
+                background-color: var(--dark);
+                flex-direction: row;
+            }
+        }
+
+        & #temp-txt {
+            display: flex;
+            flex-direction: column;
+            font-size: 1.25rem;
+        }
     }
 
-    #sun-graphic {
-        --size: 12.5vw;
-        margin: .5rem 1.5rem 1.5rem 1.5rem;
+    footer {
+        grid-area: foot;
     }
 
-    #sun-section {
-        grid-template-columns: auto 25vw;
+    main {
+        grid-area: main;
+        overflow: hidden;
+        grid-template-areas:
+            "h2-1 h2-3"
+            "se-1 se-3"
+            "h2-2 se-3"
+            "se-2 se-3";
+
+        & #forecast {
+            height: min-content;
+
+            & #forecast-container {
+                background-color: var(--dark);
+                grid-template-columns: repeat(1, 1fr);
+                gap: 0;
+            }
+        }
+
+        & #sun-stats {
+            grid-template-columns: repeat(1, 1fr);
+            gap: 0;
+            width: min-content;
+            background-color: var(--dark);
+        }
+
+        & #activity {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+
+            & #api-selection {
+                padding: .25rem;
+                position: sticky;
+                top: 0;
+                z-index: 999;
+
+                & button {
+                    box-shadow: none;
+                    transition: 1s box-shadow, 1s color;
+
+                    &:hover {
+                        box-shadow: var(--txt-shadow) var(--yellow);
+                        color: var(--light);
+                    }
+                }
+
+
+                & .active-btn {
+                    background-color: var(--dark);
+                    outline: 1px solid var(--yellow);
+                    color: var(--yellow);
+                    transition: 1s color, 1s outline, 1s background-color;
+                }
+
+            }
+
+            & .list {
+                flex-wrap: wrap;
+                overflow: scroll;
+
+                & .item {
+                    background-color: var(--dark);
+                    grid-template-columns: 6rem 15rem;
+                    height: min-content;
+                }
+            }
+        }
     }
 
-    #sun-stats {
-        align-self: flex-start;
-    }
 }

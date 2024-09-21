@@ -68,24 +68,31 @@ class Display extends Memory {
 
   async handleClick(e) {
     const targetList = $(e.target).data("target");
-    const activeBtn = $(e.target)
+    const activeBtn = $(e.target);
     this.displaySelected(targetList, activeBtn);
   }
 
-  async displaySelected(targetList) {
-    let selected;
+  async displaySelected(targetList, activeBtn) {
+    const lists = $("#activity ul");
+    const btns = $("#api-selection button");
+    let selectedList;
+    let selectedBtn;
 
     if (targetList) {
-      selected = targetList;
+      selectedList = targetList;
+      selectedBtn = activeBtn; // prints id attribute string value
     } else {
       // randomly determine which activity list is displayed;
-      const lists = $("#activity ul");
-      selected = lists[Math.floor(Math.random() * lists.length)];
+      const random = Math.floor(Math.random() * lists.length);
+      selectedList = lists[random];
+      selectedBtn = btns[random];
     }
 
     // Show the target list and hide the other one
-    $(selected).css("display", "flex");
-    $("#activity ul").not(selected).css("display", "none");
+    $(selectedList).css("display", "flex");
+    $(selectedBtn).addClass("active-btn");
+    $(lists).not(selectedList).css("display", "none");
+    $(btns).not(selectedBtn).removeClass("active-btn");
   }
 
   async handleUnits(e) {
@@ -120,7 +127,7 @@ class Display extends Memory {
       } else {
         $("#distance").text(convertUnit(dist, "si", "dist"));
       }
-    }, 2000);
+    }, 1000);
   }
 
   async displayTime() {
