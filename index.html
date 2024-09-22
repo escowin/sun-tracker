@@ -15,7 +15,7 @@
       @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
     </style>
     <script defer src="./dist/app.bundle.js"></script>
-    <!-- <script defer>
+    <script defer>
       (function () {
         if ("serviceWorker" in navigator) {
           navigator.serviceWorker
@@ -26,7 +26,7 @@
             );
         }
       })();
-    </script> -->
+    </script>
     <title>Sun tracker</title>
   </head>
   <body>
@@ -90,7 +90,7 @@
           <p class="label">distance</p>
           <p>
             <span id="lm"></span>
-            <span id="distance" data-type="dist"></span><br />
+            <span id="distance" data-type="dist"></span>
           </p>
         </article>
         
@@ -116,10 +116,10 @@
       <section id="activity">
         <nav class="flex" id="api-selection">
           <button class="subheader" id="cme-btn" data-target="#cme-list">
-            Coronal mass ejections
+            C<span class="display-m">oronal </span>m<span class="display-m">ass </span>e<span class="display-m">jections</span>
           </button>
           <button class="subheader" id="flr-btn" data-target="#flr-list">
-            Solar flares
+            S<span class="display-m">olar </span>f<span class="display-m">lares</span>
           </button>
         </nav>
 
