@@ -1,10 +1,12 @@
 /* foundational */
 :root {
-    --dark: rgb(0, 0, 0);
+    --dark: rgb(19, 7, 1);
     --light: rgb(255, 204, 100);
     --accent: rgb(255, 176, 0);
-    --appleII: rgb(51, 255, 1);
+    --orange: rgb(255, 140, 0);
+    --burnt: rgb(120 60 0);
     --glow: 0 0 .75rem var(--light);
+    --text-shadow: 0 0 .25rem var(--light), 0 0 1rem var(--orange);
 }
 
 * {
@@ -17,12 +19,20 @@
 a {
     text-decoration: none;
     color: var(--accent);
-    text-shadow: var(--glow);
+    text-shadow: var(--text-shadow);
 }
 
 body {
     color: var(--light);
-    background-color: var(--dark);
+    background-size: 100% 200%;
+    background-image: repeating-linear-gradient(
+        -1deg,
+        var(--dark),
+        var(--orange) 10rem,
+        var(--burnt) 15rem, 
+        var(--dark) 50rem
+    );
+    box-shadow: inset 0 0 5rem var(--burnt);
     display: grid;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-variant: small-caps;
@@ -31,29 +41,46 @@ body {
     grid-template-rows: auto max-content;
     height: 100vh;
     padding: .75rem;
-    text-shadow: var(--glow);
+    text-shadow: var(--text-shadow);
+    animation: background-scroll 25s linear infinite;
+    mix-blend-mode: plus-lighter;
+}
 
-    & #sun-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-        font-size: 1.25rem;
+@keyframes background-scroll {
+    from {
+        background-position: 100% 100%;
     }
+    to {
+        background-position: 0 0;
+    }
+}
 
-    & footer {
-        grid-column: 1 / -1;
-        text-align: center;
-    }
+#sun-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 1.25rem;
+}
 
-    & main {
-        display: grid;
-        grid-auto-rows: max-content;
-        align-items: flex-start;
-        gap: 1rem;
-        height: 100%;
-        overflow-y: scroll;
-    }
+.site-heading {
+    position: absolute;
+    top: 13%;
+    text-shadow: var(--text-shadow);
+}
+
+footer {
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 .subheader,
@@ -62,25 +89,33 @@ body {
 }
 
 button {
+    --_outline: 2px dashed var(--accent);
+    --_btn-glow: inset 0 0 .5rem var(--orange), 0 0 .75rem -2px var(--accent);
     background-color: transparent;
-    border: 2px dashed var(--light);
-    color: var(--light);
-    padding: .25rem;
+    box-shadow: var(--_btn-glow);
+    border: var(--_outline);
+    outline: var(--_outline);
+    outline-offset: -2px;
+    color: var(--accent);
+    padding: .5em 1rem;
     border-radius: .5rem;
     font-variant: small-caps;
-    transition: 1s background-color, 1s border, 1s box-shadow, 1s color;
+    transition: outline-offset 250ms ease, border-style 250ms ease;
+    width: min-content;
+    text-shadow: var(--text-shadow);
+
+    &:hover,
+    &:focus {
+        border-style: solid;
+        outline-offset: -6px;
+    }
+    
+    &.active-btn {
+        border-style: solid;
+    }
 }
 
-.active-btn {
-    background-color: var(--accent);
-    border: 2px dashed var(--accent);
-    box-shadow: var(--glow);
-    color: var(--dark);
-}
 
-section {
-    padding: .5rem;
-}
 
 ul {
     list-style: none;
@@ -94,11 +129,32 @@ ul {
 
 #sun-graphic {
     --size: 10rem;
+    --_glow: 0 0 1rem var(--accent), inset 0 0 1rem var(--accent);
+    --_glow-b: 0 0 2rem var(--orange), inset 0 0 2rem var(--orange);
     height: var(--size);
     width: var(--size);
     border-radius: 50%;
     outline: dashed var(--accent);
-    box-shadow: var(--glow);
+    box-shadow: var(--_glow);
+    animation: rotate 50s linear infinite, glow 15s linear infinite alternate;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes glow {
+    from {
+        box-shadow: var(--_glow);
+    }
+    to {
+        box-shadow: var(--_glow-b);
+    }
 }
 
 #temp-txt {
@@ -110,24 +166,45 @@ ul {
 }
 
 #units #units-controller {
+    --_glow: inset 0 0 1rem var(--accent), 0 0 1rem var(--burnt);
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    padding: 2rem;
     border: dashed;
     gap: 2rem;
+    position: relative;
+    box-shadow: var(--_glow);
+    border-radius: 1rem;
 
     & legend {
-        padding: .25rem;
+        padding-inline: .5rem;
+        position: absolute;
+        top: -15%;
+        text-shadow: var(--text-shadow);
     }
 
     & label {
         display: grid;
-        grid-template-columns: auto auto;
+        grid-template-columns: 1fr 1fr;
+        gap: .5rem;
     }
 
     & input[type="radio"] {
-        accent-color: var(--accent);
-        background-color: var(--dark);
+        --_radio-glow: inset 0 0 .5rem var(--accent), 0 0 .75rem var(--burnt);
+        /* accent-color: var(--accent); */
+        --_size: 2rem;
+        appearance: none;
+        background: var(--dark);
+        border-radius: 50%;
+        height: var(--_size);
+        width: var(--_size);
+        box-shadow: var(--_radio-glow);
+    }
+
+    & input[type="radio"]:checked {
+        --_radio-glow: inset 0 0 .5rem var(--light), 0 0 .75rem var(--light);
+        border: 6px solid var(--light);
+        background-color: var(--burnt);
     }
 }
 
@@ -149,6 +226,11 @@ ul {
     }
 }
 
+#forecast-container {
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+}
+
 /* body>main>section: #activity */
 #activity {
     overflow: hidden;
@@ -157,15 +239,16 @@ ul {
     gap: 1rem;
 
     & #api-selection {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        display: flex;
         gap: 1rem;
+        padding: 1rem;
     }
 
     & .list {
         gap: 1rem;
         font-size: .75rem;
-        overflow-x: scroll;
+        flex-direction: column;
+        overflow-y: scroll;
 
         & .item {
             display: grid;
@@ -182,5 +265,12 @@ ul {
                 width: 11rem;
             }
         }
+    }
+}
+
+@media screen and (min-height: 768px) {
+
+    .display-m {
+        display: initial;
     }
 }

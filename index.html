@@ -36,7 +36,7 @@
       Footer: Distance, Copyright
         -->
     <header class="bg" id="sun-section">
-      <h1 class="subheader" aria-label="The Sun">&#8857;</h1>
+      <h1 class="subheader site-heading" aria-label="The Sun">&#8857;</h1>
 
       <section id="sun-graphic" aria-label="Stylized sun element"></section>
 
@@ -80,9 +80,9 @@
 
     <main class="bg">
       <h2 class="subheader">Forecast</h2>
-      <section class="grid" id="forecast">
+      <!-- <section class="grid" id="forecast"> -->
         <ul class="list grid" id="forecast-container"></ul>
-      </section>
+      <!-- </section> -->
       
       <h2 class="subheader">Profile</h2>
       <section class="grid" id="sun-stats">
@@ -108,17 +108,15 @@
           <p class="label">metallicity</p>
           <p id="metallicity"></p>
         </article>
-
-
       </section>
 
       <h2 class="subheader">Recent Activity</h2>
       <section id="activity">
         <nav class="flex" id="api-selection">
-          <button class="subheader" id="cme-btn" data-target="#cme-list">
+          <button id="cme-btn" data-target="#cme-list">
             C<span class="display-m">oronal </span>m<span class="display-m">ass </span>e<span class="display-m">jections</span>
           </button>
-          <button class="subheader" id="flr-btn" data-target="#flr-list">
+          <button id="flr-btn" data-target="#flr-list">
             S<span class="display-m">olar </span>f<span class="display-m">lares</span>
           </button>
         </nav>
