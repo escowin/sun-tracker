@@ -53,7 +53,7 @@
       </section>
 
       <section id="units">
-        <fieldset class="label" id="units-controller">
+        <fieldset class="label dash-glow" id="units-controller">
           <legend>units</legend>
           <label for="kelvin">
             K
@@ -79,50 +79,46 @@
     </header>
 
     <main class="bg">
-      <h2 class="subheader">Forecast</h2>
-      <!-- <section class="grid" id="forecast"> -->
+      <section id="forecast-section">
+        <h2 class="subheader">Forecast</h2>
         <ul class="list grid" id="forecast-container"></ul>
-      <!-- </section> -->
-      
-      <h2 class="subheader">Profile</h2>
-      <section class="grid" id="sun-stats">
-        <article>
-          <p class="label">distance</p>
-          <p>
-            <span id="lm"></span>
-            <span id="distance" data-type="dist"></span>
-          </p>
-        </article>
-        
-        <article>
-          <p class="label">spectral</p>
-          <p id="spectral"></p>
-        </article>
-
-        <article>
-          <p class="label">luminosity</p>
-          <p id="luminosity"></p>
-        </article>
-
-        <article>
-          <p class="label">metallicity</p>
-          <p id="metallicity"></p>
-        </article>
       </section>
 
-      <h2 class="subheader">Recent Activity</h2>
-      <section id="activity">
-        <nav class="flex" id="api-selection">
-          <button id="cme-btn" data-target="#cme-list">
-            C<span class="display-m">oronal </span>m<span class="display-m">ass </span>e<span class="display-m">jections</span>
-          </button>
-          <button id="flr-btn" data-target="#flr-list">
-            S<span class="display-m">olar </span>f<span class="display-m">lares</span>
-          </button>
-        </nav>
+      <section id="profile-section">
+        <h2 class="subheader">Profile</h2>
+        <dl class="grid" id="sun-stats">
+          <dt class="label">distance</dt>
+          <dd>
+            <span id="lm"></span>
+            <span id="distance" data-type="dist"></span>
+          </dd>
+          
+          <dt class="label">spectral</dt>
+          <dd id="spectral"></dd>
 
-        <ul class="list" id="cme-list" aria-label="Coronal mass ejections list"></ul>
-        <ul class="list" id="flr-list" aria-label="Solar flares list"></ul>
+          <dt class="label">luminosity</dt>
+          <dd id="luminosity"></dd>
+
+          <dt class="label">metallicity</dt>
+          <dd id="metallicity"></dd>
+        </dl>
+      </section>
+
+      <section id="activity-section">
+        <h2 class="subheader">Recent Activity</h2>
+          <nav class="flex" id="api-selection">
+            <button class="api-btn"id="cme-btn" data-target="#cme-list">
+              Coronal Mass Ejections
+            </button>
+            <button class="api-btn" id="flr-btn" data-target="#flr-list">
+              Solar Flares
+            </button>
+          </nav>
+
+        <article id="activity-lists">
+          <ul class="list" id="cme-list" aria-label="Coronal mass ejections list"></ul>
+          <ul class="list" id="flr-list" aria-label="Solar flares list"></ul>
+        </article>
       </section>
     </main>
 

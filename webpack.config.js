@@ -1,7 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-const WebpackPwaManifest = require("webpack-pwa-manifest");
+const PwaManifestPlugin = require("./webpack/PwaManifestPlugin");
 
 module.exports = {
   // PWA configuraton settings
@@ -45,7 +45,7 @@ module.exports = {
       // "static" generates `report.html`. "disable" stops report generation
       analyzerMode: "disable",
     }),
-    new WebpackPwaManifest({
+    new PwaManifestPlugin({
       // `manifest.json` object key-values
       publicPath: "./",
       name: "Sun tracker",

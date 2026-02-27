@@ -73,10 +73,12 @@ class Display extends Memory {
   }
 
   async displaySelected(targetList, activeBtn) {
-    const lists = $("#activity ul");
+    const lists = $("#activity-section ul");
     const btns = $("#api-selection button");
     let selectedList;
     let selectedBtn;
+    console.log(lists);
+    console.log(btns);
 
     if (targetList) {
       selectedList = targetList;
@@ -166,7 +168,7 @@ class Display extends Memory {
         <p class="label">type</p>
         <p>${cme.type}</p>
 
-        <details class="cme-note">
+        <details class="cme-note" name="cme-note" aria-label="Coronal mass ejection note">
           <summary class="label">cme note</summary>
           <p>${cme.note}</p>
         </details>
