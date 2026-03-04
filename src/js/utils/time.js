@@ -19,6 +19,7 @@ const time = {
   formatDay: (string) => dayjs(string).local().format("dddd, h:mm a"),
   formatHr: (string) => dayjs(string).local().format("h:mm a"),
   forecast: (num) => dayjs().add(num, "day").format("ddd"),
+  forecastLong: (num) => dayjs().add(num, "day").format("dddd"),
   formatUTC: (string) => dayjs(string).utc().format()
 };
 

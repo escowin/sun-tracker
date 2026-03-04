@@ -14,7 +14,7 @@
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
     </style>
-    <script defer src="./dist/app.bundle.js"></script>
+    <script defer src="./dist/app.bundle.js?v=2"></script>
     <script defer>
       (function () {
         if ("serviceWorker" in navigator) {
@@ -79,11 +79,6 @@
     </header>
 
     <main class="bg">
-      <section id="forecast-section">
-        <h2 class="subheader">Forecast</h2>
-        <ul class="list grid" id="forecast-container"></ul>
-      </section>
-
       <section id="profile-section">
         <h2 class="subheader">Profile</h2>
         <dl class="grid" id="sun-stats">
@@ -104,20 +99,24 @@
         </dl>
       </section>
 
+      <section id="forecast-section">
+        <h2 class="subheader">Forecast</h2>
+        <ul class="list grid" id="forecast-container"></ul>
+      </section>
+
       <section id="activity-section">
         <h2 class="subheader">Recent Activity</h2>
           <nav class="flex" id="api-selection">
-            <button class="api-btn"id="cme-btn" data-target="#cme-list">
+            <button class="api-btn" id="cme-btn" data-type="cme">
               Coronal Mass Ejections
             </button>
-            <button class="api-btn" id="flr-btn" data-target="#flr-list">
+            <button class="api-btn" id="flr-btn" data-type="flr">
               Solar Flares
             </button>
           </nav>
 
         <article id="activity-lists">
-          <ul class="list" id="cme-list" aria-label="Coronal mass ejections list"></ul>
-          <ul class="list" id="flr-list" aria-label="Solar flares list"></ul>
+          <ul class="list" id="activity-list" aria-label="Activity list"></ul>
         </article>
       </section>
     </main>

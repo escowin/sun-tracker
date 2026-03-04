@@ -2,6 +2,7 @@ const {
   formatDay,
   formatHr,
   forecast,
+  forecastLong,
   now,
   year,
   formatUTC,
@@ -10,9 +11,6 @@ const { convertUnit, pluralization } = require("../utils/helper");
 const Memory = require("./Memory");
 const Sun = require("./Sun");
 const sun = new Sun();
-
-// mock data
-const { mockCME, mockFLR } = require("../mock/data");
 
 // display class handles dom manipulation through jquery methods
 class Display extends Memory {
@@ -25,8 +23,9 @@ class Display extends Memory {
       // appends each generated forecast list element to parent ul container
       for (let i = 0; i < 5; i++) {
         const forecastTemp = sun.calcTemp(sun.temp.current);
+        // use forecast for mobile dipslay, forecastLong for desktop
         $("#forecast-container").append(`<li class="day flex" id="day-${i}">
-          <p class="label">${forecast(i + 1)}</p>
+          <p class="label"><span class="mobile">${forecast(i + 1)}</span><span class="desktop">${forecastLong(i + 1)}</span></p>
           <p class="temp forecast" data-type="temp" data-forecast=${
             forecastTemp.current
           }>${forecastTemp.current} K</p>
@@ -56,45 +55,81 @@ class Display extends Memory {
       // method calls
       this.updateDistance();
       this.displayTime();
-      this.displayCME();
-      this.displayFLR();
-      this.displaySelected();
+      this.initActivityView();
 
-      // event listeners
-      $("#api-selection button").on("click", (e) => this.handleClick(e));
+      // event listeners (delegation ensures clicks are captured)
+      $("#api-selection").on("click", "button", (e) => this.handleClick(e));
       $("#units input").on("click", (e) => this.handleUnits(e));
     });
   }
 
-  async handleClick(e) {
-    const targetList = $(e.target).data("target");
-    const activeBtn = $(e.target);
-    this.displaySelected(targetList, activeBtn);
+  async initActivityView() {
+    const types = ["cme", "flr"];
+    const index = Math.floor(Math.random() * types.length);
+    await this.renderActivityList(types[index]);
+    this.setActiveButton(types[index]);
   }
 
-  async displaySelected(targetList, activeBtn) {
-    const lists = $("#activity-section ul");
-    const btns = $("#api-selection button");
-    let selectedList;
-    let selectedBtn;
-    console.log(lists);
-    console.log(btns);
-
-    if (targetList) {
-      selectedList = targetList;
-      selectedBtn = activeBtn; // prints id attribute string value
-    } else {
-      // randomly determine which activity list is displayed;
-      const random = Math.floor(Math.random() * lists.length);
-      selectedList = lists[random];
-      selectedBtn = btns[random];
+  async handleClick(e) {
+    const type = $(e.currentTarget).attr("data-type");
+    if (type === "cme" || type === "flr") {
+      await this.renderActivityList(type);
+      this.setActiveButton(type);
     }
+  }
 
-    // Show the target list and hide the other one
-    $(selectedList).css("display", "flex");
-    $(selectedBtn).addClass("active-btn");
-    $(lists).not(selectedList).css("display", "none");
-    $(btns).not(selectedBtn).removeClass("active-btn");
+  setActiveButton(type) {
+    $("#api-selection button").removeClass("active-btn");
+    $(`#api-selection button[data-type="${type}"]`).addClass("active-btn");
+  }
+
+  async renderActivityList(type) {
+    const $container = $("#activity-list");
+    if (!$container.length) return;
+    $container.empty();
+
+    if (type === "cme") {
+      $container.attr("aria-label", "Coronal mass ejections list");
+      const array = await this.CME;
+      array.forEach((cme) => {
+        $container.append(`<li class="item cme grid">
+          <h3 class="subheader">${formatDay(cme.startTime)}</h3>
+          <p class="label">latitude</p>
+          <p>${cme.latitude ?? "—"}\u00B0</p>
+          <p class="label">longitude</p>
+          <p>${cme.longitude ?? "—"}\u00B0</p>
+          <p class="label">half angle</p>
+          <p>${cme.halfAngle ?? "—"}θ</p>
+          <p class="label">speed</p>
+          <p class="speed">${cme.speed ?? "—"} km/s</p>
+          <p class="label">type</p>
+          <p>${cme.type ?? "—"}</p>
+          <details class="cme-note" name="cme-note" aria-label="Coronal mass ejection note">
+            <summary class="label">cme note</summary>
+            <p>${cme.note ?? ""}</p>
+          </details>
+        </li>`);
+      });
+    } else if (type === "flr") {
+      $container.attr("aria-label", "Solar flares list");
+      const array = await this.FLR;
+      array.forEach((flr) => {
+        const durationText = flr.duration != null ? pluralization(flr.duration, "minute") : "—";
+        $container.append(`<li class="item grid flr">
+          <h3 class="subheader">${formatDay(flr.beginTime)} - ${formatHr(flr.endTime)}</h3>
+          <p class="label">peak</p>
+          <p>${formatHr(flr.peakTime)}</p>
+          <p class="label">duration</p>
+          <p>${durationText}</p>
+          <p class="label">active region</p>
+          <p>${flr.activeRegionNum ?? "—"}</p>
+          <p class="label">location</p>
+          <p>${flr.sourceLocation ?? "—"}</p>
+          <p class="label">class</p>
+          <p>${flr.classType ?? "—"}</p>
+        </li>`);
+      });
+    }
   }
 
   async handleUnits(e) {
@@ -138,77 +173,6 @@ class Display extends Memory {
     }, 1000);
   }
 
-  async displayCME() {
-    // empty fetch array triggers idb store retrieval, ensuring offline display
-
-    // production data
-    // let array;
-    // await (async () => {
-    //   const arr = await this.CME;
-    //   arr.length === 0 ? (array = await this.getStore("cme")) : (array = arr);
-    // })();
-
-    const array = mockCME;
-
-    array.forEach((cme) => {
-      $("#cme-list").append(`<li class="item cme grid">
-        <h3 class="subheader">${formatDay(cme.startTime)}</h3>
-        <p class="label">latitude</p>
-        <p>${cme.latitude}\u00B0</p>
-
-        <p class="label">longitude</p>
-        <p>${cme.longitude}\u00B0</p>
-
-        <p class="label">half angle</p>
-        <p>${cme.halfAngle}θ</p>
-
-        <p class="label">speed</p>
-        <p class="speed">${cme.speed} km/s</p>
-
-        <p class="label">type</p>
-        <p>${cme.type}</p>
-
-        <details class="cme-note" name="cme-note" aria-label="Coronal mass ejection note">
-          <summary class="label">cme note</summary>
-          <p>${cme.note}</p>
-        </details>
-      </li>`);
-    });
-  }
-
-  async displayFLR() {
-    // production data
-    // let array;
-    // await (async () => {
-    //   const arr = await this.FLR;
-    //   arr.length === 0 ? (array = await this.getStore("flr")) : (array = arr);
-    // })();
-
-    // mock data
-    const array = mockFLR;
-
-    array.forEach((flr) => {
-      $("#flr-list").append(`<li class="item grid flr">
-        <h3 class="subheader">${formatDay(flr.beginTime)} - ${formatHr(
-        flr.endTime
-      )}</h3>
-        <p class="label">peak</p>
-        <p>${formatHr(flr.peakTime)}</p>
-  
-        <p class="label">duration</p>
-        <p>${pluralization(flr.duration, "minute")}</p>
-  
-        <p class="label">active region</p>
-        <p>${flr.activeRegionNum}</p>
-  
-        <p class="label">location</p>
-        <p>${flr.sourceLocation}</p>
-  
-        <p class="label">class</p>
-        <p>${flr.classType}</p>
-      </li>`);
-    });
-  }
 }
 
 module.exports = Display;
