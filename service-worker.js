@@ -16,17 +16,7 @@ const FILES_TO_CACHE = [
 // installs service worker; skipWaiting() lets new SW take over immediately
 self.addEventListener("install", (e) => {
   self.skipWaiting();
-  e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) =>
-      Promise.allSettled(
-        FILES_TO_CACHE.map((url) =>
-          cache.add(url).catch((err) => {
-            console.warn("cache add failed:", url, err);
-          })
-        )
-      ).then(() => console.log(CACHE_NAME + " cache installed"))
-    )
-  );
+  e.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(FILES_TO_CACHE)));
 });
 
 // activates new SW and cleans old caches; claim() takes control of open pages
@@ -36,10 +26,7 @@ self.addEventListener("activate", (e) => {
       Promise.all(
         keyList
           .filter((key) => key.startsWith(APP_PREFIX) && key !== CACHE_NAME)
-          .map((key) => {
-            console.log("cache deleted:", key);
-            return caches.delete(key);
-          })
+          .map((key) => caches.delete(key))
       )
     ).then(() => self.clients.claim())
   );
