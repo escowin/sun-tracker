@@ -4,10 +4,9 @@ const APP_PREFIX = "SunTracker-";
 const VERSION = "2.7.2";
 const CACHE_NAME = APP_PREFIX + VERSION;
 
-// cache of essential files
+// cache of essential files (exclude service-worker.js so update checks fetch fresh)
 const FILES_TO_CACHE = [
   "./index.html",
-  "./service-worker.js",
   "./dist/manifest.json",
   "./dist/app.bundle.js",
   "./src/css/retro.css",
@@ -16,7 +15,9 @@ const FILES_TO_CACHE = [
 // installs service worker; skipWaiting() lets new SW take over immediately
 self.addEventListener("install", (e) => {
   self.skipWaiting();
-  e.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(FILES_TO_CACHE)));
+  e.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(FILES_TO_CACHE))
+  );
 });
 
 // activates new SW and cleans old caches; claim() takes control of open pages
@@ -32,8 +33,12 @@ self.addEventListener("activate", (e) => {
   );
 });
 
-// fetches cache data
+// fetches cache data; always fetch SW script from network so updates work
 self.addEventListener("fetch", (e) => {
+  if (e.request.url.includes("service-worker.js")) {
+    e.respondWith(fetch(e.request));
+    return;
+  }
   e.respondWith(
     caches.match(e.request).then((cached) => cached || fetch(e.request))
   );
