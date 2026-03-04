@@ -39,20 +39,20 @@ $ npm run test
 
 ## Usage
 
-![mobile](./assets/img/display-sm.jpg)
+![mobile](./assets/img/display-s.png)
 
-![desktop](./assets/img/display-lg.jpg)
+![desktop](./assets/img/display-l.png)
 
 ## Features
 - Unit conversion (SI, Metric, Imperial)
 - PWA Installation (see: [Installation](#installation))
 - PWA Optimization
 
-![lighthouse-audit](./assets/img/audit.jpg)
+![lighthouse-audit](./assets/img/audit.png)
 
 ```
 Original : 54 | 100 | 100 | 91  | -
-Current  : 80 | 100 | 100 | 100 | 1/1, 6/6
+Current  : 98 | 100 | 100 | 100 | 1/1, 6/6
 ```
 ## Credits
 - Languages: HTML, CSS, JavaScript

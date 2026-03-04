@@ -10,22 +10,19 @@
       content="PWA that tracks Sun activity with math & fetched NASA API data"
     />
     <!-- <link rel="manifest" href="./dist/manifest.json" /> -->
+    <link rel="preload" href="./src/css/retro.css" as="style" />
     <link rel="stylesheet" type="text/css" href="./src/css/retro.css" />
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
-    </style>
-    <script defer src="./dist/app.bundle.js?v=2"></script>
-    <script defer>
-      (function () {
-        if ("serviceWorker" in navigator) {
+    <link rel="preload" href="./dist/app.bundle.js" as="script" />
+    <script defer src="./dist/app.bundle.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () =>
           navigator.serviceWorker
             .register("./service-worker.js")
             .then(() => console.log("registered service worker"))
-            .catch((error) =>
-              console.log("service worker registration failed")
-            );
-        }
-      })();
+            .catch((err) => console.log("service worker registration failed", err))
+        );
+      }
     </script>
     <title>Sun tracker</title>
   </head>

@@ -67,6 +67,6 @@ module.exports = {
       ],
     }),
   ],
-  mode: "development", // webpack runs during development
+  mode: "development",
   devServer: { static: "./" }, // non-webpack content loads from root in development environment
 };
