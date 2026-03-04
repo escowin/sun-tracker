@@ -10,17 +10,22 @@ const FILES_TO_CACHE = [
   "./service-worker.js",
   "./dist/manifest.json",
   "./dist/app.bundle.js",
-  "./dist/assets/img/background.jpg",
+  "./src/css/retro.css",
 ];
 
 // installs service worker; skipWaiting() lets new SW take over immediately
 self.addEventListener("install", (e) => {
   self.skipWaiting();
   e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log(CACHE_NAME + " cache installed");
-      return cache.addAll(FILES_TO_CACHE);
-    })
+    caches.open(CACHE_NAME).then((cache) =>
+      Promise.allSettled(
+        FILES_TO_CACHE.map((url) =>
+          cache.add(url).catch((err) => {
+            console.warn("cache add failed:", url, err);
+          })
+        )
+      ).then(() => console.log(CACHE_NAME + " cache installed"))
+    )
   );
 });
 
