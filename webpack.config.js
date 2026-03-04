@@ -53,16 +53,32 @@ module.exports = {
       description:
         "PWA that tracks Sun activity with math & fetched NASA API data",
       start_url: "../index.html",
-      background_color: "#440f0f",
-      theme_color: "#860e0e", // nee bf9732
+      background_color: "#783c00", // dark
+      theme_color: "#ffb000", // light
       fingerprints: false,
       inject: false,
       icons: [
         {
           src: path.resolve("src/img/icons/icon-512x512.png"),
-          sizes: [96, 128, 192, 256, 384, 512],
+          sizes: [96, 128, 144, 192, 256, 384, 512],
           destination: path.join("assets", "icons"),
-          purpose: "any maskable"
+          purpose: "any"
+        },
+      ],
+      screenshots: [
+        {
+          src: "../assets/img/display-l.png",
+          sizes: "2736x1824",
+          type: "image/png",
+          form_factor: "wide",
+          label: "Desktop view"
+        },
+        {
+          src: "../assets/img/display-s.png",
+          sizes: "1290x2796",
+          type: "image/png",
+          form_factor: "narrow",
+          label: "Mobile view"
         },
       ],
     }),
