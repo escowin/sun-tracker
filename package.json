@@ -1,12 +1,13 @@
 {
   "name": "sun-tracker",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "description": "PWA that tracks Sun activity with math & fetched NASA API data",
   "main": "index.js",
   "scripts": {
-    "webpack": "webpack --watch",
-    "build": "webpack --mode=production",
-    "start:dev": "webpack-dev-server",
+    "sync-version": "node scripts/sync-sw-version.js",
+    "webpack": "npm run sync-version && webpack --watch",
+    "build": "npm run sync-version && webpack --mode=production",
+    "start:dev": "npm run sync-version && webpack-dev-server",
     "test": "jest"
   },
   "repository": {
