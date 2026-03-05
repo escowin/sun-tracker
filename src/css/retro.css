@@ -149,9 +149,9 @@ ul {
     height: var(--size);
     width: var(--size);
     border-radius: 50%;
-    border: 3px solid var(--accent);
-    outline: 1px dashed var(--accent);
-    outline-offset: -2px;
+    border: 2px solid var(--accent);
+    outline: 4px dashed var(--accent);
+    outline-offset: -3px;
     box-shadow: var(--_glow);
     animation: rotate 50s linear infinite, glow 15s linear infinite alternate;
 }
