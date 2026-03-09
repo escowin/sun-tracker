@@ -1,22 +1,22 @@
 const Memory = require("../src/js/lib/Memory");
 
-test("inherits API constructor resolved promises", async () => {
+test("exposes fetchEndpoint and getStore", () => {
   const memory = new Memory();
 
-  // checks for pending promises
-  expect(memory.CME).toBeInstanceOf(Promise);
-  expect(memory.FLR).toBeInstanceOf(Promise);
-  // checks for fullfilled promises through async/await construction
-  await expect(memory.CME).resolves.toBeInstanceOf(Object);
-  await expect(memory.FLR).resolves.toBeInstanceOf(Object);
+  expect(typeof memory.fetchEndpoint).toBe("function");
+  expect(typeof memory.getStore).toBe("function");
 });
 
-test("contructor contains indexeddb-relevant strings", () => {
+test("constructor contains indexeddb-relevant strings", () => {
   const memory = new Memory();
 
   expect(memory.dbName).toBe("sun_tracker_db");
   expect(memory.storeNames).toContain("cme");
   expect(memory.storeNames).toContain("flr");
+});
+
+test("EVENT_DATA_UPDATED is defined", () => {
+  expect(Memory.EVENT_DATA_UPDATED).toBe("sundata-updated");
 });
 
 // to-do: testing frameworks for indexeddb-methods

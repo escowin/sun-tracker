@@ -1,49 +1,43 @@
 const { duration, apiStart, apiEnd } = require("../utils/time");
 
+/** HTTP status codes that should NOT trigger a retry (404, 401, 403) */
+const NO_RETRY_STATUSES = [404, 401, 403];
+
+/**
+ * Fetches an endpoint and returns a structured result.
+ * @returns {Promise<{ ok: boolean, data?: array, status?: number, retryable?: boolean }>}
+ */
 class API {
   constructor() {
-    this.CME = this.apiCall("CME");
-    this.FLR = this.apiCall("FLR");
-  }
-
-  // returns API data through promises
-  async apiCall(endpoint) {
-    // variables used to dynamically create URL for fetch requests
-    const api = {
+    this.api = {
       base: "https://api.nasa.gov/DONKI/",
       key: "UJO2NYWIRwCuDl6l431qKvjZviS8TPLUatA1E0xd",
       start: apiStart,
       end: apiEnd,
-      path: function () {
-        return `${this.base}${endpoint}?startDate=${this.start}&endDate=${this.end}&api_key=${this.key}`;
-      },
+      path: (endpoint) =>
+        `${this.api.base}${endpoint}?startDate=${this.api.start}&endDate=${this.api.end}&api_key=${this.api.key}`,
     };
-
-    try {
-      return await new Promise((resolve, reject) => {
-        resolve(this.getSunActivity(api.path(), endpoint));
-        reject("promise failed");
-      });
-    } catch (err) {
-      console.error(err);
-    }
   }
 
-  getSunActivity(url, endpoint) {
-    // passes fetched data into corresponding function. failed request returns an empty array
-    switch (endpoint) {
-      case "CME":
-        return fetch(url)
-          .then((res) => res.json().then((data) => this.getCME(data)))
-          .catch(() => []);
-          
-      case "FLR":
-        return fetch(url)
-          .then((res) => res.json().then((data) => this.getFLR(data)))
-          .catch(() => []);
+  async fetchEndpoint(endpoint) {
+    const url = this.api.path(endpoint);
 
-      default:
-        return Promise.reject("failed fetch request");
+    try {
+      const res = await fetch(url);
+
+      if (res.ok) {
+        const raw = await res.json();
+        const data =
+          endpoint === "CME" ? await this.getCME(raw) : await this.getFLR(raw);
+        return { ok: true, data };
+      }
+
+      const status = res.status;
+      const retryable = !NO_RETRY_STATUSES.includes(status);
+      return { ok: false, status, retryable };
+    } catch (err) {
+      console.error(`[API] ${endpoint} fetch error:`, err);
+      return { ok: false, retryable: true };
     }
   }
 

@@ -16,20 +16,24 @@
     /* outline: 1px dotted var(--accent); */
 }
 
+html {
+    background-color: var(--dark);
+}
+
 a {
     text-decoration: none;
     color: var(--accent);
     text-shadow: var(--text-shadow);
 }
 
+ul {
+    list-style: none;
+}
+
 body {
     --_deg: 0deg;
     color: var(--light);
-    background-size: 100% 200%;
-    background-image: repeating-linear-gradient(var(--_deg),
-            var(--dark),
-            var(--burnt) 5rem,
-            var(--dark) 60rem);
+    background-color: transparent;
     box-shadow: inset 0 0 5rem var(--burnt);
     display: grid;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -38,19 +42,37 @@ body {
     grid-template-columns: auto 1fr;
     grid-template-rows: auto max-content;
     height: 100vh;
+    overflow: hidden;
     padding: 1rem 0 .5rem .5rem;
+    position: relative;
     text-shadow: var(--text-shadow);
-    animation: background-scroll 20s linear infinite;
     mix-blend-mode: plus-lighter;
 }
 
+/* Pseudo-element for gradient: transform animation works on Safari iOS; background-position does not */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    z-index: -1;
+    background-size: 100% 100%;
+    background-image: repeating-linear-gradient(var(--_deg),
+            var(--dark),
+            var(--burnt) 5rem,
+            var(--dark) 60rem);
+    animation: background-scroll 20s linear infinite;
+}
+
+/* Move by 50% of pseudo-element height = 100% of viewport = one full scroll cycle */
 @keyframes background-scroll {
     from {
-        background-position: 100% 100%;
+        transform: translateY(-50%);
     }
-
     to {
-        background-position: 0 0;
+        transform: translateY(0);
     }
 }
 
@@ -65,7 +87,8 @@ body {
 
 .site-heading {
     position: absolute;
-    top: 12%;
+    font-size: 55px;
+    top: 11%;
     text-shadow: var(--text-shadow);
 }
 
@@ -136,10 +159,6 @@ button {
     }
 }
 
-ul {
-    list-style: none;
-}
-
 /* body>#sun-section */
 
 #sun-graphic {
@@ -165,7 +184,6 @@ ul {
         transform: rotate(360deg);
     }
 }
-
 
 #temp-txt {
     display: flex;
@@ -204,10 +222,8 @@ ul {
 
     & input[type="radio"] {
         --_radio-glow: inset 0 0 .5rem var(--accent), 0 0 .75rem var(--burnt);
-        /* accent-color: var(--accent); */
         --_size: 2rem;
         appearance: none;
-        background: var(--dark);
         border-radius: 50%;
         height: var(--_size);
         width: var(--_size);
@@ -321,7 +337,8 @@ ul {
     display: block;
 }
 
-@media screen and (min-width: 1024px) {
+
+@media screen and (min-width: 768px) {
     .desktop {
         display: block;
     }
@@ -345,6 +362,10 @@ ul {
     main section > :not(h2) {
         padding-left: 1rem !important;
     }
+
+}
+
+@media screen and (min-width: 1024px) {
 
     #sun-stats {
         grid-template-columns: repeat(4, auto 1fr);

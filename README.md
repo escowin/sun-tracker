@@ -19,12 +19,27 @@ A **lightweight** PWA that tracks Sun activity—coronal mass ejections and sola
 - **The math** — The Sun class uses native JS to compute real-time distance (Earth–Sun varies ~147M–152M km), random-but-plausible "temps," and other stats. TDD with Jest keeps the formulas honest.
 
 ## Table of Contents
+- [Data Flow](#data-flow)
 - [Installation](#installation)
 - [Test](#test)
 - [Usage](#usage)
 - [Features](#features)
 - [Credits](#credits)
 - [Author](#author)
+
+## Data Flow
+
+Data moves **API → Memory → Display**:
+
+1. **API** (`API.js`) — Fetches CME and FLR data from NASA DONKI. Returns structured results with status handling: `{ ok, data?, status?, retryable? }`.
+
+2. **Memory** (`Memory.js`) — Orchestrates fetch and IndexedDB:
+   - On **successful fetch (200)**: Clears the corresponding store (`cme` or `flr`), writes new objects, and dispatches an update event.
+   - On **retryable errors** (503, 400, network failure, etc.): Keeps existing store data and schedules a retry after 2 minutes.
+   - On **non-retryable errors** (404, 401, 403): Keeps existing data; no retry (404 = URL not found, 401/403 = invalid API key).
+   - IndexedDB stores are the **source of truth** for display.
+
+3. **Display** (`Display.js`) — Reads from IndexedDB via `getStore()`, renders the activity list, and listens for `sundata-updated` to re-render when new data is written (e.g., after a retry).
 
 ## Installation
 - Open [live URL](https://escowin.github.io/sun-tracker) in browser. 

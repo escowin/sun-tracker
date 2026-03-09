@@ -1,93 +1,117 @@
 const API = require("./API");
 
+const RETRY_DELAY_MS = 2 * 60 * 1000; // 2 minutes
+const STORE_MAP = { CME: "cme", FLR: "flr" };
+const EVENT_DATA_UPDATED = "sundata-updated";
+
 class Memory extends API {
   constructor() {
     super();
     this.dbName = "sun_tracker_db";
     this.storeNames = ["cme", "flr"];
-    // this.openDatabase();
+    this._db = null;
+    this._retryTimeouts = {};
   }
 
   async openDatabase() {
-    // flag to check whether or not to post new objects to stores
-    let upgraded = false;
-
-    return await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const request = window.indexedDB.open(this.dbName, 1);
-      request.onerror = (e) => reject(e.target.errorCode);
+      request.onerror = () => reject(request.error);
       request.onupgradeneeded = (e) => {
-        this.initDatabase(e);
-        upgraded = true;
+        const db = e.target.result;
+        this.storeNames.forEach((name) => {
+          db.createObjectStore(name, { keyPath: "id" });
+        });
       };
-      request.onsuccess = (e) => {
-        if (!upgraded) {
-          this.updateStores(e);
-        }
-        resolve(e.target.request);
-      };
-    });
-  }
-
-  async initDatabase(e) {
-    // resolves api promise objects as arrays
-    const promises = [this.CME, this.FLR];
-    const [cmeData, flrData] = await Promise.all(promises);
-
-    const db = e.target.result;
-    this.storeNames.forEach((name) => {
-      const store = db.createObjectStore(name, { keyPath: "id" });
-      store.transaction.oncomplete = (e) => {
-        const cmeStore = db.transaction("cme", "readwrite").objectStore("cme");
-        const flrStore = db.transaction("flr", "readwrite").objectStore("flr");
-        cmeData.forEach((cme) => cmeStore.add(cme));
-        flrData.forEach((flr) => flrStore.add(flr));
+      request.onsuccess = async (e) => {
+        this._db = e.target.result;
+        await this._fetchAndStore();
+        resolve(this._db);
       };
     });
   }
 
-  async updateStores(e) {
-    const promises = [this.CME, this.FLR];
-    const [cmeData, flrData] = await Promise.all(promises);
-    const db = e.target.result;
+  async _fetchAndStore() {
+    const endpoints = ["CME", "FLR"];
 
-    // modularize if code gets too long
-    this.storeNames.forEach((name) => {
-      const tx = db.transaction(name, "readwrite");
-      const store = tx.objectStore(name);
-      // removes current store objects en masse if fetched data array contains objects
-      if (name === "cme" && cmeData.length > 0) {
-        store.clear();
-        store.transaction.oncomplete = (e) => {
-          // fetched arrays objects are written to store
-          const cmeStore = db.transaction(name, "readwrite").objectStore(name);
-          cmeData.forEach((cme) => cmeStore.add(cme));
-        };
-      } else if (name === "flr" && flrData.length > 0) {
-        store.clear();
-        store.transaction.oncomplete = (e) => {
-          const flrStore = db.transaction(name, "readwrite").objectStore(name);
-          flrData.forEach((flr) => flrStore.add(flr));
-        };
-      } else {
-        return;
+    for (const endpoint of endpoints) {
+      const result = await this.fetchEndpoint(endpoint);
+      const storeName = STORE_MAP[endpoint];
+
+      if (result.ok) {
+        await this._writeStore(storeName, result.data);
+        this._clearRetry(endpoint);
+        this._dispatchDataUpdated(storeName);
+      } else if (result.retryable) {
+        this._scheduleRetry(endpoint);
       }
+    }
+  }
+
+  async _writeStore(storeName, data) {
+    const db = this._db;
+    const tx = db.transaction(storeName, "readwrite");
+    const store = tx.objectStore(storeName);
+
+    return new Promise((resolve, reject) => {
+      const clearReq = store.clear();
+      clearReq.onsuccess = () => {
+        const items = Array.isArray(data) ? data : [];
+        if (items.length === 0) {
+          resolve();
+          return;
+        }
+        items.forEach((item) => store.add(item));
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      };
+      clearReq.onerror = () => reject(clearReq.error);
     });
+  }
+
+  _scheduleRetry(endpoint) {
+    this._clearRetry(endpoint);
+    this._retryTimeouts[endpoint] = setTimeout(async () => {
+      const result = await this.fetchEndpoint(endpoint);
+      const storeName = STORE_MAP[endpoint];
+
+      if (result.ok) {
+        await this._writeStore(storeName, result.data);
+        this._clearRetry(endpoint);
+        this._dispatchDataUpdated(storeName);
+      } else if (result.retryable) {
+        this._scheduleRetry(endpoint);
+      }
+    }, RETRY_DELAY_MS);
+  }
+
+  _clearRetry(endpoint) {
+    if (this._retryTimeouts[endpoint]) {
+      clearTimeout(this._retryTimeouts[endpoint]);
+      delete this._retryTimeouts[endpoint];
+    }
+  }
+
+  _dispatchDataUpdated(storeName) {
+    if (typeof window !== "undefined" && window.dispatchEvent) {
+      window.dispatchEvent(new CustomEvent(EVENT_DATA_UPDATED, { detail: { storeName } }));
+    }
   }
 
   async getStore(name) {
-    // use indexeddb store data if fetched arrays are empty
-    return await new Promise((resolve, reject) => {
-      const request = window.indexedDB.open(this.dbName, 1);
-      request.onerror = (e) => reject(e.target.errorCode);
-      request.onsuccess = (e) => {
-        const db = e.target.result;
-        const tx = db.transaction(name);
-        const store = tx.objectStore(name);
-        const result = store.getAll();
-        result.onsuccess = (e) => resolve(e.target.result);
-      };
+    if (!this._db) {
+      return [];
+    }
+
+    return new Promise((resolve, reject) => {
+      const tx = this._db.transaction(name, "readonly");
+      const store = tx.objectStore(name);
+      const request = store.getAll();
+      request.onsuccess = () => resolve(request.result || []);
+      request.onerror = () => reject(request.error);
     });
   }
 }
 
+Memory.EVENT_DATA_UPDATED = EVENT_DATA_UPDATED;
 module.exports = Memory;

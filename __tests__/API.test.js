@@ -1,8 +1,10 @@
-const API = require("../src/js/lib/API")
+const API = require("../src/js/lib/API");
 
-test("create API object", () => {
-    const api = new API();
+test("create API object with fetchEndpoint and api config", () => {
+  const api = new API();
 
-    expect(api.CME).toStrictEqual(expect.any(Object))
-    expect(api.FLR).toStrictEqual(expect.any(Object))
-})
+  expect(typeof api.fetchEndpoint).toBe("function");
+  expect(api.api).toBeDefined();
+  expect(api.api.base).toContain("nasa.gov");
+  expect(api.api.path).toBeDefined();
+});

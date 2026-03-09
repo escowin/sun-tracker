@@ -16,10 +16,11 @@ const sun = new Sun();
 class Display extends Memory {
   constructor() {
     super();
+    this._activeActivityType = null;
   }
 
   async displayData() {
-    $(() => {
+    $(async () => {
       // appends each generated forecast list element to parent ul container
       for (let i = 0; i < 5; i++) {
         const forecastTemp = sun.calcTemp(sun.temp.current);
@@ -55,7 +56,7 @@ class Display extends Memory {
       // method calls
       this.updateDistance();
       this.displayTime();
-      this.initActivityView();
+      await this.initActivityView();
 
       // event listeners (delegation ensures clicks are captured)
       $("#api-selection").on("click", "button", (e) => this.handleClick(e));
@@ -64,6 +65,15 @@ class Display extends Memory {
   }
 
   async initActivityView() {
+    await this.openDatabase();
+
+    window.addEventListener(Memory.EVENT_DATA_UPDATED, (e) => {
+      const { storeName } = e.detail || {};
+      if (this._activeActivityType && storeName === this._activeActivityType) {
+        this.renderActivityList(storeName);
+      }
+    });
+
     const types = ["cme", "flr"];
     const index = Math.floor(Math.random() * types.length);
     await this.renderActivityList(types[index]);
@@ -73,6 +83,7 @@ class Display extends Memory {
   async handleClick(e) {
     const type = $(e.currentTarget).attr("data-type");
     if (type === "cme" || type === "flr") {
+      this._activeActivityType = type;
       await this.renderActivityList(type);
       this.setActiveButton(type);
     }
@@ -86,11 +97,13 @@ class Display extends Memory {
   async renderActivityList(type) {
     const $container = $("#activity-list");
     if (!$container.length) return;
+
+    this._activeActivityType = type;
+    const array = await this.getStore(type);
     $container.empty();
 
     if (type === "cme") {
       $container.attr("aria-label", "Coronal mass ejections list");
-      const array = await this.CME;
       array.forEach((cme) => {
         $container.append(`<li class="item cme grid">
           <h3 class="subheader">${formatDay(cme.startTime)}</h3>
@@ -112,7 +125,6 @@ class Display extends Memory {
       });
     } else if (type === "flr") {
       $container.attr("aria-label", "Solar flares list");
-      const array = await this.FLR;
       array.forEach((flr) => {
         const durationText = flr.duration != null ? pluralization(flr.duration, "minute") : "—";
         $container.append(`<li class="item grid flr">
