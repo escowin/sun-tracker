@@ -15,12 +15,15 @@ class Memory extends API {
 
   async openDatabase() {
     return new Promise((resolve, reject) => {
-      const request = window.indexedDB.open(this.dbName, 1);
+      const DB_VERSION = 2;
+      const request = window.indexedDB.open(this.dbName, DB_VERSION);
       request.onerror = () => reject(request.error);
       request.onupgradeneeded = (e) => {
         const db = e.target.result;
         this.storeNames.forEach((name) => {
-          db.createObjectStore(name, { keyPath: "id" });
+          if (!db.objectStoreNames.contains(name)) {
+            db.createObjectStore(name, { keyPath: "id" });
+          }
         });
       };
       request.onsuccess = async (e) => {
